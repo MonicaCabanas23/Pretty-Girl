@@ -1,6 +1,10 @@
 import './Login.scss';
+import React, {useState} from 'react'
 
 function Login() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <div className="login">
             <div className='formulario'>
@@ -8,16 +12,16 @@ function Login() {
                     <h1>Iniciar sesion</h1>
                     <div className="form__body">
                         <div className="name">
-                            <label className="form__label" for="username">Nombre de usuario</label>
-                            <input className="form__input" name="username" />
+                            <label className="form__label">Nombre de usuario</label>
+                            <input className="form__input" name="username" value={username} onChange={(e) => {setUsername(e.target.value)}} />
                         </div>
-                        <div className="dui">
-                            <label className="form__label" for="dui" >Contraseña</label>
-                            <input className="form__input" name="dui" />
+                        <div className="password">
+                            <label className="form__label" >Contraseña</label>
+                            <input className="form__input" name="password" value={password} onChange={(e) => {setPassword(e.target.value)}} />
                         </div>
                     </div>
                     <div className="buttons">
-                        <button className="Iniciar_sesion">Iniciar sesion</button>
+                        <button className="Iniciar_sesion" onClick={() => {console.log(username); console.log(password);}}>Iniciar sesion</button>
                     </div>
                     <a href="#">¿Eres nuevo? Registrate</a>
                     <a href="#">¿Olvidaste tu contraseña?</a>                     

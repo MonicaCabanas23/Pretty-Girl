@@ -9,6 +9,14 @@ const CategoriesContainer = () => {
         <DecorativeLines />
         <h1 className="title">Explora nuestros productos</h1>
         <div className="categoryCards">
+          <CategoryCard />
+          <CategoryCard />
+          <CategoryCard />
+          <CategoryCard />
+          <CategoryCard />
+          <CategoryCard />
+          <CategoryCard />
+          <CategoryCard />
         </div>
     </section>
   )

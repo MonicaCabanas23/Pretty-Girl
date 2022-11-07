@@ -7,7 +7,7 @@ const ProductsContainer = () => {
   return (
     <section className="recommended-products">
         <DecorativeLines />
-        <h1 className="title">Recomendados para ti</h1>
+        <h1 className="title">Recién llegados</h1>
         <div className="cards">
             <ProductCard />
             <ProductCard />

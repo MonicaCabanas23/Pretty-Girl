@@ -2,8 +2,8 @@ import { useState } from 'react'
 import './App.css'
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
-import Delivery from './Components/Body/Delivery';
-import Login from './Components/Body/Login';
+import Delivery from './Pages/Delivery/Delivery';
+import Login from './Pages/Login/Login';
 import Feed from './Pages/Feed/Feed';
 import { Routes, Route} from "react-router-dom";
 

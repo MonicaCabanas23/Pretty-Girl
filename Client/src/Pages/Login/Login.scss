@@ -114,7 +114,7 @@
     .login {
         div.formulario {
             width: 55%;
-            height: 35%;
+            height: auto;
             div.form {
                 @include flex(column);
                 padding: 1rem;

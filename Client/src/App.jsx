@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import Delivery from './Pages/Delivery/Delivery';
 import Login from './Pages/Login/Login';
@@ -12,7 +11,6 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <Routes>
         <Route path='/' element={<Login />}/>
         <Route path='/delivery' element={<Delivery />}/> 

@@ -1,5 +1,7 @@
 import React from "react";
 import "./Header.scss";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
     return (
@@ -20,6 +22,7 @@ const Header = () => {
                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
                 <p>Iniciar sesión</p>
             </figure>
+            <FontAwesomeIcon icon={faBars} className="bars"/>
         </div>
     </header>
     );

@@ -1,12 +1,13 @@
+import React, {useState, useEffect} from 'react'
 import map from '../../assets/img/map.png';
-import HeaderAfterLogin from '../../Components/Header/HeaderAfterLogin/HeaderAfterLogin';
 import './Delivery.scss';
 
 function Delivery() {
+    /* Function for making visible some actions for a logged user */
+    const [log, setLog] = useState(true);
+
     return (
-        <div>
-            <HeaderAfterLogin />
-            <div className="delivery">
+        <div className="delivery">
             <div className="map">
                 <img src={map} alt="map" />
             </div>
@@ -44,7 +45,6 @@ function Delivery() {
                     <button className="continue">Continuar</button>
                 </div>
             </div>
-        </div>
         </div>
     );
 }

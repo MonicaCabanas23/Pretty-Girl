@@ -1,7 +1,11 @@
+import React, {useState, useEffect} from 'react'
 import map from '../../assets/img/map.png';
 import './Delivery.scss';
 
 function Delivery() {
+    /* Function for making visible some actions for a logged user */
+    const [log, setLog] = useState(true);
+
     return (
         <div className="delivery">
             <div className="map">

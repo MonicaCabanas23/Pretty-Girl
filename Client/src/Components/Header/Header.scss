@@ -6,7 +6,7 @@ header {
     height: auto;
 
     background-color: $light-background-color;
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
 
     @include flex(row);
     justify-content: space-between;
@@ -14,7 +14,7 @@ header {
 
     .header-title-categories {
         @include flex(row);
-        gap: 2rem;
+        gap: 1rem;
         align-items: center;
 
         h2 {
@@ -27,6 +27,7 @@ header {
         }
         .categories {
             @include flex(row);
+            flex-wrap: wrap;
             gap: 1rem;
 
             h3 {
@@ -68,6 +69,26 @@ header {
                 background-color: rgba($color: ($blue-principal-color), $alpha: 0.5);
                 
             }
+        }
+
+        .bars {
+            display: none;
+        }
+    }
+}
+
+/* Media query for displaying the bars buttons for mobile devices */
+@media only screen and (max-width: 900px) {
+    header {
+        .header-actions figure {
+            display: none;
+        }
+        .header-actions .bars {
+            display:inline;
+
+            align-self: center;
+
+            color: $general-white; 
         }
     }
 }

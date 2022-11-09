@@ -1,6 +1,9 @@
 import React from "react";
 import logo from "../../assets/img/logo.jpg"
 import './Footer.scss';
+import Products from "./Products/Products";
+import Links from "./Links/Links";
+import ContactInformation from "./ContactInformation/ContactInformation";
 
 const Footer = () => {
     return (
@@ -12,30 +15,9 @@ const Footer = () => {
                 </figure>
                 <h2>Pretty Girl</h2>
             </div>
-            <div className="footer-products">
-                <h3>Productos</h3>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-            </div>
-            <div className="footer-useful-links">
-                <h3>Enlaces de interés</h3>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-            </div>
-            <div className="footer-contact-info">
-                <h3>Información de contacto</h3>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-                <p>text</p>
-            </div>
+            <Products />
+            <Links />
+            <ContactInformation />
         </div>
         <hr/>
         <div className="footer-social-media">

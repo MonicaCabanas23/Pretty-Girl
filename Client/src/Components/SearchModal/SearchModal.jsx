@@ -1,7 +1,7 @@
 import React from 'react'
 import './SearchModal.scss'
 
-const SearchModal = () => {
+const SearchModal = ({cancelSearch}) => {
   return (
     <section className="search-modal">
         <div className="search-modal-searching-section">
@@ -9,7 +9,8 @@ const SearchModal = () => {
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input className="search" type="text" placeholder="Tu búsqueda aquí"/>
             </div>
-            <button>Cancelar</button>
+            {/* Close the modal */}
+            <button onClick={() => {cancelSearch(false);}}>Cancelar</button>
         </div>
         <div className="search-modal-filters">
             <h3>Búsqueda por filtros</h3>

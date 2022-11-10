@@ -1,0 +1,63 @@
+@import "../../../assets/sass/mixins";
+@import "../../../assets/sass/variables";
+
+.upper-lines {
+    @include flex(column);
+    gap: 1rem; 
+    /* Positioning absolute to its parent */
+    position: absolute;
+
+    width: 509px;
+    height: auto;
+
+    right: -50px;
+    top: 135px;
+
+    transform: rotate(-45deg);
+    hr {
+        width: 434px;
+        border: 1px solid $red-principal-color;
+
+        position: relative;
+    }
+
+    .line-2 {
+        right: -25px;
+    }
+    .line-3 {
+        right: -50px;
+    }
+    .line-4 {
+        right: -75px;
+    }
+}
+
+.lower-lines {
+    @include flex(column);
+    gap: 1rem; 
+    position: absolute;
+
+    width: 509px;
+    height: auto;
+
+    left: -52px;
+    bottom: 132px;
+
+    transform: rotate(-45deg);
+    hr {
+        width: 434px;
+        border: 1px solid $blue-principal-color;
+
+        position: relative;
+    }
+
+    .line-2 {
+        right: -25px;
+    }
+    .line-3 {
+        right: -50px;
+    }
+    .line-4 {
+        right: -75px;
+    }
+}

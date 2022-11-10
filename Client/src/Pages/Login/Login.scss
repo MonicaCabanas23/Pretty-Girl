@@ -1,0 +1,134 @@
+@import "../../assets/sass/mixins";
+@import "../../assets/sass/variables";
+
+.login {
+    height: 100vh;
+    width: 100%;
+    /* Center the content */
+    @include flex(row);
+    justify-content: center;
+    align-items: center;
+
+    /* Background */
+    background: #191a27;
+    color: white;
+    font-size: calc(10px + 2vmin);
+
+    /* Text */
+    text-align: center;
+    font-family: $theme-montserrat;
+
+    div.formulario {
+        background: #2B2D42;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        isolation: isolate;
+
+        width: 30%;
+        height: 75%;
+
+        border-radius: 35px;
+
+        /* Inside auto layout */
+
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+
+        div.form {
+            @include flex(column);
+            width: 90%;
+            height: 90%;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+
+            a {
+                text-decoration: none;
+                color: white;
+                font-size: 15px;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        div.form__body {
+            @include flex(column, true);
+            align-items: center;
+            gap: 1rem;
+        }
+
+        div.form h1 {
+            font-size: 40px;
+        }
+
+        div label {
+            @include flex(column);
+            gap: 10px;
+
+            font-size: 15px;
+            margin-bottom: 1rem;
+        }
+
+        div input {
+            height: 30px;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            padding: 0 10px;
+        }
+
+        div .buttons {
+            align-items: center;
+            padding: 0px;
+            gap: 49px;
+
+            width: 539px;
+            height: 40px;
+
+            button {
+                font-size: 18px;
+                height: 30px;
+                width: 12rem;
+            }
+
+            button.Iniciar_sesion {
+                border-radius: 5px;
+                border: none;
+                background: #5bd6c3;
+                color: black;
+
+                &:hover {
+                    background: #3aa99e;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 820px) and (max-height: 1180px) {
+    .login {
+        div.formulario {
+            width: 55%;
+            height: auto;
+            div.form {
+                @include flex(column);
+                padding: 1rem;
+            }
+        }
+    }
+}
+
+// iPhone
+@media only screen and (max-width: 400px) and (max-height: 720px) {
+    .login {
+        div.formulario {
+            width: 80%;
+            height: 80%;
+        }
+    }
+}

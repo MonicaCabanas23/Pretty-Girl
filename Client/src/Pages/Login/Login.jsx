@@ -13,8 +13,8 @@ function Login() {
                 <div className="form">
                     <h1>Iniciar sesion</h1>
                     <div className="form__body">
-                        <Label name={"text"} text={'Nombre de usuario'} clase={'name'} password={username} setPassword={setUsername} />
-                        <Label name={"password"} text={'Contraseña'} clase={'password'} password={password} setPassword={setPassword} />
+                        <Label name={'username'} type={"text"} text={'Nombre de usuario'} clase={'name'} password={username} setPassword={setUsername} />
+                        <Label name={'password'} type={"password"} text={'Contraseña'} clase={'password'} password={password} setPassword={setPassword} />
                     </div>
                     <div className="buttons">
                         <Button clase={"Iniciar_sesion"} onClick={() => { console.log(username); console.log(password); }} text={"Iniciar sesion"} />

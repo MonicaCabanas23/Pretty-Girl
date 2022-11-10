@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import "./Header.scss";
+/* For icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+/* For navigating to another pages */
 import { Link } from 'react-router-dom';
 import SearchModal from "../SearchModal/SearchModal";
 

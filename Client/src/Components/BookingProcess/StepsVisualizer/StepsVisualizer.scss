@@ -2,30 +2,33 @@
 @import "../../../assets/sass/variables";
 
 .steps-visualizer {
-    @include grid(5, 1);
-    grid-template-areas: 'first-step, first-arrow, second-step, second-arrow, third-step';
+    padding: 10px;
+
     align-items: center;
 
     background-color: $dark-background-color;
 
+    @include grid(5, 2);
+    grid-template-areas: 'first-text space second-text space third-text'
+                         'first-step first-arrow secod-step second-arrow third-step';
+
+    p {
+        font-family: $theme-montserrat;
+        color: $general-white;
+
+        text-align: center;
+    }
+
     .step {
-        height: 100%;
-
-        @include flex(column);
-        justify-content: space-between;
+        @include flex(row);
+        justify-content: center;
         align-items: center;
-
-        p {
-            font-family: $theme-montserrat;
-            color: $general-white;
-
-            text-align: center;
-        }
     }
 
     .arrow-container {
         @include flex(row);
         justify-content: center;
+        align-items: center;
 
         .arrow {
             color: $general-white;

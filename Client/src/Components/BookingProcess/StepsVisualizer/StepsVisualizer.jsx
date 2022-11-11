@@ -11,30 +11,35 @@ const StepsVisualizer = ({firstActive, secondActive, thirdActive}) => {
     
     return (
         <div className='steps-visualizer'>
+            {/* Text */}
+            <p className='first-text'>Datos del cliente</p>
+            <div className="space"></div>
+            <p className='second-text'>Método de envío</p>
+            <div className="space"></div>
+            <p className='third-text'>Confirmación</p>
+
+            {/* Circles and arrows */}
             <div className="step first-step">
-                <p>Datos del cliente</p>
                 {
                     firstActive ? <Circle className='circle' step='1' isActive={true}/> : <Circle className='circle' step='1' isActive={false}/>
                 }
             </div>
-            <div className="arrow-container">
-                <FontAwesomeIcon className="arrow first-arrow" icon={faArrowRight}/>
+            <div className="arrow-container first-arrow">
+                <FontAwesomeIcon className="arrow" icon={faArrowRight}/>
             </div>
             <div className="step second-step">
-                <p>Método de envío</p>
                 {
                     secondActive ? <Circle className='circle' step='2' isActive={true}/> : <Circle className='circle' step='2' isActive={false}/>
                 }
             </div>
-            <div className="arrow-container">
-                <FontAwesomeIcon className="arrow second-arrow" icon={faArrowRight} width='10x'/>   
+            <div className="arrow-container second-arrow">
+                <FontAwesomeIcon className="arrow" icon={faArrowRight} width='10x'/>   
             </div>
             <div className="step third-step">
-                <p>Confirmación</p>
                 {
                     thirdActive ? <Circle className='circle' step='3' isActive={true}/> : <Circle className='circle' step='3' isActive={false}/>
                 }
-            </div>  
+            </div>
     </div>
     )
 }

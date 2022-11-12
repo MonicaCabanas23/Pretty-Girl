@@ -1,65 +1,71 @@
-const express = require("express");
-const userSchema = require("../models/product");
+const { Router } = require("express");
+const { check } = require("express-validator");
+const { validateJWT, validateFields, isAdminRole } = require("../middlewares");
 
-const router = express.Router();
+const {
+    productsGet,
+    getProduct,
+    productPost,
+    productPut,
+    productDelete,
+} = require("../controllers/products");
+const {
+    categoryExistByID,
+    productExistByID,
+} = require("../helpers/db-validators");
 
-//Create user
-router.post("/product", (req, res) => {
-    const user = userSchema(req.body);
-    user.save()
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+const router = Router();
 
-//Get users
-router.get("/product", (req, res) => {
-    userSchema.find()
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+// Obtener todas las categorias - publico
+router.get("/", productsGet);
 
-//Get user by id
-router.get("/product/:id", (req, res) => {
-    const { id } = req.params;
-    userSchema.findById(id)
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+// Obtener una categoria por id - publico
+router.get(
+    "/:id",
+    [
+        check("id", "Invalid Mongo ID").isMongoId(),
+        check("id").custom(productExistByID),
+        validateFields,
+    ],
+    getProduct
+);
 
-//Update user
-router.patch("/product/:id", (req, res) => {
-    const id = req.params.id;
-    const { name, age, email } = req.body;
-    userSchema.updateOne({ _id: id }, { $set: { name, age, email } })
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+// Crear producto - privado - cualquier persona con un token valido
+router.post(
+    "/",
+    [
+        validateJWT,
+        check("name", "Name is obligatory").not().isEmpty(),
+        check("category", "Invalid Mongo ID").isMongoId(),
+        check("category").custom(categoryExistByID),
+        validateFields,
+    ],
+    productPost
+);
 
-//Delete user
-router.delete("/product/:id", (req, res) => {
-    userSchema.findByIdAndDelete(req.params.id)
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+// Actualizar producto - privado - cualquier persona con un token valido
+router.put(
+    "/:id",
+    [
+        validateJWT,
+        check("category", "Invalid Mongo ID").isMongoId(),
+        check("id").custom(productExistByID),
+        validateFields,
+    ],
+    productPut
+);
+
+// Eliminar categoria - admin
+router.delete(
+    "/:id",
+    [
+        validateJWT,
+        isAdminRole,
+        check("id", "Invalid Mongo ID").isMongoId(),
+        check("id").custom(productExistByID),
+        validateFields,
+    ],
+    productDelete
+);
 
 module.exports = router;

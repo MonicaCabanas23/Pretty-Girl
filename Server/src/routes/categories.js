@@ -3,27 +3,28 @@ const { check } = require("express-validator");
 const { validateJWT, validateFields, isAdminRole } = require("../middlewares");
 
 const {
-    bookingGet,
-    bookingPost,
-    bookingPut,
-    bookingDelete,
-} = require("../controllers/booking");
-const { bookingExistByID } = require("../helpers/db-validators");
+    categoriesGet,
+    getCategory,
+    categoryPost,
+    categoryPut,
+    categoryDelete,
+} = require("../controllers/categories");
+const { categoryExistByID } = require("../helpers/db-validators");
 
 const router = Router();
 
 // Obtener todas las categorias - publico
-router.get("/", bookingGet);
+router.get("/", categoriesGet);
 
 // Obtener una categoria por id - publico
 router.get(
     "/:id",
     [
         check("id", "Invalid Mongo ID").isMongoId(),
-        check("id").custom(bookingExistByID),
+        check("id").custom(categoryExistByID),
         validateFields,
     ],
-    bookingGet
+    getCategory
 );
 
 // Crear categoria - privado - cualquier persona con un token valido
@@ -32,10 +33,10 @@ router.post(
     [
         validateJWT,
         check("name", "Name is obligatory").not().isEmpty(),
-        check("id").custom(bookingExistByID),
+        check("id").custom(categoryExistByID),
         validateFields,
     ],
-    bookingPost
+    categoryPost
 );
 
 // Actualizar categoria - privado - cualquier persona con un token valido
@@ -44,10 +45,10 @@ router.put(
     [
         validateJWT,
         check("name", "Name is obligatory").not().isEmpty(),
-        check("id").custom(bookingExistByID),
+        check("id").custom(categoryExistByID),
         validateFields,
     ],
-    bookingPut
+    categoryPut
 );
 
 // Eliminar categoria - admin
@@ -57,10 +58,10 @@ router.delete(
         validateJWT,
         isAdminRole,
         check("id", "Invalid Mongo ID").isMongoId(),
-        check("id").custom(bookingExistByID),
+        check("id").custom(categoryExistByID),
         validateFields,
     ],
-    bookingDelete
+    categoryDelete
 );
 
 module.exports = router;

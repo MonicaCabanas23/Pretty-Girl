@@ -1,7 +1,7 @@
 import './Login.scss';
 import React, { useState } from 'react';
 import Label from '../../Components/ComponentesLoginRegistro/label'
-import Button from '../../Components/ComponentesLoginRegistro/Button/Button';
+import Button from '../../Components/Button/Button';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -17,7 +17,7 @@ function Login() {
                         <Label name={'password'} type={"password"} text={'Contraseña'} clase={'password'} password={password} setPassword={setPassword} />
                     </div>
                     <div className="buttons">
-                        <Button clase={"Iniciar_sesion"} onClick={() => { console.log(username); console.log(password); }} text={"Iniciar sesion"} />
+                        <Button clase={"continue"} onClick={() => { console.log(username); console.log(password); }} text={"Iniciar sesión"} />
                     </div>
                     <a href="#">¿Eres nuevo? Registrate</a>
                     <a href="#">¿Olvidaste tu contraseña?</a>

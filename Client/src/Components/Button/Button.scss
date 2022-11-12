@@ -1,0 +1,54 @@
+@import './../../assets/sass/mixins';
+@import './../../assets/sass/variables';
+
+
+button.continue {
+    width: 12rem;
+    height: 30px;
+
+    border-radius: 5px;
+    border: none;
+
+    background: $blue-principal-color;
+    
+    font-size: 18px;
+    color: $dark-text;
+
+    &:hover {
+        background: rgba($blue-principal-color, 0.5);
+    }
+}
+
+button.cancel, button.booking_prodcut_card{
+    width: 12rem;
+    height: 30px;
+
+    border-radius: 5px;
+    border: none;
+
+    background: $red-principal-color;
+
+    font-size: 18px;
+    color: $general-white;
+
+    &:hover {
+        background: rgba($red-principal-color, 0.5);
+    }
+}
+
+button.add_to_bag, button.book_product{
+    width: 24rem;
+    height: 30px;
+
+    border-radius: 5px;
+    border: none;
+
+    background: $red-principal-color;
+
+    font-size: 18px;
+    color: $general-white;
+
+    &:hover {
+        background: rgba($red-principal-color, 0.5);
+    }
+}

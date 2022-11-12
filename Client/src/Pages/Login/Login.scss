@@ -89,23 +89,6 @@
 
             width: 539px;
             height: 40px;
-
-            button {
-                font-size: 18px;
-                height: 30px;
-                width: 12rem;
-            }
-
-            button.Iniciar_sesion {
-                border-radius: 5px;
-                border: none;
-                background: #5bd6c3;
-                color: black;
-
-                &:hover {
-                    background: #3aa99e;
-                }
-            }
         }
     }
 }

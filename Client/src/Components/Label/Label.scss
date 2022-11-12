@@ -1,0 +1,13 @@
+@import './../../assets/sass/mixins';
+@import './../../assets/sass/variables';
+
+.formLabel {
+    @include flex(column, true);
+    align-items: center;
+    gap: 0.5rem;
+
+    label {
+        font-family: $theme-montserrat;
+        font-size: 15px;
+    }
+}

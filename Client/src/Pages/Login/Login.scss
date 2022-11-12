@@ -45,65 +45,33 @@
             align-items: center;
             gap: 1rem;
 
-            a {
-                text-decoration: none;
-                color: white;
-                font-size: 15px;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-
-        div.form__body {
-            @include flex(column, true);
-            align-items: center;
-            gap: 1rem;
-        }
-
-        div.form h1 {
-            font-size: 40px;
-        }
-
-        div label {
-            @include flex(column);
-            gap: 10px;
-
-            font-size: 15px;
-            margin-bottom: 1rem;
-        }
-
-        div input {
-            height: 30px;
-            width: 100%;
-            border-radius: 5px;
-            border: none;
-            padding: 0 10px;
-        }
-
-        div .buttons {
-            align-items: center;
-            padding: 0px;
-            gap: 49px;
-
-            width: 539px;
-            height: 40px;
-
-            button {
-                font-size: 18px;
-                height: 30px;
-                width: 12rem;
+            h1 {
+                font-size: 40px;
+                font-family: $theme-montserrat;
             }
 
-            button.Iniciar_sesion {
-                border-radius: 5px;
-                border: none;
-                background: #5bd6c3;
-                color: black;
+            .form__body {
+                @include flex(column, true);
+                align-items: center;
+                gap: 1rem;
+            }
 
-                &:hover {
-                    background: #3aa99e;
+            .buttons {
+                align-items: center;
+                padding: 0px;
+                gap: 49px;
+    
+                width: 539px;
+                height: 40px;
+
+                a {
+                    text-decoration: none;
+                    color: white;
+                    font-size: 15px;
+    
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
         }

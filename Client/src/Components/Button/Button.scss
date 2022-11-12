@@ -12,6 +12,7 @@ button.continue {
     background: $blue-principal-color;
     
     font-size: 18px;
+    font-family: $theme-montserrat;
     color: $dark-text;
 
     &:hover {
@@ -29,6 +30,7 @@ button.cancel, button.booking_prodcut_card{
     background: $red-principal-color;
 
     font-size: 18px;
+    font-family: $theme-montserrat;
     color: $general-white;
 
     &:hover {
@@ -46,6 +48,7 @@ button.add_to_bag, button.book_product{
     background: $red-principal-color;
 
     font-size: 18px;
+    font-family: $theme-montserrat;
     color: $general-white;
 
     &:hover {

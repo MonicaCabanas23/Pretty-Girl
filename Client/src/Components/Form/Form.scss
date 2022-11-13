@@ -40,16 +40,16 @@
 
         .actions {
             width: 80%;
-            padding: 2rem 0;
+            padding: 1rem 0;
             
             @include flex(row);
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-
-            a {
-                width: 48%;
-            }
+        }
+        .formA {
+            width: 100%;
+            font-size: 1rem;
         }
     }
 }

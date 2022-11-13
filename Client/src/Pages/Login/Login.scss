@@ -55,6 +55,9 @@
                 align-items: center;
                 gap: 1rem;
             }
+            .formLabel{
+                width: 100%;
+            }
 
             .buttons {
                 align-items: center;
@@ -63,15 +66,14 @@
     
                 width: 539px;
                 height: 40px;
+            }
+            a {
+                text-decoration: none;
+                color: white;
+                font-size: 15px;
 
-                a {
-                    text-decoration: none;
-                    color: white;
-                    font-size: 15px;
-    
-                    &:hover {
-                        text-decoration: underline;
-                    }
+                &:hover {
+                    text-decoration: underline;
                 }
             }
         }

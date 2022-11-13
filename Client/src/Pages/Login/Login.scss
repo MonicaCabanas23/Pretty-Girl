@@ -37,8 +37,18 @@
         order: 0;
         flex-grow: 0;
 
-        div.actions{
+        div.actions {
             justify-content: center;
+            align-items: center;
+            padding: 0px;
+            gap: 49px;
+
+            width: 80%;
+            height: 40px;
+
+            a {
+                width: 100%;
+            }
         }
 
         div.formLabel {
@@ -64,16 +74,12 @@
                 width: 100%;
             }
 
-            .buttons {
-                align-items: center;
-                padding: 0px;
-                gap: 49px;
 
-                width: 539px;
-                height: 40px;
-            }
         }
-        div.links{
+
+        div.links {
+            @include flex(column, true);
+            gap: 1rem;
             a {
                 text-decoration: none;
                 color: white;

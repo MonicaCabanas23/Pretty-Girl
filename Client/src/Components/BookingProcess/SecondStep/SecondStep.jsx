@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import Form from '../../Form/Form';
 
 const SecondStep = ({onLoad}) => {
   useEffect(() => {
@@ -6,7 +7,7 @@ const SecondStep = ({onLoad}) => {
   }, [])
 
   return (
-    <div>SecondStep</div>
+    <Form title={'Método de envío y reserva'} formType={'description'} formFields={[]} justContinue={false} cancelPath={'/../booking/client-data'} continuePath={'/../booking/confirmation'}/>
   )
 }
 

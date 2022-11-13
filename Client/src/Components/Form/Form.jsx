@@ -10,23 +10,31 @@ import A from '../a/a'
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */
 const Form = ({ title, formType, formFields, descriptionFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText }) => {
     const [fields, setFields] = useState([]);
+    const [links, setLinks] = useState([]);
 
     /* When render just once */
     useEffect(() => {
         if (formType != 'description') {
+            /* Get label fields */
             const mappedForm = formFields.map(field => {
                 if (field.element === 'label') {
                     return (
                         <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} />
                     )
                 }
-                else if (field.element === 'a') {
+            });
+
+            /* Get links fields */
+            const mappedLinks = formFields.map(link => {
+                if (link.element === 'a') {
                     return (
-                        <A key={field.key} href={field.href} text={field.text} />
+                        <A key={link.key} href={link.href} text={link.text} />
                     )
                 }
-            });
+            })
+
             setFields(mappedForm);
+            setLinks(mappedLinks);
         }
 
         /* Si no hay campos que el usuario deba de llenar entonces utilizaremos el form del tipo description */
@@ -54,6 +62,9 @@ const Form = ({ title, formType, formFields, descriptionFields, justContinue, ca
                         justContinue ? <></> : <Link to={cancelPath}><Button clase='cancel' onClick={cancelHandle} text={cancelText} /></Link>
                     }
                     <Link to={continuePath}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
+                </div>
+                <div className="links">
+                    {links}
                 </div>
             </form>
         </div>

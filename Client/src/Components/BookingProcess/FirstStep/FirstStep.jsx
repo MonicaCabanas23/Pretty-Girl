@@ -11,30 +11,35 @@ const FirstStep = ({onLoad}) => {
     /* Form fields for the first step */
     const formFields = [{
         'key':'1',
+        'element': 'label',
         'type': 'text',
         'text': 'Nombre',
         'valueInput': 'name',
         'setValue': 'setUsername'
     }, {
         'key':'2',
+        'element': 'label',
         'type': 'text',
         'text': 'DUI',
         'valueInput': 'password',
         'setValue': 'setPassword'   
     }, {
         'key':'3',
+        'element': 'label',
         'type': 'text',
         'text': 'Correo electrónico',
         'valueInput': 'username',
         'setValue': 'setUsername'
     }, {
         'key':'4',
+        'element': 'label',
         'type': 'text',
         'text': 'Número de teléfono',
         'valueInput': 'username',
         'setValue': 'setUsername'
     }, {
         'key':'5',
+        'element': 'label',
         'type': 'text',
         'text': 'Dirección',
         'valueInput': 'username',

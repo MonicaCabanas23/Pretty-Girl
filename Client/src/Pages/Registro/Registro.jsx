@@ -13,7 +13,7 @@ function Registro() {
         'key': '1',
         'element':'label',
         'type': 'text',
-        'text': 'Nombre: ',
+        'text': 'Nombre',
         'valueInput': name,
         'setValue': setName
     },
@@ -21,7 +21,7 @@ function Registro() {
         'key': '2',
         'element':'label',
         'type': 'text',
-        'text': 'Dui: ',
+        'text': 'DUI',
         'valueInput': dui,
         'setValue': setDui
     },
@@ -29,7 +29,7 @@ function Registro() {
         'key': '3',
         'element':'label',
         'type': 'text',
-        'text': 'Correo electronico: ',
+        'text': 'Correo electrónico',
         'valueInput': correo,
         'setValue': setCorreo
     },
@@ -37,7 +37,7 @@ function Registro() {
         'key': '4',
         'element':'label',
         'type': 'text',
-        'text': 'Numero de telefono: ',
+        'text': 'Número de teléfono',
         'valueInput': telefono,
         'setValue': setTelefono
     },
@@ -45,7 +45,7 @@ function Registro() {
         'key': '5',
         'element':'label',
         'type': 'text',
-        'text': 'Direccion: ',
+        'text': 'Dirección',
         'valueInput': direccion,
         'setValue': setDireccion
     },

@@ -7,15 +7,13 @@ const {
     bookingPost,
     bookingPut,
     bookingDelete,
-} = require("../controllers/booking");
-const { bookingExistByID } = require("../helpers/db-validators");
+} = require("../controllers/bookings");
+const { bookingExistByID, userExistByID } = require("../helpers/db-validators");
 
 const router = Router();
 
-// Obtener todas las categorias - publico
 router.get("/", bookingGet);
 
-// Obtener una categoria por id - publico
 router.get(
     "/:id",
     [
@@ -26,31 +24,31 @@ router.get(
     bookingGet
 );
 
-// Crear categoria - privado - cualquier persona con un token valido
 router.post(
     "/",
     [
         validateJWT,
-        check("name", "Name is obligatory").not().isEmpty(),
-        check("id").custom(bookingExistByID),
+        check("user", "User is required").not().isEmpty(),
+        check("user").custom(userExistByID),
+        check("address", "Address is required").not().isEmpty(),
+        check("delivery", "Delivery is required").not().isEmpty(),
+        check("date", "Date is required").not().isEmpty(),
+        check("estimatedDelivery", "Estimated Delivery is required").not().isEmpty(),
         validateFields,
     ],
     bookingPost
 );
 
-// Actualizar categoria - privado - cualquier persona con un token valido
 router.put(
     "/:id",
     [
         validateJWT,
-        check("name", "Name is obligatory").not().isEmpty(),
         check("id").custom(bookingExistByID),
         validateFields,
     ],
     bookingPut
 );
 
-// Eliminar categoria - admin
 router.delete(
     "/:id",
     [

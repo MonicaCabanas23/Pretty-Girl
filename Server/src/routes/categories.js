@@ -13,51 +13,46 @@ const { categoryExistByID } = require("../helpers/db-validators");
 
 const router = Router();
 
-// Obtener todas las categorias - publico
 router.get("/", categoriesGet);
 
-// Obtener una categoria por id - publico
 router.get(
     "/:id",
     [
-        check("id", "Invalid Mongo ID").isMongoId(),
+        check("id", "Invalid Mongo ID"),
         check("id").custom(categoryExistByID),
         validateFields,
     ],
     getCategory
 );
 
-// Crear categoria - privado - cualquier persona con un token valido
 router.post(
     "/",
     [
         validateJWT,
-        check("name", "Name is obligatory").not().isEmpty(),
-        check("id").custom(categoryExistByID),
+        check("_id", "ID is required").not().isEmpty(),
+        check("name", "Name is required").not().isEmpty(),
         validateFields,
     ],
     categoryPost
 );
 
-// Actualizar categoria - privado - cualquier persona con un token valido
 router.put(
     "/:id",
     [
         validateJWT,
-        check("name", "Name is obligatory").not().isEmpty(),
+        check("_id", "ID is required").not().isEmpty(),
+        check("name", "Name is required").not().isEmpty(),
         check("id").custom(categoryExistByID),
         validateFields,
     ],
     categoryPut
 );
 
-// Eliminar categoria - admin
 router.delete(
     "/:id",
     [
         validateJWT,
         isAdminRole,
-        check("id", "Invalid Mongo ID").isMongoId(),
         check("id").custom(categoryExistByID),
         validateFields,
     ],

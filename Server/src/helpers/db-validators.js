@@ -41,7 +41,7 @@ const productExistByID = async (id = "") => {
 };
 
 const bookingExistByID = async (id = "") => {
-  const bookingExist = await booking.findById(id);
+  const bookingExist = await Booking.findById(id);
   if (!bookingExist) {
     throw new Error(`Booking ID:${id} does not exist`);
   }

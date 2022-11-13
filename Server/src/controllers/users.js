@@ -19,16 +19,14 @@ const usersGet = async (req = request, res = response) => {
 };
 
 const usersPost = async (req, res) => {
-    const {name, dui, email, phone, address, password, role} = req.body;
-    const user = new User({name, dui, email, phone, address, password, role});
+    const data = {...req.body};
+    const user = new User(data);
 
     // Encrypt password
     const salt = bcrypt.genSaltSync();
-    user.password = bcrypt.hashSync(password, salt);
+    user.password = bcrypt.hashSync(user.password, salt);
 
-    // Save in db
     await user.save();
-
     res.json({
         user,
     });
@@ -36,17 +34,14 @@ const usersPost = async (req, res) => {
 
 const usersPut = async (req, res) => {
     const { id } = req.params;
-    const { name, dui, email, phone, address, password, role, ...info } = req.body;
+    const newUser = {...req.body};
 
-    // Validate againt schema
-    if (password) {
-        const salt = bcrypt.genSaltSync();
-        info.password = bcrypt.hashSync(password, salt);
-    }
+    // Encrypt password
+    const salt = bcrypt.genSaltSync();
+    newUser.password = bcrypt.hashSync(newUser.password, salt);
 
-    const userDB = await User.findByIdAndUpdate(id, info);
-
-    res.json(userDB);
+    const updatedUser = await User.findByIdAndUpdate(id, newUser , {new: true});
+    res.json(updatedUser);
 };
 
 const usersPatch = (req, res = response) => {
@@ -58,8 +53,7 @@ const usersPatch = (req, res = response) => {
 const usersDelete = async (req, res = response) => {
     const { id } = req.params;
 
-    const userDB = await User.findByIdAndUpdate(id, { status: false });
-
+    const userDB = await User.findByIdAndDelete(id);
     res.json({
         userDB,
     });

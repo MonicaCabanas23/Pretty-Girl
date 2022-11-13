@@ -1,4 +1,6 @@
 const { response } = require("express");
+const {uploadFile} = require("../helpers/upload-file");
+const {deleteFile} = require("../helpers/delete-file");
 const { body } = require("express-validator");
 const Product = require("../models/product");
 
@@ -22,19 +24,30 @@ const productsGet = async (req, res = response) => {
 const getProduct = async (req, res = response) => {
     const { id } = req.params;
     const product = await Product.findById(id)
-        .populate("user", "name")
-        .populate("category", "name");
 
     res.json(product);
 };
 
 const productPost = async (req, res) => {
-    const { name, category, size, color, gender, available, amount, price, picture } = req.body;
-    const product = new Product({name, category, size, color, gender, available, amount, price, picture});
+    const data = {...req.body};
+    const product = new Product(data);
 
-    // Saving in db
+    if(req.files?.picture){
+        const result = await uploadFile(req.files.picture.tempFilePath);
+        product.picture = {
+            public_id: result.public_id,
+            secure_url: result.secure_url
+        }
+    }
+    else{
+        product.picture = {
+            public_id: "none",
+            secure_url: "../assets/no-image.png"
+        }
+    }
+
+    // Save in db
     await product.save();
-
     res.json({
         product,
     });
@@ -43,34 +56,33 @@ const productPost = async (req, res) => {
 // Update category
 const productPut = async (req, res = response) => {
     const { id } = req.params;
-    const { name, category, size, color, gender, available, amount, price, picture, ...data } = req.body;
+    const newProduct = {...req.body};
 
-    if (data.name) {
-        data.name = data.name.toUpperCase();
+    if(req.files?.picture){
+        const result = await uploadFile(req.files.picture.tempFilePath);
+        newProduct.picture = {
+            public_id: result.public_id,
+            secure_url: result.secure_url
+        }
+    }
+    else{
+        product.picture = {
+            public_id: "none",
+            secure_url: "../assets/no-image.png"
+        }
     }
 
-    data.user = req.user._id;
-
-    const product = await Product.findByIdAndUpdate(id, data, {
-        new: true,
-    });
-
-    res.json(product);
+    const updatedProduct = await Product.findByIdAndUpdate(id, newProduct , {new: true});
+    res.json(updatedProduct);
 };
 
 //  Delete category - status:false
 const productDelete = async (req, res = response) => {
     const { id } = req.params;
-
-    const productDeleted = await Product.findByIdAndUpdate(
-        id,
-        { status: false },
-        {
-            new: true,
-        }
-    );
-
-    res.json(productDeleted);
+    const productDB = await Product.findByIdAndDelete(id);
+    
+    deleteFile(categoryDB.picture.public_id);
+    res.json(productDB);
 };
 
 module.exports = {

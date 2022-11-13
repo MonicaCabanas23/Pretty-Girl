@@ -3,6 +3,13 @@ const Category = require("../models/category");
 const Product = require("../models/product");
 const Booking = require("../models/booking");
 
+const isRoleValid = async (role = "") => {
+  // const roleExist = await Role.findOne({ role });
+  // if (!roleExist) {
+  //   throw new Error(`Role: ${role} not registered in DB`);
+  // }
+};
+
 const emailExist = async (email = "") => {
   const emailExist = await User.findOne({ email });
 
@@ -41,7 +48,7 @@ const productExistByID = async (id = "") => {
 };
 
 const bookingExistByID = async (id = "") => {
-  const bookingExist = await booking.findById(id);
+  const bookingExist = await Booking.findById(id);
   if (!bookingExist) {
     throw new Error(`Booking ID:${id} does not exist`);
   }
@@ -57,6 +64,7 @@ const allowedCollections = (collection = "", collections = []) => {
 };
 
 module.exports = { 
+  isRoleValid,
   emailExist,
   userExistByID,
   duiExist,

@@ -11,6 +11,7 @@ import A from '../a/a'
 const Form = ({ title, formType, formFields, descriptionFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText }) => {
     const [fields, setFields] = useState([]);
     const [links, setLinks] = useState([]);
+    const [descriptions, setDescriptions] = useState([]);
 
     /* When render just once */
     useEffect(() => {
@@ -39,13 +40,9 @@ const Form = ({ title, formType, formFields, descriptionFields, justContinue, ca
 
         /* Si no hay campos que el usuario deba de llenar entonces utilizaremos el form del tipo description */
         if (formType === 'description') {
-            const mappedDescription = descriptionFields.map(field => {
-                return (
-                    <Description key={field.key} title={field.title} descriptionObject={field.object} />
-                )
-            });
-            console.log(mappedDescription);
-            setFields([]);
+            const mappedDescription = descriptionFields.map(description => {
+                if (description.element === 'description') {}
+            })
         }
 
     }, []);

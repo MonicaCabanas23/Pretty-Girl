@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './Label.scss';
 import Input from './Input/Input';
 
-function label({type, name, text, valueInput, setValue}) {
+function label({type, name, text, valueInput, setValue, InputUse=true, clase=false}) {
 
     return (
-        <div className='formLabel'>
+        <div className={clase ? clase : 'formLabel'}>
             <label>{text}</label>
-            <Input type={type} name={name} valueInput={valueInput} handleChange={(e) => { setValue(e.target.value); }} />
+            {InputUse ? <Input type={type} name={name} value={valueInput} setValue={setValue} /> : <></>}
         </div >
     );
 }

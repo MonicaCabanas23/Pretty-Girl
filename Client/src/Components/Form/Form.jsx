@@ -1,33 +1,11 @@
 import React from 'react'
+import { Link } from "react-router-dom";
+import './Form.scss'
 import Label from '../Label/Label'
+import Button from '../Button/Button'
 
 /* A form can have different types in this app: login, register, client-data, delivery-info */
-const Form = ({title, formType}) => {
-    const formFields = [{
-        'key':'key1',
-        'type': 'text',
-        'text': 'Nombre de usuario',
-        'valueInput': 'username',
-        'setValue': 'setUsername'
-    }, {
-        'key':'key2',
-        'type': 'password',
-        'text': 'Contraseña',
-        'valueInput': 'password',
-        'setValue': 'setPassword'   
-    }, {
-        'key':'key3',
-        'type': 'text',
-        'text': 'Nombre de usuario',
-        'valueInput': 'username',
-        'setValue': 'setUsername'
-    }, {
-        'key':'key4',
-        'type': 'text',
-        'text': 'Nombre de usuario',
-        'valueInput': 'username',
-        'setValue': 'setUsername'
-    }, ]
+const Form = ({title, formType, formFields, justContinue, cancelHandle, cancelPath, continueHandle, continuePath}) => {
 
     const mappedFields = formFields.map( field => {
         return(
@@ -36,12 +14,20 @@ const Form = ({title, formType}) => {
     });
 
   return (
-    <form className='login'>
-        <h1>Inicio de sesión</h1>
-        <div className="formFields">
-            {mappedFields}
-        </div>
-    </form>
+    <div className='form-container'>
+        <form className={formType}>
+            <h1>{title}</h1>
+            <div className="formFields">
+                {mappedFields}
+            </div>
+            <div className="actions">
+                {
+                    justContinue ? <></> : <Link to={cancelPath}><Button clase='cancel' onClick={cancelHandle} text={'Cancelar'}/></Link> 
+                }
+                <Link to={continuePath}><Button clase='continue' onClick={continueHandle} text={'Continuar'}/></Link>
+            </div>
+        </form>
+    </div>
   )
 }
 

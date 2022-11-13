@@ -2,11 +2,15 @@
 @import './../../assets/sass/variables';
 
 .formLabel {
+    width: 40%;
+    
     @include flex(column, true);
+    flex-grow: 1;
     align-items: center;
     gap: 0.5rem;
 
     label {
+        color: $general-white;
         font-family: $theme-montserrat;
         font-size: 15px;
     }

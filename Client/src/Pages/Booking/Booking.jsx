@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Routes, Route} from "react-router-dom";
+import './Booking.scss';
 import StepsVisualizer from '../../Components/BookingProcess/StepsVisualizer/StepsVisualizer';
 import FirstStep from '../../Components/BookingProcess/FirstStep/FirstStep';
 import SecondStep from '../../Components/BookingProcess/SecondStep/SecondStep';

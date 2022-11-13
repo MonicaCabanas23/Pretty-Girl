@@ -1,9 +1,10 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 
-const { validateFields, validateJWT, hasRole } = require("../middlewares");
+const { validateFields, validateJWT, hasRole, isAdminRole } = require("../middlewares");
 
 const {
+    isRoleValid,
     emailExist,
     duiExist,
     userExistByID,
@@ -34,6 +35,7 @@ router.post(
         check("password", "The password must have more than 6 letters").isLength({
             min: 6,
         }),
+        check("role").custom(isRoleValid),
         validateFields,
     ],
     usersPost
@@ -53,8 +55,7 @@ router.delete(
     "/:id",
     [
         validateJWT,
-        // isAdminRole,
-        hasRole("admin"),
+        hasRole("ADMIN_ROLE", "CLIENT_ROLE"),
         check("id", "Invalid Mongo ID").isMongoId(),
         check("id").custom(userExistByID),
         validateFields,

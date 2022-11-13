@@ -16,10 +16,8 @@ const {
 
 const router = Router();
 
-// Obtener todas las categorias - publico
 router.get("/", productsGet);
 
-// Obtener una categoria por id - publico
 router.get(
     "/:id",
     [
@@ -30,7 +28,6 @@ router.get(
     getProduct
 );
 
-// Crear producto - privado - cualquier persona con un token valido
 router.post(
     "/",
     [
@@ -44,25 +41,22 @@ router.post(
         check("available", "Available is required").not().isEmpty(),
         check("amount", "Amount is required").not().isEmpty(),
         check("price", "Price is required").not().isEmpty(),
-        check("picture", "Picture is required").not().isEmpty(),
         validateFields,
     ],
     productPost
 );
 
-// Actualizar producto - privado - cualquier persona con un token valido
 router.put(
     "/:id",
     [
         validateJWT,
         check("id", "Invalid Mongo ID").isMongoId(),
-        // check("id").custom(productExistByID),
+        check("id").custom(productExistByID),
         validateFields,
     ],
     productPut
 );
 
-// Eliminar categoria - admin
 router.delete(
     "/:id",
     [

@@ -1,6 +1,7 @@
+const {uploadFile} = require("../helpers/upload-file");
+const {deleteFile} = require("../helpers/delete-file");
 const Category = require("../models/category");
 
-// Get categories - paginate - total - populate
 const categoriesGet = async (req, res) => {
     const { limit = 5, skip = 0 } = req.query;
     const query = { status: true };
@@ -18,7 +19,6 @@ const categoriesGet = async (req, res) => {
     });
 };
 
-// Get category - populate {}
 const getCategory = async (req, res) => {
     const { id } = req.params;
     const category = await Category.findById(id);
@@ -29,7 +29,6 @@ const getCategory = async (req, res) => {
 const categoryPost = async (req, res) => {
     const id = req.body._id.toUpperCase();
 
-    // Check if category exists
     const categoryDB = await Category.findById(id);
     if (categoryDB) {
         return res.status(400).json({
@@ -40,29 +39,54 @@ const categoryPost = async (req, res) => {
         const data = {...req.body};
         const category = new Category(data);
 
-        await category.save();
+        if(req.files?.picture){
+            const result = await uploadFile(req.files.picture.tempFilePath);
+            category.picture = {
+                public_id: result.public_id,
+                secure_url: result.secure_url
+            }
+        }
+        else{
+            category.picture = {
+                public_id: "none",
+                secure_url: "../assets/no-image.png"
+            }
+        }
 
+        await category.save();
         res.json({
             category,
         });
     }
 };
 
-// Update category
 const categoryPut = async (req, res) => {
     const { id } = req.params;
     const newCategory = {...req.body};
 
-    const updatedCategory = await Category.findByIdAndUpdate(id, newCategory , {new: true});
+    if(req.files?.picture){
+        const result = await uploadFile(req.files.picture.tempFilePath);
+        newCategory.picture = {
+            public_id: result.public_id,
+            secure_url: result.secure_url
+        }
+    }
+    else{
+        newCategory.picture = {
+            public_id: "none",
+            secure_url: "../assets/no-image.png"
+        }
+    }
 
+    const updatedCategory = await Category.findByIdAndUpdate(id, newCategory , {new: true});
     res.json(updatedCategory);
 };
 
-//  Delete category - status:false
 const categoryDelete = async (req, res) => {
     const { id } = req.params;
     const categoryDB = await Category.findByIdAndDelete(id);
 
+    deleteFile(categoryDB.picture.public_id);
     res.json(categoryDB);
 };
 

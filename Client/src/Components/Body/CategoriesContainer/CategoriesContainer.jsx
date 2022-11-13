@@ -1,6 +1,6 @@
 import React from 'react'
 import './CategoriesContainer.scss'
-import DecorativeLines from '../DecorativeLines/DecorativeLines'
+import DecorativeLines from '../../DecorativeLines/DecorativeLines'
 import CategoryCard from './CategoryCard/CategoryCard'
 
 const CategoriesContainer = () => {

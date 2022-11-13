@@ -1,29 +1,52 @@
 import './Login.scss';
-import React, { useState } from 'react';
-import Label from '../../Components/ComponentesLoginRegistro/label'
-import Button from '../../Components/ComponentesLoginRegistro/Button/Button';
+import React, { useState, useEffect } from 'react';
+import Label from '../../Components/Label/Label';
+import Button from '../../Components/Button/Button';
+import Form from '../../Components/Form/Form'
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    useEffect(() => {
+        console.log(username);
+        console.log(password);
+    }, [username, password]);
+
+    const formFields = [{
+        'key': '1',
+        'element':'label',
+        'type': 'text',
+        'text': 'Nombre de usuario',
+        'valueInput': username,
+        'setValue': setUsername
+    },
+    {
+        'key': '2',
+        'element':'label',
+        'type': 'password',
+        'text': 'Contraseña',
+        'valueInput': password,
+        'setValue': setPassword
+    },
+    {
+        'key': '3',
+        'element':'a',
+        'href':'#',
+        'text': "¿No tienes una cuenta? Regístrate"
+    },
+    {
+        'key': '4',
+        'element':'a',
+        'href':'#',
+        'text': "¿Olvidaste tu contraseña?"
+    }
+    ]
+
     return (
-        <div className="login">
-            <div className='formulario'>
-                <div className="form">
-                    <h1>Iniciar sesion</h1>
-                    <div className="form__body">
-                        <Label name={"text"} text={'Nombre de usuario'} clase={'name'} password={username} setPassword={setUsername} />
-                        <Label name={"password"} text={'Contraseña'} clase={'password'} password={password} setPassword={setPassword} />
-                    </div>
-                    <div className="buttons">
-                        <Button clase={"Iniciar_sesion"} onClick={() => { console.log(username); console.log(password); }} text={"Iniciar sesion"} />
-                    </div>
-                    <a href="#">¿Eres nuevo? Registrate</a>
-                    <a href="#">¿Olvidaste tu contraseña?</a>
-                </div>
-            </div>
-        </div>
+        <>
+            <Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Iniciar sesión'} />
+        </>
     );
 }
 

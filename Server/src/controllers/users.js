@@ -19,12 +19,12 @@ const usersGet = async (req = request, res = response) => {
 };
 
 const usersPost = async (req, res) => {
-    const { name, dui, email, phone, address, password, role } = req.body;
-    const user = new User({ name, dui, email, phone, address, password, role });
+    const data = {...req.body};
+    const user = new User(data);
 
     // Encrypt password
     const salt = bcrypt.genSaltSync();
-    user.password = bcrypt.hashSync(password, salt);
+    user.password = bcrypt.hashSync(user.password, salt);
 
     // Save in db
     await user.save();
@@ -36,17 +36,15 @@ const usersPost = async (req, res) => {
 
 const usersPut = async (req, res) => {
     const { id } = req.params;
-    const { name, dui, email, phone, address, password, role, ...info } = req.body;
+    const newUser = {...req.body};
 
-    // Validate againt schema
-    if (password) {
-        const salt = bcrypt.genSaltSync();
-        info.password = bcrypt.hashSync(password, salt);
-    }
+    // Encrypt password
+    const salt = bcrypt.genSaltSync();
+    newUser.password = bcrypt.hashSync(newUser.password, salt);
 
-    const userDB = await User.findByIdAndUpdate(id, info);
+    const updatedUser = await User.findByIdAndUpdate(id, newUser , {new: true});
 
-    res.json(userDB);
+    res.json(updatedUser);
 };
 
 const usersPatch = (req, res = response) => {

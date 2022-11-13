@@ -1,15 +1,20 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 
 const Description = ({key, title, descriptionObject}) => {
+    const [fields, setFields] = useState([]);
 
     useEffect(() => {
-        const mappedText = descriptionObject.forEach((key, value) => {
-            
+        const mappedText = descriptionObject.map((key, value) => {
+            return <p>{key}: {value}</p>
         })
+        setFields(mappedText);
     }, []);
 
     return (
-        <div>Description</div>
+        <div key={key}>
+            <h3>{title}</h3>
+            {fields}
+        </div>
     )
 }
 

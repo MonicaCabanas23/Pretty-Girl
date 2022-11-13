@@ -28,7 +28,8 @@ const Form = ({title, formType, formFields, descriptionFields, justContinue, can
                     <Description key={field.key} title={field.title} descriptionObject={field.object}/>
                 )
             });
-            setFields(mappedDescription);
+            console.log(mappedDescription);
+            setFields([]);
         }
 
     }, []);

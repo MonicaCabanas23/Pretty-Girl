@@ -13,11 +13,17 @@
     align-items: center;
 
     form {
-        width: 60%;
+        width: 80%;
         padding: 3rem;
         border-radius: 2rem;
 
         background-color: rgba($color: $light-background-color, $alpha: 0.8);
+
+        position: relative;
+
+        @include flex(column);
+        justify-content: center;
+        align-items: center;
 
         h1 {
             color: $general-white;
@@ -27,17 +33,39 @@
         }
 
         .formFields {
+            width: 80%;
             @include flex(row);
             flex-wrap: wrap;
-
-            margin: 1rem;
         }
 
         .actions {
+            width: 80%;
+            padding: 2rem 0;
+            
             @include flex(row);
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+
+            a {
+                width: 48%;
+            }
         }
+    }
+}
+
+/* Media query for increasing buttons' width */
+@media only screen and (max-width: 900px) {
+    .form-container form .actions a{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .form-container {
+        padding: 20px 10px;
+        form {
+            padding: 1rem;
+        }   
     }
 }

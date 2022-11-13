@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Routes, Route} from "react-router-dom";
 import './Booking.scss';
+import DecorativeLines from '../../Components/DecorativeLines/DecorativeLines';
 import StepsVisualizer from '../../Components/BookingProcess/StepsVisualizer/StepsVisualizer';
 import FirstStep from '../../Components/BookingProcess/FirstStep/FirstStep';
 import SecondStep from '../../Components/BookingProcess/SecondStep/SecondStep';
@@ -40,6 +41,7 @@ const Booking = () => {
 
   return (
     <section className='booking-step'>
+      <DecorativeLines />
       < StepsVisualizer firstActive={firstStep} secondActive={secondStep} thirdActive={thirdStep}/>
         <Routes>
           <Route path='/client-data' element={<FirstStep onLoad={setStep}/>}/>

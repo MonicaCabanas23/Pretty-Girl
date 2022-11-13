@@ -1,35 +1,66 @@
 import './Registro.scss';
 import React, { useState } from 'react';
-import Label from '../../Components/ComponentesLoginRegistro/label'
-import Button from '../../Components/ComponentesLoginRegistro/Button/Button';
+import Form from '../../Components/Form/Form';
 
 function Registro() {
     const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
     const [dui, setDui] = useState('');
     const [correo, setCorreo] = useState('');
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
 
+    const formFields = [{
+        'key': '1',
+        'element':'label',
+        'type': 'text',
+        'text': 'Nombre: ',
+        'valueInput': name,
+        'setValue': setName
+    },
+    {
+        'key': '2',
+        'element':'label',
+        'type': 'text',
+        'text': 'Dui: ',
+        'valueInput': dui,
+        'setValue': setDui
+    },
+    {
+        'key': '3',
+        'element':'label',
+        'type': 'text',
+        'text': 'Correo electronico: ',
+        'valueInput': correo,
+        'setValue': setCorreo
+    },
+    {
+        'key': '4',
+        'element':'label',
+        'type': 'text',
+        'text': 'Numero de telefono: ',
+        'valueInput': telefono,
+        'setValue': setTelefono
+    },
+    {
+        'key': '5',
+        'element':'label',
+        'type': 'text',
+        'text': 'Direccion: ',
+        'valueInput': direccion,
+        'setValue': setDireccion
+    },
+    {
+        'key': '6',
+        'element':'a',
+        'href':'#',
+        'text': "¿Ya tienes una cuenta? Inicia sesión"
+    }
+    ]
+
     return (
-        <div className="registro">
-            <div className='formulario'>
-                <div className="form">
-                    <h1>Registro</h1>
-                    <div className="form__body">
-                        <Label name={'Nombre'} type={"text"} text={'Nombre: '} clase={'input'} password={name} setPassword={setName} />
-                        <Label name={'Dui'} type={"text"} text={'Dui: '} clase={'input'} password={dui} setPassword={setDui} />
-                        <Label name={'Correo'} type={"email"} text={'Correo  electronico: '} clase={'input'} password={correo} setPassword={setCorreo} />
-                        <Label name={'Telefono'} type={"text"} text={'Numero de telefono: '} clase={'input'} password={telefono} setPassword={setTelefono} />
-                        <Label name={'Direccion'} type={"text"} text={'Direccion: '} clase={'input direccion'} password={direccion} setPassword={setDireccion} />
-                    </div>
-                    <div className="buttons">
-                        <Button clase={"Registrarse"} onClick={() => { console.log(name); console.log(dui); }} text={"Registrarse"} />
-                    </div>
-                    <a href="#">¿Ya tienes una cuenta? Inicia sesión</a>
-                </div>
-            </div>
-        </div>
+        <>
+            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Registrarse'} />
+        </>
     );
 }
 

@@ -6,8 +6,31 @@ const SecondStep = ({onLoad}) => {
     onLoad(2);
   }, [])
 
+  /* Los campos del objeto deben de ser obtenidos de la api */
+  const descriptionFields = [{
+    'key': '1',
+    'title': 'Descripción de reserva',
+    'object': {
+      'Producto': 'Vestido color azul con mangas',
+      'Color': 'Azul',
+      'Talla': 'XS',
+      'Cantidad': '1',
+      'Total a pagar': 'US$ 25.00'
+    }
+  }, {
+    'key':'2',
+    'title': 'Escoge tu método de envío preferido',
+    'object': {
+      'Producto': 'Vestido color azul con mangas',
+      'Color': 'Azul',
+      'Talla': 'XS',
+      'Cantidad': '1',
+      'Total a pagar': 'US$ 25.00'
+    }
+  }]
+
   return (
-    <Form title={'Método de envío y reserva'} formType={'description'} formFields={[]} justContinue={false} cancelPath={'/../booking/client-data'} continuePath={'/../booking/confirmation'}/>
+    <Form title={'Método de envío y reserva'} formType={'description'} descriptionFields={descriptionFields} justContinue={false} cancelPath={'/../booking/client-data'} continuePath={'/../booking/confirmation'}/>
   )
 }
 

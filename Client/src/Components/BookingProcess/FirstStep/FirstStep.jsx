@@ -42,7 +42,7 @@ const FirstStep = ({onLoad}) => {
     }]
     
     return (
-        <Form title={'Datos del cliente'} formType={'client-data'} formFields={formFields} justContinue={false} continuePath={'/../booking/delivery-method'}/>
+        <Form title={'Datos del cliente'} formType={'client-data'} formFields={formFields} justContinue={false} cancelText={'Cancelar'} continuePath={'/../booking/delivery-method'} continueText={'Continuar'}/>
     )
 }
 

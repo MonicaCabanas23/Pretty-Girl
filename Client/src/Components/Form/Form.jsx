@@ -8,14 +8,13 @@ import A from '../a/a'
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */
-const Form = ({ title, formType, formFields, descriptionFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText }) => {
+const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText }) => {
     const [fields, setFields] = useState([]);
     const [links, setLinks] = useState([]);
-    const [descriptions, setDescriptions] = useState([]);
 
     /* When render just once */
     useEffect(() => {
-        if (formType != 'description') {
+        if(formFields != undefined){
             /* Get label fields */
             const mappedForm = formFields.map(field => {
                 if (field.element === 'label') {
@@ -32,17 +31,25 @@ const Form = ({ title, formType, formFields, descriptionFields, justContinue, ca
                         <A key={link.key} href={link.href} text={link.text} />
                     )
                 }
-            })
+            });
 
-            setFields(mappedForm);
+            /* Get descriptions */
+            const mappedDescription = formFields.map(description => {
+                if (description.element === 'product-description' || description.element === 'delivery-description') {
+                    return (<>
+                        <Description title={description.title} description={description.description} productDescription={description.element === 'product-description' ? true : false}/>
+                        <hr />
+                    </>
+                    )
+                }
+            });
+
+            if(formType != 'description'){
+                setFields(mappedForm);
+            } else {
+                setFields(mappedDescription);
+            }
             setLinks(mappedLinks);
-        }
-
-        /* Si no hay campos que el usuario deba de llenar entonces utilizaremos el form del tipo description */
-        if (formType === 'description') {
-            const mappedDescription = descriptionFields.map(description => {
-                if (description.element === 'description') {}
-            })
         }
 
     }, []);
@@ -60,9 +67,11 @@ const Form = ({ title, formType, formFields, descriptionFields, justContinue, ca
                     }
                     <Link to={continuePath}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
                 </div>
+                {links.length != 0 ? 
                 <div className="links">
                     {links}
-                </div>
+                </div> 
+                : <></>}
             </form>
         </div>
     )

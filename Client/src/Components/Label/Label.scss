@@ -16,6 +16,23 @@
     }
 }
 
+.productQuantity {
+    @include flex(row);
+    justify-content: center;
+    align-items: center;
+
+    label {
+        color: $general-white;
+        font-family: $theme-montserrat;
+        font-size: medium;
+    }
+
+    input {
+        height: 25px;
+        width: 25%;
+    }
+}
+
 /* Media query for increasing label's width */
 @media only screen and (max-width: 900px) {
     .formLabel {

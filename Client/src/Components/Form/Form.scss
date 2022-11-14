@@ -12,6 +12,7 @@
     justify-content: center;
     align-items: center;
 
+    /* General form styles */
     form {
         width: 80%;
         padding: 3rem;
@@ -50,6 +51,24 @@
         .formA {
             width: 100%;
             font-size: 1rem;
+        }
+    }
+    
+    /* Styles only for description type form */
+    form.description {
+        .formFields {
+            @include flex(column);
+
+            hr{
+                width: 50%;
+                border: 0.5px $general-white solid;
+
+                align-self: center;
+            }
+
+            hr:last-child {
+                display: none;
+            }
         }
     }
 }

@@ -1,7 +1,5 @@
 import './Login.scss';
-import React, { useState, useEffect } from 'react';
-import Label from '../../Components/Label/Label';
-import Button from '../../Components/Button/Button';
+import React, { useState, useEffect } from 'react'; 
 import Form from '../../Components/Form/Form'
 
 function Login() {

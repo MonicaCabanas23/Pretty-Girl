@@ -1,17 +1,15 @@
 import React, {useState} from 'react'
 import './CategoryCard.scss'
 
-const CategoryCard = () => {
-  /* const [categories, setCategories] = useState([]); */
-
+const CategoryCard = ({image, name}) => {
   return (
     <article className="category-card">
         <figure>
-            <img src="./img/accesorios" alt=""/>
+            <img src={image} alt=""/>
             
             <div className="hover-container">
               <div className="hover">
-              <p>Text</p>
+              <p>{name}</p>
               </div>
           </div>
         </figure>

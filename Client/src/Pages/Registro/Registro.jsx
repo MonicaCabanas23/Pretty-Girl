@@ -1,6 +1,7 @@
 import './Registro.scss';
 import React, { useState } from 'react';
 import Form from '../../Components/Form/Form';
+import axios from "axios";
 
 function Registro() {
     const [name, setName] = useState('');
@@ -9,6 +10,21 @@ function Registro() {
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
     const [password, setPassword] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const url = "/api/users";
+        
+        const body = { 
+            "name":name,
+            "dui":dui,
+            "email":correo,
+            "phone":telefono,
+            "address":direccion,
+            "password":password
+        };
+        axios.post(url, body);
+    }
 
     const formFields = [{
         'key': '1',
@@ -68,7 +84,7 @@ function Registro() {
 
     return (
         <>
-            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Registrarse'} />
+            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Registrarse'} continueHandle={(e) => handleSubmit(e)}/>
         </>
     );
 }

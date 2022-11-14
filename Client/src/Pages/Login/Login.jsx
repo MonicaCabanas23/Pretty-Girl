@@ -6,7 +6,7 @@ import Form from '../../Components/Form/Form';
 import axios from "axios";
 
 function Login() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
@@ -26,17 +26,15 @@ function Login() {
     }
 
     useEffect(() => {
-        // console.log(username);
-        // console.log(password);
-    }, [username, password]);
+    }, [email, password]);
 
     const formFields = [{
         'key': '1',
         'element':'label',
         'type': 'text',
-        'text': 'Nombre de usuario',
-        'valueInput': username,
-        'setValue': setUsername
+        'text': 'Correo',
+        'valueInput': email,
+        'setValue': setEmail
     },
     {
         'key': '2',

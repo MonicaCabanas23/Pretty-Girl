@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';   
-import classes from './Description.module.scss';
+import './Description.scss';
+import Label from './../Label/Label';
 
 const Description = ({title, description, productDescription}) => {
     const [fields, setFields] = useState([]);
@@ -14,7 +15,8 @@ const Description = ({title, description, productDescription}) => {
                         <p key={'product-1'}>Producto: {product}</p>
                         <p key={'product-2'}>Color: {color}</p>
                         <p key={'product-3'}>Talla: {size}</p>
-                        <p key={'product-4'}>Cantidad: {quantity}</p>
+                        {/* <p key={'product-4'}>Cantidad: {quantity}</p> */}
+                        <Label type={'number'} name={'quantity'} text={'Cantidad:'} valueInput={quantity} clase={'productQuantity'}/>
                         <p key={'product-5'}>Total: {total}</p>
                     </>
                 )
@@ -39,7 +41,7 @@ const Description = ({title, description, productDescription}) => {
     }, []);
 
     return (
-        <div className={`${classes['description-field']}`}>
+        <div className='description-field'>
             <h4>{title}</h4>
             {
                 productDescription ? 

@@ -1,65 +1,72 @@
-const express = require("express");
-const userSchema = require("../models/product");
+const { Router } = require("express");
+const { check } = require("express-validator");
+const { validateJWT, validateFields, isAdminRole } = require("../middlewares");
 
-const router = express.Router();
+const {
+    productsGet,
+    getProduct,
+    productPost,
+    productPut,
+    productDelete,
+} = require("../controllers/products");
+const {
+    categoryExistByID,
+    productExistByID,
+} = require("../helpers/db-validators");
 
-//Create user
-router.post("/product", (req, res) => {
-    const user = userSchema(req.body);
-    user.save()
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+const router = Router();
 
-//Get users
-router.get("/product", (req, res) => {
-    userSchema.find()
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+router.get("/", productsGet);
 
-//Get user by id
-router.get("/product/:id", (req, res) => {
-    const { id } = req.params;
-    userSchema.findById(id)
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+router.get(
+    "/:id",
+    [
+        check("id", "Invalid Mongo ID").isMongoId(),
+        check("id").custom(productExistByID),
+        validateFields,
+    ],
+    getProduct
+);
 
-//Update user
-router.patch("/product/:id", (req, res) => {
-    const id = req.params.id;
-    const { name, age, email } = req.body;
-    userSchema.updateOne({ _id: id }, { $set: { name, age, email } })
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+router.post(
+    "/",
+    [
+        validateJWT,
+        check("name", "Name is required").not().isEmpty(),
+        check("category", "Category is required").not().isEmpty(),
+        check("category").custom(categoryExistByID),
+        check("size", "Size is required").not().isEmpty(),
+        check("color", "Color is required").not().isEmpty(),
+        check("gender", "Gender is required").not().isEmpty(),
+        check("available", "Available is required").not().isEmpty(),
+        check("amount", "Amount is required").not().isEmpty(),
+        check("price", "Price is required").not().isEmpty(),
+        validateFields,
+    ],
+    productPost
+);
 
-//Delete user
-router.delete("/product/:id", (req, res) => {
-    userSchema.findByIdAndDelete(req.params.id)
-        .then((result) => {
-            res.json(result);
-        })
-        .catch((err) => {
-            res.json({ message: err });
-        });
-});
+router.put(
+    "/:id",
+    [
+        validateJWT,
+        check("id", "Invalid Mongo ID").isMongoId(),
+        check("id").custom(productExistByID),
+        validateFields,
+    ],
+    productPut
+);
+
+router.delete(
+    "/:id",
+    [
+        validateJWT,
+        isAdminRole,
+        check("id", "Invalid Mongo ID").isMongoId(),
+        check("id").custom(productExistByID),
+        validateFields,
+    ],
+    productDelete
+);
 
 module.exports = router;

@@ -1,0 +1,25 @@
+.form {
+    /* Frame 42 */
+
+
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px 60px;
+    gap: 40px;
+
+    width: 900px;
+    height: 592px;
+
+    background: #2B2D42;
+    border-radius: 30px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}

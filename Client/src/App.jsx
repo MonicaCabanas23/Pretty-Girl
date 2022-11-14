@@ -8,6 +8,8 @@ import Feed from './Pages/Feed/Feed';
 import Booking from './Pages/Booking/Booking';
 
 import { Routes, Route} from "react-router-dom";
+import Registro from './Pages/Registro/Registro';
+import ProductDescription from './Pages/ProductDescription/ProductDescription';
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);  
@@ -21,6 +23,8 @@ function App() {
         <Route path='/feed' element={<Feed />}/> 
         <Route path='/booking/*' element={<Booking />}/> 
         <Route path='*' element={ <h1> 404 not found </h1> }/>
+        <Route path='/registro' element={<Registro/>}/>
+        <Route path='/reserva' element={<ProductDescription/>}/>
       </Routes>
       <Footer />
     </div>

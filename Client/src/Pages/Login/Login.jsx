@@ -45,7 +45,7 @@ function Login() {
 
     return (
         <>
-            <Form title={'Iniciar sesion'} formType={'login'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Iniciar sesion'} />
+            <Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Iniciar sesión'} />
         </>
     );
 }

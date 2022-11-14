@@ -1,9 +1,11 @@
-const express = require('express');
-const userRoutes = require("../routes/user");
+const validateFields = require("../middlewares/validate-fields");
+const validateJWT = require("../middlewares/validate-jwt");
+const validateFileToUpload = require("../middlewares/validate-file");
+const validateRoles = require("../middlewares/validate-roles");
 
-const config = async (app) => {
-    app.use(express.json());
-    app.use('/api', userRoutes);
-}
-
-module.exports = {config};
+module.exports = {
+    ...validateFields,
+    ...validateJWT,
+    ...validateRoles,
+    ...validateFileToUpload,
+};

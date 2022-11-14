@@ -65,9 +65,11 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     }
                     <Link to={continuePath}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
                 </div>
+                {links.length != 0 ? 
                 <div className="links">
                     {links}
-                </div>
+                </div> 
+                : <></>}
             </form>
         </div>
     )

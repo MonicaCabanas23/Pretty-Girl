@@ -8,6 +8,7 @@ function Registro() {
     const [correo, setCorreo] = useState('');
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
+    const [password, setPassword] = useState('');
 
     const formFields = [{
         'key': '1',
@@ -48,6 +49,14 @@ function Registro() {
         'text': 'Dirección',
         'valueInput': direccion,
         'setValue': setDireccion
+    },
+    {
+        'key': '5',
+        'element':'label',
+        'type': 'text',
+        'text': 'Contraseña',
+        'valueInput': password,
+        'setValue': setPassword
     },
     {
         'key': '6',

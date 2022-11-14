@@ -14,41 +14,43 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
 
     /* When render just once */
     useEffect(() => {
-        /* Get label fields */
-        const mappedForm = formFields.map(field => {
-            if (field.element === 'label') {
-                return (
-                    <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} />
-                )
-            }
-        });
+        if(formFields != undefined){
+            /* Get label fields */
+            const mappedForm = formFields.map(field => {
+                if (field.element === 'label') {
+                    return (
+                        <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} />
+                    )
+                }
+            });
 
-        /* Get links fields */
-        const mappedLinks = formFields.map(link => {
-            if (link.element === 'a') {
-                return (
-                    <A key={link.key} href={link.href} text={link.text} />
-                )
-            }
-        });
+            /* Get links fields */
+            const mappedLinks = formFields.map(link => {
+                if (link.element === 'a') {
+                    return (
+                        <A key={link.key} href={link.href} text={link.text} />
+                    )
+                }
+            });
 
-        /* Get descriptions */
-        const mappedDescription = formFields.map(description => {
-            if (description.element === 'product-description' || description.element === 'delivery-description') {
-                return (<>
-                    <Description title={description.title} description={description.description} productDescription={description.element === 'product-description' ? true : false}/>
-                    <hr />
-                </>
-                )
-            }
-        });
+            /* Get descriptions */
+            const mappedDescription = formFields.map(description => {
+                if (description.element === 'product-description' || description.element === 'delivery-description') {
+                    return (<>
+                        <Description title={description.title} description={description.description} productDescription={description.element === 'product-description' ? true : false}/>
+                        <hr />
+                    </>
+                    )
+                }
+            });
 
-        if(formType != 'description'){
-            setFields(mappedForm);
-        } else {
-            setFields(mappedDescription);
+            if(formType != 'description'){
+                setFields(mappedForm);
+            } else {
+                setFields(mappedDescription);
+            }
+            setLinks(mappedLinks);
         }
-        setLinks(mappedLinks);
 
     }, []);
 

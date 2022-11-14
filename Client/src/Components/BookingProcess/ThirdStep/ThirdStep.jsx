@@ -1,7 +1,11 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import Form from '../../Form/Form';
 
 const ThirdStep = ({onLoad}) => {
+  /* El objeto product y delivery serán obetenidos desde la api */
+  const [product, setProduct] = useState({product: 'vestido', color: 'Azul', size: 'XS', quantity: '1', total: 'US$ 25.00'})
+  const [delivery, setDelivery] = useState({addresee: 'fulanito', date: '24/11/2022', location: 'UCA'});
+
   useEffect(() => {
     onLoad(3);
   }, [])
@@ -10,18 +14,12 @@ const ThirdStep = ({onLoad}) => {
     'key': '1',
     'element': 'product-description',
     'title': '¡Tu reserva se ha registrado correctamente!',
-    'description': [{'product': 'Vestido color azul con mangas', 
-      'color': 'Azul', 
-      'size': 'XS', 
-      'quantity': '1', 
-      'total': 'US$ 25.00'}]
+    'description': [product]
   }, {
     'key': '2',
     'element': 'delivery-description',
     'title': 'Descripción de envío',
-    'description': [{'addresee': 'fulanito', 
-      'date': '24/11/2022', 
-      'location': 'UCA'}]
+    'description': [delivery]
   }]
 
   return (

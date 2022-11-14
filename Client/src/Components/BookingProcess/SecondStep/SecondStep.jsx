@@ -1,8 +1,10 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import Form from '../../Form/Form';
 
 const SecondStep = ({onLoad}) => {
-  /* Aquí hace falta agregar las variables del producto y el delivery que se obtendran desde la api */
+  /* El objeto product y delivery serán obetenidos desde la api */
+  const [product, setProduct] = useState({product: 'vestido', color: 'Azul', size: 'XS', quantity: '1', total: 'US$ 25.00'})
+  const [delivery, setDelivery] = useState({addresee: 'fulanito', date: '24/11/2022', location: 'UCA'});
 
   useEffect(() => {
     onLoad(2);
@@ -13,22 +15,18 @@ const SecondStep = ({onLoad}) => {
     'key': '1',
     'element': 'product-description',
     'title': 'Descripción de reserva',
-    'description': [{'product': 'Vestido color azul con mangas', 
-      'color': 'Azul', 
-      'size': 'XS', 
-      'quantity': '1', 
-      'total': 'US$ 25.00'}]
+    'description': [product]
   }, {
     'key': '2',
     'element': 'delivery-description',
     'title': 'Escoge tu método de envío preferido',
-    'description': [{'addresee': 'fulanito', 
-      'date': '24/11/2022', 
-      'location': 'UCA'}]
-  }]
+    'description': [delivery]
+  }, [product, delivery]]
 
   return (
+    <>
     <Form title={'Método de envío y reserva'} formType={'description'} formFields={descriptionFields} justContinue={false} cancelPath={'./../booking/client-data'} cancelText={'Volver'} continuePath={'/../booking/confirmation'} continueText={'Continuar'}/>
+    </>
   )
 }
 

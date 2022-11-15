@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { Routes, Route} from "react-router-dom";
 import './Booking.scss';
-import DecorativeLines from '../../Components/DecorativeLines/DecorativeLines';
-import StepsVisualizer from '../../Components/BookingProcess/StepsVisualizer/StepsVisualizer';
-import FirstStep from '../../Components/BookingProcess/FirstStep/FirstStep';
-import SecondStep from '../../Components/BookingProcess/SecondStep/SecondStep';
-import ThirdStep from '../../Components/BookingProcess/ThirdStep/ThirdStep';
+import DecorativeLines from '../DecorativeLines/DecorativeLines';
+import StepsVisualizer from './StepsVisualizer/StepsVisualizer';
+import FirstStep from './FirstStep/FirstStep';
+import SecondStep from './SecondStep/SecondStep';
+import ThirdStep from './ThirdStep/ThirdStep';
 
 const Booking = () => {
   const [firstStep, setFirstStep] = useState(false);

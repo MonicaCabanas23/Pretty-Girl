@@ -1,15 +1,10 @@
 import { useState } from 'react'
+import { Navigate, Routes, Route} from "react-router-dom";
 import './App.css'
 import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer';
-import Delivery from './Pages/Delivery/Delivery';
 import Login from './Pages/Login/Login';
 import Feed from './Pages/Feed/Feed';
-import Booking from './Pages/Booking/Booking';
-
-import { Routes, Route} from "react-router-dom";
-import Registro from './Pages/Registro/Registro';
-import ProductDescription from './Pages/ProductDescription/ProductDescription';
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);  
@@ -18,13 +13,12 @@ function App() {
     <div className="App">
       <Header isLogged={isLogged}/>
       <Routes>
-        <Route path='/' element={<Login />}/>
-        <Route path='/delivery' element={<Delivery />}/> 
-        <Route path='/feed' element={<Feed />}/> 
-        <Route path='/booking/*' element={<Booking />}/> 
+        <Route path='/' element={<Navigate to='/feed' />}/>
+        {/* Por default le mostrará la página inicial de la página (feed) */}
+        <Route path='/feed/*' element={<Feed />}/> 
+        {/* En el login, redirigirá a register si no tiene cuenta */}
+        <Route path='/login' element={<Login />}/> 
         <Route path='*' element={ <h1> 404 not found </h1> }/>
-        <Route path='/registro' element={<Registro/>}/>
-        <Route path='/reserva' element={<ProductDescription/>}/>
       </Routes>
       <Footer />
     </div>

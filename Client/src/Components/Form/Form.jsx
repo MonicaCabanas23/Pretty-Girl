@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import './Form.scss'
-import Label from './Label/Label'
+import Label from '../Label/Label'
 import Description from './Description/Description';
 import Button from '../Button/Button'
 import A from '../a/a'

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';   
 import './Description.scss';
-import Label from './../Label/Label';
+import Label from '../../Label/Label';
 
 const Description = ({title, description, productDescription, setObject}) => {
     const [fields, setFields] = useState([]);

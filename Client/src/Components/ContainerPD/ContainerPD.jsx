@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
-import Label from './../Form/Label/Label';
+import Label from '../Label/Label';
 import Description from '../Form/Description/Description';
 import Button from '../Button/Button';
 import A from '../a/a';
 import H from '../H/H';
 import P from '../P/P';
-import Combobox from '../Form/ComboBox/ComboBox';
+import Combobox from '../ComboBox/ComboBox';
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Navigate, Routes, Route} from "react-router-dom";
+import { useConfigContext } from './Contexts/ConfigContext';
 import './App.css'
 import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer';
@@ -7,11 +8,10 @@ import Login from './Pages/Login/Login';
 import Feed from './Pages/Feed/Feed';
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);  
 
   return (
     <div className="App">
-      <Header isLogged={isLogged}/>
+      <Header />
       <Routes>
         <Route path='/' element={<Navigate to='/feed' />}/>
         {/* Por default le mostrará la página inicial de la página (feed) */}

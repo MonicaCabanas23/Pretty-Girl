@@ -10,8 +10,12 @@ import SearchModal from "./SearchModal/SearchModal";
 import {useConfigContext} from '../../Contexts/ConfigContext';
 
 const Header = () => {
-    const {isLogged} = useConfigContext();
+    const {isLogged, Logout} = useConfigContext();
     const [isSearching, setIsSearching] = useState(false);
+
+    const handleLogOut = () => {
+        Logout();
+    }
 
     return (
         <header>
@@ -32,10 +36,12 @@ const Header = () => {
                 {
                     isLogged ? 
                         <>
-                            <figure className="btn-logout">
-                                <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                                <p>Cerrar sesión</p>
-                            </figure>
+                            <Link to={'/'}>
+                                <figure onClick={handleLogOut} className="btn-logout">
+                                    <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                                    <p>Cerrar sesión</p>
+                                </figure>
+                            </Link>
                             <figure className="btn-bag">
                                 <i className="fa-solid fa-bag-shopping"></i>
                                 <p>Bolsa</p>

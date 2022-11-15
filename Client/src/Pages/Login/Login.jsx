@@ -4,13 +4,16 @@ import {Routes, Route} from 'react-router-dom';
 import Register from './Register/Register';
 import Form from '../../Components/Form/Form';
 import axios from "axios";
+/* Context */
+import {useConfigContext} from '../../Contexts/ConfigContext'
 
 function Login() {
+    const {Login} = useConfigContext();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const url = "/api/auth/login"
         
         const body = { "email":email, "password":password };
@@ -20,7 +23,11 @@ function Login() {
                 localStorage.setItem("token", token);
                 const user = response.data.user;
                 localStorage.setItem("user", JSON.stringify(user));
-            });
+        });
+
+        /* Validate before setting isLogged to true */
+        /* Setting isLogged to true */
+        Login();
     }
 
     useEffect(() => {
@@ -59,7 +66,7 @@ function Login() {
     return (
         <>
             <Routes>
-                <Route path='/' element={<Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>}/>
+                <Route path='/' element={<Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={'/feed'} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>}/>
                 <Route path='/register' element={<Register />}/>
             </Routes>
         </>

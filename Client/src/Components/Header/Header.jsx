@@ -38,10 +38,12 @@ const Header = ({ isLogged=false }) => {
                                 <p>Bolsa</p>
                             </figure>
                         </> : 
-                    <figure className={`btn-login`}>
-                        <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                        <p>Iniciar sesión</p>
-                    </figure>
+                        <Link to={'/login'}>
+                            <figure className={`btn-login`}>
+                                <i className="fa-solid fa-arrow-right-to-bracket"></i>
+                                <p>Iniciar sesión</p>
+                            </figure>
+                        </Link>
                 }
                 <FontAwesomeIcon icon={faBars} className="bars"/>
             </div>

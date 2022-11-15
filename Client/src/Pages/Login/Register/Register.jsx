@@ -1,4 +1,4 @@
-import './Registro.scss';
+import './Register.scss';
 import React, { useState } from 'react';
 import Form from '../../../Components/Form/Form';
 import axios from "axios";
@@ -76,15 +76,15 @@ function Registro() {
     },
     {
         'key': '6',
-        'element':'a',
-        'href':'#',
+        'element':'link',
+        'path':'/login',
         'text': "¿Ya tienes una cuenta? Inicia sesión"
     }
     ]
 
     return (
         <>
-            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Registrarse'} continueHandle={(e) => handleSubmit(e)}/>
+            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continuePath={'/'} continueText={'Registrarse'} continueHandle={(e) => handleSubmit(e)}/>
         </>
     );
 }

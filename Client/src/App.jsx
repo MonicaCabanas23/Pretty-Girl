@@ -17,7 +17,7 @@ function App() {
         {/* Por default le mostrará la página inicial de la página (feed) */}
         <Route path='/feed/*' element={<Feed />}/> 
         {/* En el login, redirigirá a register si no tiene cuenta */}
-        <Route path='/login' element={<Login />}/> 
+        <Route path='/login/*' element={<Login />}/> 
         <Route path='*' element={ <h1> 404 not found </h1> }/>
       </Routes>
       <Footer />

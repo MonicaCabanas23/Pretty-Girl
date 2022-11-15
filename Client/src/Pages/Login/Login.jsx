@@ -1,5 +1,7 @@
 import './Login.scss';
 import React, { useState, useEffect } from 'react';
+import {Routes, Route} from 'react-router-dom';
+import Register from './Register/Register';
 import Form from '../../Components/Form/Form';
 import axios from "axios";
 
@@ -42,21 +44,24 @@ function Login() {
     },
     {
         'key': '3',
-        'element':'a',
-        'href':'#',
+        'element':'link',
+        'path':'/login/register',
         'text': "¿No tienes una cuenta? Regístrate"
     },
     {
         'key': '4',
-        'element':'a',
-        'href':'#',
+        'element':'link',
+        'path':'/',
         'text': "¿Olvidaste tu contraseña?"
     }
     ]
 
     return (
         <>
-            <Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>
+            <Routes>
+                <Route path='/' element={<Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>}/>
+                <Route path='/register' element={<Register />}/>
+            </Routes>
         </>
     );
 }

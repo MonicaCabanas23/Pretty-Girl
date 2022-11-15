@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
-import Label from '../Label/Label';
-import Description from '../Form/Description/Description';
-import Button from '../Button/Button';
-import A from '../a/a';
-import H from '../H/H';
-import P from '../P/P';
+import Label from '../../Form/Label/Label';
+import Description from '../../Form/Description/Description';
+import Button from '../../Button/Button';
+import A from '../../a/a';
+import H from '../../H/H';
+import P from '../../P/P';
 
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/

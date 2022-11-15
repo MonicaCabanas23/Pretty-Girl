@@ -1,6 +1,6 @@
 import './Registro.scss';
 import React, { useState } from 'react';
-import Form from '../../Components/Form/Form';
+import Form from '../../../Components/Form/Form';
 import axios from "axios";
 
 function Registro() {

@@ -1,6 +1,6 @@
 import './ProductDescription.scss';
 import React, { useState } from 'react';
-import ContainerPD from '../../Components/Body/ContainerPD/ContainerPD';
+import ContainerPD from './ContainerPD/ContainerPD';
 
 function ProductDescription() {
   const [name, setName] = useState('');

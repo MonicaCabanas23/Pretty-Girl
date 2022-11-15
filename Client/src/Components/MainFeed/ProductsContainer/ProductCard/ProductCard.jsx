@@ -1,7 +1,8 @@
 import React from 'react'
 import './ProductCard.scss'
 
-const ProductCard = ({image, name, price}) => {
+const ProductCard = ({image, name, price, onClickHandler}) => {
+
   return (
     <article className="product-card">
         <figure>

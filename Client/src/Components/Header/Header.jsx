@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 /* For navigating to another pages */
 import { Link } from 'react-router-dom';
-import SearchModal from "../SearchModal/SearchModal";
+import SearchModal from "./SearchModal/SearchModal";
 
 const Header = ({ isLogged=false }) => {
     const [isSearching, setIsSearching] = useState(false);

@@ -13,8 +13,7 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const url = "/api/auth/login"
         
         const body = { "email":email, "password":password };
@@ -67,7 +66,7 @@ function Login() {
     return (
         <>
             <Routes>
-                <Route path='/' element={<Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>}/>
+                <Route path='/' element={<Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={'/feed'} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>}/>
                 <Route path='/register' element={<Register />}/>
             </Routes>
         </>

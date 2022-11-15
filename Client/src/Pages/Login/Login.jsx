@@ -4,8 +4,12 @@ import {Routes, Route} from 'react-router-dom';
 import Register from './Register/Register';
 import Form from '../../Components/Form/Form';
 import axios from "axios";
+/* Context */
+import {useConfigContext} from '../../Contexts/ConfigContext'
 
 function Login() {
+    const {Login} = useConfigContext();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -20,7 +24,11 @@ function Login() {
                 localStorage.setItem("token", token);
                 const user = response.data.user;
                 localStorage.setItem("user", JSON.stringify(user));
-            });
+        });
+
+        /* Validate before setting isLogged to true */
+        /* Setting isLogged to true */
+        Login();
     }
 
     useEffect(() => {

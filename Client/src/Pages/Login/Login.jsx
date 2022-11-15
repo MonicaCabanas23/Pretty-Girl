@@ -9,9 +9,7 @@ function Login() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const email = formFields[0].valueInput;
-        const password = formFields[1].valueInput;
-        const url = "https://prettygirl-api.herokuapp.com/api/auth/login"
+        const url = "/api/auth/login"
         
         const body = { "email":email, "password":password };
         axios.post(url, body)

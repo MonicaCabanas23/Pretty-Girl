@@ -1,14 +1,14 @@
 import React from 'react'
 import './ProductCard.scss'
 
-const ProductCard = () => {
+const ProductCard = ({image, name, price}) => {
   return (
     <article className="product-card">
         <figure>
-            <img src="./assets/img/product.jpg" alt=""/>
+            <img src={image} alt=""/>
         </figure>
-        <p className="product-name">Cartera Christian Dior</p>
-        <p className="product-price">$30.00</p>
+        <p className="product-name">{name}</p>
+        <p className="product-price">${price}</p>
     </article>
   )
 }

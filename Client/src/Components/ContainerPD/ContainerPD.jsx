@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 import A from '../a/a';
 import H from '../H/H';
 import P from '../P/P';
-import Combobox from '../ComboBox/ComboBox';
+
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */

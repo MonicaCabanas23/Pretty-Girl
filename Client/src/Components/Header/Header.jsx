@@ -6,8 +6,11 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 /* For navigating to another pages */
 import { Link } from 'react-router-dom';
 import SearchModal from "./SearchModal/SearchModal";
+/* Context */
+import {useConfigContext} from '../../Contexts/ConfigContext';
 
-const Header = ({ isLogged=false }) => {
+const Header = () => {
+    const {isLogged} = useConfigContext();
     const [isSearching, setIsSearching] = useState(false);
 
     return (

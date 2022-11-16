@@ -29,7 +29,7 @@ const Form = ({ title, formType, formFields, setObject, justContinue, cancelHand
                 if (link.element === 'link') {
                     return (
                         <Link key={link.key} to={link.path}>
-                            <p>{link.text}</p>
+                            <>{link.text}</>
                             {/* <A key={link.key} href={link.href} text={link.text} /> */}
                         </Link>
                         

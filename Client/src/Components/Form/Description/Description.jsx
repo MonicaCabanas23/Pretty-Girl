@@ -8,9 +8,43 @@ const Description = ({title, productDescription}) => {
     const [fields, setFields] = useState([]);
     const [productQuantity, setProductQuantity] = useState(1);
 
+    useEffect( () => {
+        const strPrice = context.product.total;
+        const price = parseInt(strPrice.substring(4));
+
+        const handleQuantityChange = () => {
+            if(productDescription) {
+                const {product, color, size, quantity, total} = context.product;
+                const mappedProduct = [
+                    <ProductContext.Consumer>
+                        { () => { 
+                            return(
+                                <>
+                                    <p key={'product-1'}>Producto: {product}</p>
+                                    <p key={'product-2'}>Color: {color}</p>
+                                    <p key={'product-3'}>Talla: {size}</p>
+                                    <Label type={'number'} name={'quantity'} text={'Cantidad:'} valueInput={productQuantity} setValue={setProductQuantity} clase={'productQuantity'}/>
+                                    <p key={'product-5'}>Total: {total}</p>
+                                </>
+                            )
+                        }
+                        }
+                    </ProductContext.Consumer>
+                ];
+
+                context.product.quantity = productQuantity 
+                context.product.total = `US$ ${productQuantity*price}`
+                setFields(mappedProduct); 
+                console.log(price);  
+            }
+        }
+
+        handleQuantityChange();
+    },[productQuantity]);
+
     useEffect(() => {
 
-        if(productQuantity > 1 || productDescription) {
+        if(productDescription) {
             const {product, color, size, quantity, total} = context.product;
             const mappedProduct = [
                 <ProductContext.Consumer>

@@ -39,9 +39,21 @@ const Description = ({title, description, productDescription, setObject}) => {
     
             setFields(mappedProduct);
             handleProductChange();
-                
+            
+        } else if(!productDescription && title === 'Escoge tu método de envío preferido') {
+            const mappedOptions = description.map (object => {
+                const {first, second} = object; 
+                    return (
+                        <>
+                            <Label type={'checkbox'} name={'isDelivery'} text={first} valueInput={true} clase={'checkbox'}/>
+                            <Label type={'checkbox'} name={'noDelivery'} text={second} valueInput={false} clase={'checkbox'}/>
+                        </>
+                    )
+                });
 
-        } else {
+            setFields(mappedOptions);
+
+        }else {
             const mappedDelivery = description.map (object => {
                 const {addresee, date, location} = object; 
                     return (

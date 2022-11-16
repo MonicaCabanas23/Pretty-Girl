@@ -4,7 +4,7 @@ import Form from '../../Form/Form';
 const SecondStep = ({onLoad}) => {
   /* El objeto product y delivery serán obetenidos desde la api */
   const [product, setProduct] = useState({product: 'vestido', color: 'Azul', size: 'XS', quantity: '1', total: 'US$ 25.00'})
-  const [delivery, setDelivery] = useState({addresee: 'fulanito', date: '24/11/2022', location: 'UCA'});
+  const [delivery, setDelivery] = useState();
 
   useEffect(() => {
     onLoad(2);
@@ -20,8 +20,8 @@ const SecondStep = ({onLoad}) => {
     'key': '2',
     'element': 'delivery-description',
     'title': 'Escoge tu método de envío preferido',
-    'description': [delivery]
-  }, [product, delivery]]
+    'description': [{first: 'Envío a domicilio', second: 'Recoger en local'}]
+  }]
 
   return (
     <>

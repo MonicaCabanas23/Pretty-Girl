@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import { ProductContext } from '../../../Pages/Feed/Feed';
 import Form from '../../Form/Form';
 
 const SecondStep = ({onLoad}) => {
   /* El objeto product y delivery serán obetenidos desde la api */
-  const [product, setProduct] = useState({product: 'vestido', color: 'Azul', size: 'XS', quantity: '1', total: 'US$ 25.00'})
-  const [delivery, setDelivery] = useState();
+  const {product, setProduct} = useContext(ProductContext); 
+  /* const [delivery, setDelivery] = useState(); */
 
   useEffect(() => {
     onLoad(2);

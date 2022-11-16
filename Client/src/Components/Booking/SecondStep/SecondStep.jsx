@@ -25,7 +25,7 @@ const SecondStep = ({onLoad}) => {
 
   return (
     <>
-    <Form title={'Método de envío y reserva'} formType={'description'} formFields={descriptionFields} justContinue={false} cancelPath={'../client-data'} cancelText={'Volver'} continuePath={'../confirmation'} continueText={'Continuar'}/>
+    <Form title={'Método de envío y reserva'} formType={'description'} formFields={descriptionFields} setObject={setProduct} justContinue={false} cancelPath={'../client-data'} cancelText={'Volver'} continuePath={'../confirmation'} continueText={'Continuar'}/>
     </>
   )
 }

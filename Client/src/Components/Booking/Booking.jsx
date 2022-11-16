@@ -31,8 +31,6 @@ const Booking = () => {
       setSecondStep(false);
       setThirdStep(false);
     }
-
-    console.log(step);
   }, [step])
   
   const handleLoad = () => {

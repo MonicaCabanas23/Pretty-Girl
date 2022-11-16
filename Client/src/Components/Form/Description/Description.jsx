@@ -6,11 +6,23 @@ const Description = ({title, description, productDescription, setObject}) => {
     const [fields, setFields] = useState([]);
 
     /* En cada cambio en el numericUpDown lo guardamos en productQuantity */
-    const [productQuantity, setProductQuantity] = useState();
+    const [productQuantity, setProductQuantity] = useState(description[0].quantity);
+
+    const handleProductChange = () => {
+
+        let changedProduct = description[0];
+        console.log(productQuantity);
+
+        /* changedProduct.quantity = productQuantity;
+        changedProduct.total = productQuantity*description[0].total; */
+
+        setObject(changedProduct);
+    }
 
     useEffect(() => {
 
-        if(productDescription) {
+        if(productQuantity > 1 || productDescription) {
+            console.log(description);
             const mappedProduct = description.map(object => {
                 const {product, color, size, quantity, total} = object;
                     return ( 
@@ -26,14 +38,8 @@ const Description = ({title, description, productDescription, setObject}) => {
                 });
     
             setFields(mappedProduct);
-
-            /* const handleProductChange = () => {
-                let changedProduct = {product: '', color: '', size: '', quantity: '', total: ''}
-                description.forEach(object => {
-                    const {product, color, size, quantity, total} = object;
-                    
-                })
-            } */
+            handleProductChange();
+                
 
         } else {
             const mappedDelivery = description.map (object => {
@@ -51,6 +57,7 @@ const Description = ({title, description, productDescription, setObject}) => {
         }
 
     }, [productQuantity]);
+
 
     return (
         <div className='description-field'>

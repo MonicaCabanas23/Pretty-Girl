@@ -8,7 +8,7 @@ import A from '../a/a'
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */
-const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText }) => {
+const Form = ({ title, formType, formFields, setObject, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText }) => {
     const [fields, setFields] = useState([]);
     const [links, setLinks] = useState([]);
 
@@ -41,7 +41,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
             const mappedDescription = formFields.map(description => {
                 if (description.element === 'product-description' || description.element === 'delivery-description') {
                     return (<>
-                        <Description title={description.title} description={description.description} productDescription={description.element === 'product-description' ? true : false}/>
+                        <Description title={description.title} description={description.description} productDescription={description.element === 'product-description' ? true : false} setObject={setObject}/>
                         <hr />
                     </>
                     )

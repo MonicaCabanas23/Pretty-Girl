@@ -1,7 +1,9 @@
-import './Registro.scss';
+import './Register.scss';
 import React, { useState } from 'react';
 import Form from '../../../Components/Form/Form';
 import axios from "axios";
+/* Context */
+import {useConfigContext} from '../../../Contexts/ConfigContext'
 
 function Registro() {
     const [name, setName] = useState('');
@@ -11,8 +13,7 @@ function Registro() {
     const [direccion, setDireccion] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const url = "/api/users";
         
         const body = { 
@@ -24,6 +25,10 @@ function Registro() {
             "password":password
         };
         axios.post(url, body);
+
+        /* Validate before setting isLogged to true */
+        /* Setting isLogged to true */
+        Login();
     }
 
     const formFields = [{
@@ -76,15 +81,15 @@ function Registro() {
     },
     {
         'key': '6',
-        'element':'a',
-        'href':'#',
+        'element':'link',
+        'path':'/login',
         'text': "¿Ya tienes una cuenta? Inicia sesión"
     }
     ]
 
     return (
         <>
-            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continuePath={''} continueText={'Registrarse'} continueHandle={(e) => handleSubmit(e)}/>
+            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continuePath={'/'} continueText={'Registrarse'} continueHandle={(e) => handleSubmit(e)}/>
         </>
     );
 }

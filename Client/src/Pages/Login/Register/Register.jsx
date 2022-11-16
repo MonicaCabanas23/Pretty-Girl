@@ -1,9 +1,8 @@
 import './Register.scss';
 import React, { useState } from 'react';
 import Form from '../../../Components/Form/Form';
+import {useNavigate} from 'react-router-dom';
 import axios from "axios";
-/* Context */
-import {useConfigContext} from '../../../Contexts/ConfigContext'
 
 function Registro() {
     const [name, setName] = useState('');
@@ -12,6 +11,7 @@ function Registro() {
     const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = () => {
         const url = "/api/users";
@@ -24,11 +24,12 @@ function Registro() {
             "address":direccion,
             "password":password
         };
-        axios.post(url, body);
-
-        /* Validate before setting isLogged to true */
-        /* Setting isLogged to true */
-        Login();
+        axios.post(url, body)
+            .then(response => {
+                if(response.status === 200){
+                    navigate("/login");
+                }
+            });
     }
 
     const formFields = [{
@@ -72,15 +73,15 @@ function Registro() {
         'setValue': setDireccion
     },
     {
-        'key': '5',
+        'key': '6',
         'element':'label',
-        'type': 'text',
+        'type': 'password',
         'text': 'Contraseña',
         'valueInput': password,
         'setValue': setPassword
     },
     {
-        'key': '6',
+        'key': '7',
         'element':'link',
         'path':'/login',
         'text': "¿Ya tienes una cuenta? Inicia sesión"
@@ -89,7 +90,7 @@ function Registro() {
 
     return (
         <>
-            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continuePath={'/'} continueText={'Registrarse'} continueHandle={(e) => handleSubmit(e)}/>
+            <Form title={'Registrarse'} formType={'registro'} formFields={formFields} justContinue={true} continueText={'Registrarse'} continueHandle={(e) => handleSubmit(e)}/>
         </>
     );
 }

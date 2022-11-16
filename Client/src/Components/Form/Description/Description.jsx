@@ -1,46 +1,37 @@
 import React, {useState, useEffect} from 'react';   
 import './Description.scss';
 import Label from '../Label/Label';
+import ProductContext, {useProductContext} from '../../../Contexts/ProductContext';
 
-const Description = ({title, description, productDescription, setObject}) => {
+const Description = ({title, productDescription}) => {
+    const context = useProductContext();
     const [fields, setFields] = useState([]);
-
-    /* En cada cambio en el numericUpDown lo guardamos en productQuantity */
-    const [productQuantity, setProductQuantity] = useState(description[0].quantity);
-
-    const handleProductChange = () => {
-
-        let changedProduct = description[0];
-        console.log(productQuantity);
-
-        /* changedProduct.quantity = productQuantity;
-        changedProduct.total = productQuantity*description[0].total; */
-
-        setObject(changedProduct);
-    }
+    const [productQuantity, setProductQuantity] = useState(1);
 
     useEffect(() => {
 
         if(productQuantity > 1 || productDescription) {
-            console.log(description);
-            const mappedProduct = description.map(object => {
-                const {product, color, size, quantity, total} = object;
-                    return ( 
-                        <>
-                            <p key={'product-1'}>Producto: {product}</p>
-                            <p key={'product-2'}>Color: {color}</p>
-                            <p key={'product-3'}>Talla: {size}</p>
-                            {/* <p key={'product-4'}>Cantidad: {quantity}</p> */}
-                            <Label type={'number'} name={'quantity'} text={'Cantidad:'} valueInput={quantity} setValue={setProductQuantity} clase={'productQuantity'}/>
-                            <p key={'product-5'}>Total: {total}</p>
-                        </>
-                    )
-                });
+            const {product, color, size, quantity, total} = context.product;
+            const mappedProduct = [
+                <ProductContext.Consumer>
+                    { (value) => { 
+                        return(
+                            <>
+                                <p key={'product-1'}>Producto: {product}</p>
+                                <p key={'product-2'}>Color: {color}</p>
+                                <p key={'product-3'}>Talla: {size}</p>
+                                <Label type={'number'} name={'quantity'} text={'Cantidad:'} valueInput={productQuantity} setValue={setProductQuantity} clase={'productQuantity'}/>
+                                <p key={'product-5'}>Total: {total}</p>
+                            </>
+                        )
+                    }
+                    }
+                </ProductContext.Consumer>
+            ];
     
             setFields(mappedProduct);
-            handleProductChange();
             
-        } else if(!productDescription && title === 'Escoge tu método de envío preferido') {
+        } /* else if(!productDescription && title === 'Escoge tu método de envío preferido') {
             const mappedOptions = description.map (object => {
                 const {first, second} = object; 
                     return (
@@ -66,9 +57,9 @@ const Description = ({title, description, productDescription, setObject}) => {
                 });
 
             setFields(mappedDelivery);
-        }
+        } */
 
-    }, [productQuantity]);
+    }, []);
 
 
     return (

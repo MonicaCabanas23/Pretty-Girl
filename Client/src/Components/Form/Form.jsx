@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import './Form.scss'
-import Label from '../Label/Label'
+import Label from './Label/Label'
 import Description from './Description/Description';
 import Button from '../Button/Button'
 import A from '../a/a'
@@ -26,9 +26,13 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
 
             /* Get links fields */
             const mappedLinks = formFields.map(link => {
-                if (link.element === 'a') {
+                if (link.element === 'link') {
                     return (
-                        <A key={link.key} href={link.href} text={link.text} />
+                        <Link key={link.key} to={link.path}>
+                            <p>{link.text}</p>
+                            {/* <A key={link.key} href={link.href} text={link.text} /> */}
+                        </Link>
+                        
                     )
                 }
             });

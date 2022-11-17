@@ -5,7 +5,7 @@ import DecorativeLines from '../../DecorativeLines/DecorativeLines'
 import ProductCard from './ProductCard/ProductCard'
 import axios from "axios";
 
-const ProductsContainer = () => {
+const ProductsContainer = ({title}) => {
   const [products, setProducts] = useState([]);
   const url = "/api/products";
 
@@ -21,7 +21,7 @@ const ProductsContainer = () => {
   return (
     <section className="recommended-products">
         <DecorativeLines />
-        <h1 className="title">Recién llegados</h1>
+        <h1 className="title">{title}</h1>
         <div className="cards">
         {products.map((item, index) => {
           /* La ruta a la que redirigirá cada producto es ProductDescription */

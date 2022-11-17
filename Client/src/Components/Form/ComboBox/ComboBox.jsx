@@ -5,7 +5,6 @@ function Combobox({ clase, name, options }) {
 
     useEffect(() => {
 
-        console.log(clase, name, options)
         let id=0;
 
         const mappedOption = options.map(opcion => {

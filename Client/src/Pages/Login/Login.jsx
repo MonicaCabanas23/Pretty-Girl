@@ -1,6 +1,6 @@
 import './Login.scss';
 import React, { useState, useEffect } from 'react';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import Register from './Register/Register';
 import Form from '../../Components/Form/Form';
 import axios from "axios";
@@ -8,7 +8,8 @@ import axios from "axios";
 import {useConfigContext} from '../../Contexts/ConfigContext'
 
 function Login() {
-    const {Login} = useConfigContext();
+    const context = useConfigContext();
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,11 +24,11 @@ function Login() {
                 localStorage.setItem("token", token);
                 const user = response.data.user;
                 localStorage.setItem("user", JSON.stringify(user));
+                if(response.status === 200){
+                    context.Login()
+                    navigate("/feed");
+                }
         });
-
-        /* Validate before setting isLogged to true */
-        /* Setting isLogged to true */
-        Login();
     }
 
     useEffect(() => {
@@ -66,7 +67,7 @@ function Login() {
     return (
         <>
             <Routes>
-                <Route path='/' element={<Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continuePath={'/feed'} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>}/>
+                <Route path='/' element={<Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>}/>
                 <Route path='/register' element={<Register />}/>
             </Routes>
         </>

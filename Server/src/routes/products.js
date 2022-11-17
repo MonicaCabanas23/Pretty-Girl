@@ -3,6 +3,7 @@ const { check } = require("express-validator");
 const { validateJWT, validateFields, isAdminRole } = require("../middlewares");
 
 const {
+    feedProductsGet,
     productsGet,
     getProduct,
     productPost,
@@ -16,6 +17,7 @@ const {
 
 const router = Router();
 
+router.get("/feed", feedProductsGet);
 router.get("/", productsGet);
 
 router.get(
@@ -32,6 +34,7 @@ router.post(
     "/",
     [
         validateJWT,
+        isAdminRole,
         check("name", "Name is required").not().isEmpty(),
         check("category", "Category is required").not().isEmpty(),
         check("category").custom(categoryExistByID),
@@ -50,8 +53,18 @@ router.put(
     "/:id",
     [
         validateJWT,
+        isAdminRole,
         check("id", "Invalid Mongo ID").isMongoId(),
         check("id").custom(productExistByID),
+        check("name", "Name is required").not().isEmpty(),
+        check("category", "Category is required").not().isEmpty(),
+        check("category").custom(categoryExistByID),
+        check("size", "Size is required").not().isEmpty(),
+        check("color", "Color is required").not().isEmpty(),
+        check("gender", "Gender is required").not().isEmpty(),
+        check("available", "Available is required").not().isEmpty(),
+        check("amount", "Amount is required").not().isEmpty(),
+        check("price", "Price is required").not().isEmpty(),
         validateFields,
     ],
     productPut

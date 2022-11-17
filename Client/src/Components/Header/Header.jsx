@@ -20,7 +20,7 @@ const Header = () => {
     return (
         <header>
             <div className="header-title-categories">
-                <h2>Pretty Girl</h2>
+                <Link to={'/feed'}> <h2>Pretty Girl</h2> </Link>
                 <div className="categories">
                     <h3>Hombre</h3>
                     <h3>Mujer</h3>
@@ -42,10 +42,12 @@ const Header = () => {
                                     <p>Cerrar sesión</p>
                                 </figure>
                             </Link>
-                            <figure className="btn-bag">
-                                <i className="fa-solid fa-bag-shopping"></i>
-                                <p>Bolsa</p>
-                            </figure>
+                            <Link to={'feed/bag'}>
+                                <figure className="btn-bag">
+                                    <i className="fa-solid fa-bag-shopping"></i>
+                                    <p>Bolsa</p>
+                                </figure>
+                            </Link>
                         </> : 
                         <Link to={'/login'}>
                             <figure className={`btn-login`}>

@@ -1,10 +1,10 @@
 import React from 'react'
 import './ProductCard.scss'
 
-const ProductCard = ({image, name, price, onClickHandler}) => {
+const ProductCard = ({image, name, price, onClickHandler, id}) => {
 
   return (
-    <article className="product-card">
+    <article className={id+" product-card"}>
         <figure>
             <img src={image} alt=""/>
         </figure>

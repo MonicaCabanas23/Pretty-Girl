@@ -4,7 +4,6 @@ import './Form.scss'
 import Label from './Label/Label'
 import Description from './Description/Description';
 import Button from '../Button/Button'
-import A from '../a/a'
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */
@@ -29,7 +28,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                 if (link.element === 'link') {
                     return (
                         <Link key={link.key} to={link.path}>
-                            <p>{link.text}</p>
+                            <>{link.text}</>
                             {/* <A key={link.key} href={link.href} text={link.text} /> */}
                         </Link>
                         
@@ -41,7 +40,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
             const mappedDescription = formFields.map(description => {
                 if (description.element === 'product-description' || description.element === 'delivery-description') {
                     return (<>
-                        <Description title={description.title} description={description.description} productDescription={description.element === 'product-description' ? true : false}/>
+                        <Description title={description.title} productDescription={description.element === 'product-description' ? true : false}/>
                         <hr />
                     </>
                     )

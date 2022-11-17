@@ -4,8 +4,7 @@ const {deleteFile} = require("../helpers/delete-file");
 const { body } = require("express-validator");
 const Product = require("../models/product");
 
-// Get products - paginate - total - populate
-const productsGet = async (req, res = response) => {
+const feedProductsGet = async (req, res = response) => {
     const { limit = 5, skip = 0 } = req.query;
     const query = { status: true };
 
@@ -20,7 +19,20 @@ const productsGet = async (req, res = response) => {
     });
 };
 
-// Get product - populate {}
+const productsGet = async (req, res = response) => {
+    const query = { status: true };
+
+    const [total, products] = await Promise.all([
+        Product.countDocuments(query),
+        Product.find(query)
+    ]);
+
+    res.json({
+        total,
+        products,
+    });
+};
+
 const getProduct = async (req, res = response) => {
     const { id } = req.params;
     const product = await Product.findById(id)
@@ -42,18 +54,16 @@ const productPost = async (req, res) => {
     else{
         product.picture = {
             public_id: "none",
-            secure_url: "../assets/no-image.png"
+            secure_url: "https://res.cloudinary.com/cabrera-evil/image/upload/v1668401831/prettygirl-api/default/no-image_qtyjtw.jpg"
         }
     }
 
-    // Save in db
     await product.save();
     res.json({
         product,
     });
 };
 
-// Update category
 const productPut = async (req, res = response) => {
     const { id } = req.params;
     const newProduct = {...req.body};
@@ -68,7 +78,7 @@ const productPut = async (req, res = response) => {
     else{
         product.picture = {
             public_id: "none",
-            secure_url: "../assets/no-image.png"
+            secure_url: "https://res.cloudinary.com/cabrera-evil/image/upload/v1668401831/prettygirl-api/default/no-image_qtyjtw.jpg"
         }
     }
 
@@ -76,7 +86,6 @@ const productPut = async (req, res = response) => {
     res.json(updatedProduct);
 };
 
-//  Delete category - status:false
 const productDelete = async (req, res = response) => {
     const { id } = req.params;
     const productDB = await Product.findByIdAndDelete(id);
@@ -86,6 +95,7 @@ const productDelete = async (req, res = response) => {
 };
 
 module.exports = {
+    feedProductsGet,
     productsGet,
     getProduct,
     productPost,

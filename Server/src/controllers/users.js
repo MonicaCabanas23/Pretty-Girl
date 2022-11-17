@@ -9,13 +9,20 @@ const usersGet = async (req = request, res = response) => {
 
     const [total, users] = await Promise.all([
         User.countDocuments(query),
-        User.find(query).limit(Number(limit)).skip(Number(skip)),
+        User.find(query).select("name email role").limit(Number(limit)).skip(Number(skip)),
     ]);
 
     res.json({
         total,
         users,
     });
+};
+
+const getUser = async (req, res = response) => {
+    const { id } = req.params;
+    const user = await User.findById(id).select("name email role");
+
+    res.json(user);
 };
 
 const usersPost = async (req, res) => {
@@ -61,6 +68,7 @@ const usersDelete = async (req, res = response) => {
 
 module.exports = {
     usersGet,
+    getUser,
     usersPost,
     usersPut,
     usersPatch,

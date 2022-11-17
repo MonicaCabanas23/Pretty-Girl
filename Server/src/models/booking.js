@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 
 const bookingSchema = mongoose.Schema({
+    description:{
+        products:{
+            type: Array,
+            required: true
+        },
+        total:{
+            type: Number,
+            default: 0
+        }
+    },
     user: {
         type: String,
         required: true
@@ -11,16 +21,16 @@ const bookingSchema = mongoose.Schema({
     },
     delivery: {
         type: Boolean,
-        required: true
-    },
-    date: {
-        type: Date,
-        required: true
+        default: false
     },
     estimatedDelivery: {
         type: Date,
         required: true
     }
-});
+},
+    {
+        timestamps: true,
+    }
+);
 
 module.exports = mongoose.model('Booking', bookingSchema);

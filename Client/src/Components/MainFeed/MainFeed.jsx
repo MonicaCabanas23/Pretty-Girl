@@ -13,20 +13,11 @@ const Body = () => {
   /* El body irá cambiando dependiendo de ciertos estados, esto puede ser con <Link/> */
   return (
     <div>
-      {
-        isReading ? 
-        <>
-          <ProductDescription /> 
-          <ProductsContainer title={'Recomendados para ti'}/>
-        </> : 
-        <>
-          <CategoriesContainer/>
+      <CategoriesContainer/>
           {
             context.isLogged ? <ProductsContainer title={'Recomendados para ti'}/> : <></>
           }
           <ProductsContainer title={'Recién llegados'}/>
-        </>
-      }
     </div>
   )
 }

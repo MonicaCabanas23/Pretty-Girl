@@ -4,35 +4,37 @@ const { validateJWT, validateFields, isAdminRole } = require("../middlewares");
 
 const {
     bookingGet,
+    getBooking,
     bookingPost,
     bookingPut,
     bookingDelete,
 } = require("../controllers/bookings");
-const { bookingExistByID, userExistByID } = require("../helpers/db-validators");
+const { bookingExistByID, productExistByID, userExistByID } = require("../helpers/db-validators");
 
 const router = Router();
 
-router.get("/", bookingGet);
+router.get("/", validateJWT, bookingGet);
 
 router.get(
     "/:id",
     [
+        validateJWT,
         check("id", "Invalid Mongo ID").isMongoId(),
         check("id").custom(bookingExistByID),
         validateFields,
     ],
-    bookingGet
+    getBooking
 );
 
 router.post(
     "/",
     [
         validateJWT,
+        check("description.products", "products are required").not().isEmpty(),
+        check("description.products").isArray().custom(productExistByID),
         check("user", "User is required").not().isEmpty(),
         check("user").custom(userExistByID),
         check("address", "Address is required").not().isEmpty(),
-        check("delivery", "Delivery is required").not().isEmpty(),
-        check("date", "Date is required").not().isEmpty(),
         check("estimatedDelivery", "Estimated Delivery is required").not().isEmpty(),
         validateFields,
     ],
@@ -43,7 +45,14 @@ router.put(
     "/:id",
     [
         validateJWT,
+        isAdminRole,
+        check("description.products", "products are required").not().isEmpty(),
+        check("description.products").isArray().custom(productExistByID),
         check("id").custom(bookingExistByID),
+        check("user", "User is required").not().isEmpty(),
+        check("user").custom(userExistByID),
+        check("address", "Address is required").not().isEmpty(),
+        check("estimatedDelivery", "Estimated Delivery is required").not().isEmpty(),
         validateFields,
     ],
     bookingPut

@@ -1,18 +1,22 @@
 import './ProductDescription.scss';
 import React, { Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import axios from 'axios';
+import Loading from '../../Loading/Loading';
+import ProductsContainer from '../ProductsContainer/ProductsContainer';
+import { useConfigContext } from '../../../Contexts/ConfigContext';
 const ContainerPD = React.lazy(() => import('./ContainerPD/ContainerPD'));
 
 function ProductDescription({ id }) {
-  
+
   const [fields, setFields] = useState();
   const url = "/api/products/" + id;
-  const [encontrado, setEncontrado] = useState(false)
+  const [encontrado, setEncontrado] = useState(false);
+  const context = useConfigContext();
   useLayoutEffect(() => {
 
     const getData = async () => {
       let { data } = await axios.get(url);
-      
+
       data.createdAt = (data.createdAt.slice(0, data.createdAt.indexOf('T')));
 
       const Dia_Actual = new Date().getDate();
@@ -23,12 +27,11 @@ function ProductDescription({ id }) {
       const talla = (data.size).map(item => {
         return { value: item }
       });
-      console.log(data.color)
       const color = (data.color).map(item => {
         return { value: item }
       });
-      
-      
+
+
       const formFields = [{
         'key': '1',
         'element': 'label',
@@ -46,7 +49,7 @@ function ProductDescription({ id }) {
       {
         'key': '3',
         'element': 'label',
-        'text': 'US$'+data.price,
+        'text': 'US$' + data.price,
         'use': false,
         'clase': 'PrecioProducto'
       },
@@ -73,9 +76,9 @@ function ProductDescription({ id }) {
       },
       {
         'key': '7',
-        'element': 'button',
+        'element': context.isLogged ? 'button' : '',
         'text': 'Agregar a la bolsa',
-        'onClick': () => { console.log('Agregar al la bolsa')},
+        'onClick': () => { console.log('Agregar al la bolsa') },
         'clase': 'AgregarCarrito'
       },
       ]
@@ -83,15 +86,16 @@ function ProductDescription({ id }) {
       setEncontrado(true);
     }
     getData();
-    
+
 
   }, [])
-  
+
   return (
     <>
-      <Suspense fallback={<div>Loading....</div>} >
-        {encontrado ? <ContainerPD title={'Registrarse'} formType={'registro'} formFields={fields} justContinue={true} continuePath={''} RevervarPatch={"/product/" + id} CrearRevervarPatch={"/product/#" + id} continueText={'Registrarse'} />:<> </>}
+      <Suspense fallback={<Loading></Loading>} >
+        {encontrado ? <><ContainerPD title={'Registrarse'} formType={'registro'} formFields={fields} justContinue={true} continuePath={''} RevervarPatch={"/product/" + id} CrearRevervarPatch={"/product/#" + id} continueText={'Registrarse'} /> </> : <Loading></Loading>}
       </Suspense>
+      <ProductsContainer title={'Recomendados para ti'} />
     </>
   );
 }

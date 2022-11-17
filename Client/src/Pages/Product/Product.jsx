@@ -1,15 +1,20 @@
 import './Product.scss';
-import React, { useState, useEffect, Suspense } from 'react';
-import axios from "axios";
+import React, { useEffect, useLayoutEffect } from 'react';
 import ProductDescription from '../../Components/MainFeed/ProductDescription/ProductDescription';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Product() {    
-    const prueba = useLocation();
-    const id = prueba.hash.replace('#', '');
+    const ruta = useLocation();
+    let id = (ruta.hash.replace('#', '')).length > 0 ? ruta.hash.replace('#', '') : false;
+    const navigate = useNavigate();
+    if(!id){
+        useEffect(() => {
+            navigate('/feed');
+        },[])
+    }
     return (
         <>
-            <ProductDescription id={id} />
+            {id ? <ProductDescription id={id} /> : <></>}
         </>
     );
 }

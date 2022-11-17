@@ -1,0 +1,29 @@
+@import "../../../assets/sass/mixins";
+@import "../../../assets/sass/variables";
+
+.admin-actions-container {
+    width: 100%;
+    height: auto;
+
+    position: absolute;
+    bottom: -86px;
+    left: 0;
+
+    background-color: $general-white;
+
+    z-index: 2;
+    .admin-actions {
+        width: 100%;
+        height: auto;
+    
+        @include flex(column);
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        figure {
+            @include flex(row);
+
+        }
+    }
+}

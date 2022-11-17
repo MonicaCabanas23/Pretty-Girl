@@ -8,6 +8,8 @@ header {
     background-color: $light-background-color;
     padding: 1rem 2rem;
 
+    position: relative;
+
     @include flex(row);
     justify-content: space-between;
     flex-wrap: wrap;

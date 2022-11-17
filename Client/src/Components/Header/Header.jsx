@@ -6,15 +6,22 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 /* For navigating to another pages */
 import { Link } from 'react-router-dom';
 import SearchModal from "./SearchModal/SearchModal";
+import AdminBar from './AdminBar/AdminBar'
 /* Context */
 import {useConfigContext} from '../../Contexts/ConfigContext';
 
 const Header = () => {
     const {isLogged, Logout} = useConfigContext();
     const [isSearching, setIsSearching] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdminBar, setIsAdminBar] = useState(false);
 
     const handleLogOut = () => {
         Logout();
+    }
+
+    const handleAdminBar = () => {
+        isAdminBar ? setIsAdminBar(false) : setIsAdminBar(true);
     }
 
     return (
@@ -42,12 +49,19 @@ const Header = () => {
                                     <p>Cerrar sesión</p>
                                 </figure>
                             </Link>
-                            <Link to={'feed/bag'}>
-                                <figure className="btn-bag">
-                                    <i className="fa-solid fa-bag-shopping"></i>
-                                    <p>Bolsa</p>
-                                </figure>
-                            </Link>
+                            {
+                                isAdmin ? 
+                                <figure className={`btn-admin`} onClick={handleAdminBar}>
+                                    <i class="fa-solid fa-wrench"></i>
+                                    <p>Administrar</p>
+                                </figure> :
+                                <Link to={'feed/bag'}>
+                                    <figure className="btn-bag">
+                                        <i className="fa-solid fa-bag-shopping"></i>
+                                        <p>Bolsa</p>
+                                    </figure>
+                                </Link>
+                            }
                         </> : 
                         <Link to={'/login'}>
                             <figure className={`btn-login`}>
@@ -61,6 +75,9 @@ const Header = () => {
             {/* open the modal if the user is searching */}
             {
                 isSearching ? <SearchModal cancelSearch={setIsSearching}/> : <></>
+            }
+            {
+                isAdminBar ? <AdminBar /> : <></>
             }
         </header>
     )

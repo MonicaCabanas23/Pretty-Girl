@@ -42,10 +42,12 @@ const Header = () => {
                                     <p>Cerrar sesión</p>
                                 </figure>
                             </Link>
-                            <figure className="btn-bag">
-                                <i className="fa-solid fa-bag-shopping"></i>
-                                <p>Bolsa</p>
-                            </figure>
+                            <Link to={'feed/bag'}>
+                                <figure className="btn-bag">
+                                    <i className="fa-solid fa-bag-shopping"></i>
+                                    <p>Bolsa</p>
+                                </figure>
+                            </Link>
                         </> : 
                         <Link to={'/login'}>
                             <figure className={`btn-login`}>

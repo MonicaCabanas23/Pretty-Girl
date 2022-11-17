@@ -1,0 +1,13 @@
+@import './../../../assets/sass/mixins';
+@import './../../../assets/sass/variables';
+
+section.bag-container {
+    @include flex(column);
+    justify-content: center;
+    align-items: center;
+    background-color: $dark-background-color;
+
+    button.reserve {
+        margin: 2rem;
+    }
+}

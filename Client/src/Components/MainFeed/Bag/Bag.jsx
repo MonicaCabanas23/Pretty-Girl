@@ -1,12 +1,13 @@
 import React from 'react'
+import './Bag.scss'
 import ProductsContainer from '../ProductsContainer/ProductsContainer'
 import Button from '../../Button/Button'
 
 const Bag = () => {
   return (
-    <section>
+    <section className='bag-container'>
         <ProductsContainer />
-        <Button clase={reserve} text={'Reservar'}/>
+        <Button clase={'reserve'} text={'Reservar'}/>
     </section>
   )
 }

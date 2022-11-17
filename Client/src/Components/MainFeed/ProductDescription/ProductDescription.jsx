@@ -3,13 +3,15 @@ import React, { Suspense, useEffect, useLayoutEffect, useState } from 'react';
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
 import ProductsContainer from '../ProductsContainer/ProductsContainer';
+import { useConfigContext } from '../../../Contexts/ConfigContext';
 const ContainerPD = React.lazy(() => import('./ContainerPD/ContainerPD'));
 
 function ProductDescription({ id }) {
 
   const [fields, setFields] = useState();
   const url = "/api/products/" + id;
-  const [encontrado, setEncontrado] = useState(false)
+  const [encontrado, setEncontrado] = useState(false);
+  const context = useConfigContext();
   useLayoutEffect(() => {
 
     const getData = async () => {
@@ -74,7 +76,7 @@ function ProductDescription({ id }) {
       },
       {
         'key': '7',
-        'element': 'button',
+        'element': context.isLogged ? 'button' : '',
         'text': 'Agregar a la bolsa',
         'onClick': () => { console.log('Agregar al la bolsa') },
         'clase': 'AgregarCarrito'
@@ -90,9 +92,10 @@ function ProductDescription({ id }) {
 
   return (
     <>
-      <Suspense fallback={<div>Loading....</div>} >
-        {encontrado ? <><ContainerPD title={'Registrarse'} formType={'registro'} formFields={fields} justContinue={true} continuePath={''} RevervarPatch={"/product/" + id} CrearRevervarPatch={"/product/#" + id} continueText={'Registrarse'} /> <ProductsContainer title={'Recomendados para ti'}/></> : <Loading></Loading>}
+      <Suspense fallback={<Loading></Loading>} >
+        {encontrado ? <><ContainerPD title={'Registrarse'} formType={'registro'} formFields={fields} justContinue={true} continuePath={''} RevervarPatch={"/product/" + id} CrearRevervarPatch={"/product/#" + id} continueText={'Registrarse'} /> </> : <Loading></Loading>}
       </Suspense>
+      <ProductsContainer title={'Recomendados para ti'} />
     </>
   );
 }

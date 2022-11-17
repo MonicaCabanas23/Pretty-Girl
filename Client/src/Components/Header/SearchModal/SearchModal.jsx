@@ -6,6 +6,7 @@ const SearchModal = ({ cancelSearch }) => {
 
     const url = "/api/categories";
     const [Categorias, setCategorias] = useState();
+    const [BusquedaTalla, setBusquedaTalla] = useState(false);
     useEffect(() => {
         const getData = async () => {
             let { data } = await axios.get(url);
@@ -51,13 +52,16 @@ const SearchModal = ({ cancelSearch }) => {
                         </label>
                         {/* Puede dejar sin seleccionar la categoría */}
                         <label>Categoría:
-                            <select name="genre" className="select-genre">
+                            <select name="genre" className="select-genre" onChange={(e)=>{
+                                if(e.target.value !== 'none') setBusquedaTalla(true);
+                                else if(e.target.value === 'none') setBusquedaTalla(false);
+                                }}>
                                 <option value="none">Selecciona una categoría</option>
                                 {Categorias}
                             </select>
                         </label>
                         {/* Si no ha seleccionado una categoría entonces no podrá escoger una talla porque este cambia según el tipo de producto */}
-                        <label>Talla:
+                        {BusquedaTalla ? (<label>Talla:
                             <select name="genre" className="select-genre">
                                 <option value="none">Selecciona una talla</option>
                                 <option value="XS">XS</option>
@@ -66,7 +70,7 @@ const SearchModal = ({ cancelSearch }) => {
                                 <option value="L">L</option>
                                 <option value="XL">XL</option>
                             </select>
-                        </label>
+                        </label>):<></>}
                         <div className="actions">
                             <button name="clean" className="search-modal-filter-clean">Limpiar</button>
                             <button name="filter" className="search-modal-filter">Filtrar</button>

@@ -34,8 +34,7 @@ const Description = ({title, productDescription}) => {
 
                 context.product.quantity = productQuantity 
                 context.product.total = `US$ ${productQuantity*price}`
-                setFields(mappedProduct); 
-                console.log(price);  
+                setFields(mappedProduct);
             }
         }
 

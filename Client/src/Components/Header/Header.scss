@@ -12,6 +12,10 @@ header {
     justify-content: space-between;
     flex-wrap: wrap;
 
+    a{
+        text-decoration: none;
+    }
+
     .header-title-categories {
         @include flex(row);
         gap: 1rem;

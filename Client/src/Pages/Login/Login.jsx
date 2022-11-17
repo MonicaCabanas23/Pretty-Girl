@@ -1,29 +1,76 @@
 import './Login.scss';
-import React, { useState } from 'react';
-import Label from '../../Components/ComponentesLoginRegistro/label'
-import Button from '../../Components/ComponentesLoginRegistro/Button/Button';
+import React, { useState, useEffect } from 'react';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+import Register from './Register/Register';
+import Form from '../../Components/Form/Form';
+import axios from "axios";
+/* Context */
+import {useConfigContext} from '../../Contexts/ConfigContext'
 
 function Login() {
-    const [username, setUsername] = useState('');
+    const context = useConfigContext();
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const handleSubmit = () => {
+        const url = "/api/auth/login"
+        
+        const body = { "email":email, "password":password };
+        axios.post(url, body)
+            .then(response => {
+                const token = response.data.token;
+                localStorage.setItem("token", token);
+                const user = response.data.user;
+                localStorage.setItem("user", JSON.stringify(user));
+                if(response.status === 200){
+                    context.Login()
+                    navigate("/feed");
+                }
+        });
+    }
+
+    useEffect(() => {
+    }, [email, password]);
+
+    const formFields = [{
+        'key': '1',
+        'element':'label',
+        'type': 'text',
+        'text': 'Correo',
+        'valueInput': email,
+        'setValue': setEmail
+    },
+    {
+        'key': '2',
+        'element':'label',
+        'type': 'password',
+        'text': 'Contraseña',
+        'valueInput': password,
+        'setValue': setPassword
+    },
+    {
+        'key': '3',
+        'element':'link',
+        'path':'/login/register',
+        'text': "¿No tienes una cuenta? Regístrate"
+    },
+    {
+        'key': '4',
+        'element':'link',
+        'path':'/',
+        'text': "¿Olvidaste tu contraseña?"
+    }
+    ]
+
     return (
-        <div className="login">
-            <div className='formulario'>
-                <div className="form">
-                    <h1>Iniciar sesion</h1>
-                    <div className="form__body">
-                        <Label name={"text"} text={'Nombre de usuario'} clase={'name'} password={username} setPassword={setUsername} />
-                        <Label name={"password"} text={'Contraseña'} clase={'password'} password={password} setPassword={setPassword} />
-                    </div>
-                    <div className="buttons">
-                        <Button clase={"Iniciar_sesion"} onClick={() => { console.log(username); console.log(password); }} text={"Iniciar sesion"} />
-                    </div>
-                    <a href="#">¿Eres nuevo? Registrate</a>
-                    <a href="#">¿Olvidaste tu contraseña?</a>
-                </div>
-            </div>
-        </div>
+        <>
+            <Routes>
+                <Route path='/' element={<Form title={'Iniciar sesión'} formType={'login'} formFields={formFields} justContinue={true} continueText={'Iniciar sesión'} continueHandle={(e) => handleSubmit(e)}/>}/>
+                <Route path='/register' element={<Register />}/>
+            </Routes>
+        </>
     );
 }
 

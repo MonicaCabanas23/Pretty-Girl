@@ -1,7 +1,7 @@
 @import "../../assets/sass/mixins";
 @import "../../assets/sass/variables";
 
-.login {
+.form-container {
     height: 100vh;
     width: 100%;
     /* Center the content */
@@ -18,7 +18,7 @@
     text-align: center;
     font-family: $theme-montserrat;
 
-    div.formulario {
+    form.login {
         background: #2B2D42;
         display: flex;
         flex-direction: column;
@@ -37,12 +37,38 @@
         order: 0;
         flex-grow: 0;
 
-        div.form {
-            @include flex(column);
-            width: 90%;
-            height: 90%;
-            justify-content: space-between;
+        h1 {
+            font-size: 40px;
+            font-family: $theme-montserrat;
+        }
+
+        div.actions {
+            justify-content: center;
             align-items: center;
+            padding: 0px;
+            gap: 49px;
+
+            width: 60%;
+            height: 40px;
+
+            a {
+                width: 100%;
+            }
+        }
+
+        div.formFields {
+            width: 60%;
+
+            div.formLabel {
+                @include flex(column, true);
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        div.links {
+            width: 80%;
+            @include flex(column, true);
             gap: 1rem;
 
             a {
@@ -55,69 +81,22 @@
                 }
             }
         }
-
-        div.form__body {
-            @include flex(column, true);
-            align-items: center;
-            gap: 1rem;
-        }
-
-        div.form h1 {
-            font-size: 40px;
-        }
-
-        div label {
-            @include flex(column);
-            gap: 10px;
-
-            font-size: 15px;
-            margin-bottom: 1rem;
-        }
-
-        div input {
-            height: 30px;
-            width: 100%;
-            border-radius: 5px;
-            border: none;
-            padding: 0 10px;
-        }
-
-        div .buttons {
-            align-items: center;
-            padding: 0px;
-            gap: 49px;
-
-            width: 539px;
-            height: 40px;
-
-            button {
-                font-size: 18px;
-                height: 30px;
-                width: 12rem;
-            }
-
-            button.Iniciar_sesion {
-                border-radius: 5px;
-                border: none;
-                background: #5bd6c3;
-                color: black;
-
-                &:hover {
-                    background: #3aa99e;
-                }
-            }
-        }
     }
 }
 
 @media only screen and (max-width: 820px) and (max-height: 1180px) {
-    .login {
-        div.formulario {
+    .form-container {
+        form.login {
             width: 55%;
             height: auto;
-            div.form {
-                @include flex(column);
-                padding: 1rem;
+
+            div.formFields {
+                width: 80%;
+            }
+
+            div.actions {
+                width: 80%;
+                height: 40px;
             }
         }
     }
@@ -125,9 +104,9 @@
 
 // iPhone
 @media only screen and (max-width: 400px) and (max-height: 720px) {
-    .login {
-        div.formulario {
-            width: 80%;
+    .form-container {
+        form.login {
+            width: 60%;
             height: 80%;
         }
     }

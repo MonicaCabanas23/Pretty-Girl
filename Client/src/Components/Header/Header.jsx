@@ -20,7 +20,7 @@ const Header = () => {
     return (
         <header>
             <div className="header-title-categories">
-                <h2>Pretty Girl</h2>
+                <Link to={'/feed'}> <h2>Pretty Girl</h2> </Link>
                 <div className="categories">
                     <h3>Hombre</h3>
                     <h3>Mujer</h3>

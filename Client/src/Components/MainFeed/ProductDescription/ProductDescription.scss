@@ -1,25 +1,83 @@
-.form {
-    /* Frame 42 */
+@import "../../../assets/sass/mixins";
+@import "../../../assets/sass/variables";
 
+.form-container {
+    .form {
+        width: 70%;
 
-    /* Auto layout */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 40px;
+        gap: 20px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 40px 60px;
-    gap: 40px;
+        background: #2B2D42;
+        border-radius: 30px;
 
-    width: 900px;
-    height: 592px;
+        /* Inside auto layout */
 
-    background: #2B2D42;
-    border-radius: 30px;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
 
-    /* Inside auto layout */
+        .form-datos {
+            @include flex(row, true);
+            flex: content;
+            width: 100%;
+            height: auto;
+            justify-content: space-between;
+        }
 
-    flex: none;
-    order: 1;
-    flex-grow: 0;
+        .form-combobox {
+            @include flex(row, true);
+            justify-content: space-between;
+            width: 100%;
+
+            div {
+                width: 50%;
+            }
+
+            select {
+                width: 100%;
+                height: 40px;
+                border-radius: 5px;
+
+                flex: none;
+                order: 0;
+                flex-grow: 0;
+                text-align: center;
+            }
+        }
+
+        .actions {
+            width: 100%;
+
+            a {
+                button {
+
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 10px 20px;
+
+                    background-color:  #EF233C;
+                    cursor:pointer;
+
+                    width: 100%;
+                    height: 40px;
+
+                    border-radius: 10px;
+
+                    /* Inside auto layout */
+
+                    flex: none;
+                    order: 0;
+                    flex-grow: 0;
+                    color: #EDF2F4;
+                }
+            }
+        }
+    }
 }

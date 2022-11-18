@@ -40,19 +40,34 @@
 /* Media query for displaying the bars buttons for mobile devices */
 @media only screen and (max-width: 900px) {
     header {
-        .header-actions {
-            display: none;
-            
+        .header-actions-container {
             width: 100%;
-
-            justify-content: flex-end;
+            height: 100vh;
 
             position: absolute;
-            bottom: -67px;
+            top: 0;
             left: 0;
-            z-index: 3;
+            z-index: 2;
 
-            background-color: $dark-background-color;
+            background-color: rgba($black-background, 0.5);
+
+            .header-actions {
+                @include flex(column);
+                gap: 2rem;
+    
+                width: 10%;
+                height: 100vh;
+                padding: 2rem;
+    
+                align-items: center;
+    
+                position: absolute;
+                right: 0;
+    
+    
+                background-color: $dark-background-color;
+            }
         }
+
     }
 }

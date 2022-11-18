@@ -1,10 +1,12 @@
 import React from 'react'
 import './ActionsBar.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 /* Context */
 import {useConfigContext} from '../../../Contexts/ConfigContext'
 
-const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar}) => {
+const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar, handleActionsBar, }) => {
     const {isLogged, Logout} = useConfigContext();
 
     const handleLogOut = () => {
@@ -14,6 +16,7 @@ const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar}) =>
     return (
         <div className="header-actions-container">
             <div className="header-actions">
+                <FontAwesomeIcon icon={faBars} className="bars" onClick={handleActionsBar}/>
                 <figure className="btn-search" onClick={() => {
                     handleSearching(true);
                     }}>
@@ -24,7 +27,7 @@ const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar}) =>
                     isLogged ? 
                         <>
                             <Link to={'/'}>
-                                <figure onClick={handleLogOut} className="btn-logout">
+                                <figure onClick={() => {handleLogOut(); handleActionsBar();}} className="btn-logout">
                                     <i className="fa-solid fa-arrow-right-from-bracket"></i>
                                     <p>Cerrar sesión</p>
                                 </figure>
@@ -36,7 +39,7 @@ const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar}) =>
                                     <p>Administrar</p>
                                 </figure> :
                                 <Link to={'feed/bag'}>
-                                    <figure className="btn-bag">
+                                    <figure className="btn-bag" onClick={handleActionsBar}>
                                         <i className="fa-solid fa-bag-shopping"></i>
                                         <p>Bolsa</p>
                                     </figure>
@@ -44,7 +47,7 @@ const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar}) =>
                             }
                         </> : 
                         <Link to={'/login'}>
-                            <figure className={`btn-login`}>
+                            <figure className={`btn-login`} onClick={handleActionsBar}>
                                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
                                 <p>Iniciar sesión</p>
                             </figure>

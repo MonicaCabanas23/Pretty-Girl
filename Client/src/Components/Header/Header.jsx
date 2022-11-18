@@ -1,27 +1,26 @@
 import React, {useState} from "react";
 import "./Header.scss";
-/* For icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-/* For navigating to another pages */
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import SearchModal from "./SearchModal/SearchModal";
+import ActionsBar from "./ActionsBar/ActionsBar";
 import AdminBar from './AdminBar/AdminBar'
 /* Context */
 import {useConfigContext} from '../../Contexts/ConfigContext';
 
 const Header = () => {
-    const {isLogged, Logout} = useConfigContext();
+    const [showActions, setShowActions] = useState(true);
     const [isSearching, setIsSearching] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [isAdminBar, setIsAdminBar] = useState(false);
-
-    const handleLogOut = () => {
-        Logout();
-    }
+    const [showAdminBar, setShowAdminBar] = useState(false);
 
     const handleAdminBar = () => {
-        isAdminBar ? setIsAdminBar(false) : setIsAdminBar(true);
+        showAdminBar ? setShowAdminBar(false) : setShowAdminBar(true);
+    }
+
+    const handleActionsBar = () => {
+        showActions ? setShowActions(false) : setShowActions(true);
     }
 
     return (
@@ -33,51 +32,15 @@ const Header = () => {
                     <h3>Mujer</h3>
                 </div>
             </div>
-            <div className="header-actions">
-                <figure className="btn-search" onClick={() => {
-                    setIsSearching(true);
-                    }}>
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                    <p>Buscar</p>
-                </figure>
-                {
-                    isLogged ? 
-                        <>
-                            <Link to={'/'}>
-                                <figure onClick={handleLogOut} className="btn-logout">
-                                    <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                                    <p>Cerrar sesión</p>
-                                </figure>
-                            </Link>
-                            {
-                                isAdmin ? 
-                                <figure className={`btn-admin`} onClick={handleAdminBar}>
-                                    <i class="fa-solid fa-wrench"></i>
-                                    <p>Administrar</p>
-                                </figure> :
-                                <Link to={'feed/bag'}>
-                                    <figure className="btn-bag">
-                                        <i className="fa-solid fa-bag-shopping"></i>
-                                        <p>Bolsa</p>
-                                    </figure>
-                                </Link>
-                            }
-                        </> : 
-                        <Link to={'/login'}>
-                            <figure className={`btn-login`}>
-                                <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                                <p>Iniciar sesión</p>
-                            </figure>
-                        </Link>
-                }
-                <FontAwesomeIcon icon={faBars} className="bars"/>
-            </div>
+            {
+                showActions ?
+                <ActionsBar isAdmin={isAdmin} showAdminBar={showAdminBar} handleSearching={setIsSearching} handleAdminBar={handleAdminBar}/>
+                : <></>
+            }
+            <FontAwesomeIcon icon={faBars} className="bars" onClick={handleActionsBar} onChange={handleActionsBar}/>
             {/* open the modal if the user is searching */}
             {
                 isSearching ? <SearchModal cancelSearch={setIsSearching}/> : <></>
-            }
-            {
-                isAdminBar ? <AdminBar /> : <></>
             }
         </header>
     )

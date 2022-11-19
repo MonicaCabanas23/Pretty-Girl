@@ -6,14 +6,13 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import SearchModal from "./SearchModal/SearchModal";
 import ActionsBar from "./ActionsBar/ActionsBar";
-import AdminBar from './AdminBar/AdminBar'
 
 const Header = () => {
     const [showActions, setShowActions] = useState(true);
     const [isSearching, setIsSearching] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [showAdminBar, setShowAdminBar] = useState(false);
-    const isMovile = useMediaQuery({query: '(max-width: 900px)'})
+    const isMovile = useMediaQuery({query: '(max-width: 900px)'});
 
     useEffect(() => {
         isMovile ? setShowActions(false) : setShowActions(true);
@@ -24,7 +23,7 @@ const Header = () => {
     }
 
     const handleActionsBar = () => {
-        showActions ? setShowActions(false) : setShowActions(true);
+        isMovile && showActions ? setShowActions(false) : setShowActions(true);
     }
 
     return (

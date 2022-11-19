@@ -4,13 +4,19 @@
 .header-actions-container {
     @include flex(row);
     gap: 2rem;
+    position: relative;
 
     .header-actions {
         @include flex(row);
         gap: 2rem;
 
+        .title {
+            display: none;
+        }
+        
         figure {
-            padding: 10px;
+            width: 100px;
+            padding: 10px 5px;
 
             @include flex(column);
             justify-content: center;
@@ -53,19 +59,41 @@
 
             .header-actions {
                 @include flex(column);
-                gap: 2rem;
+                align-items: flex-start;
+                gap: 1rem;
     
-                width: 10%;
+                width: 200px;
                 height: 100vh;
                 padding: 2rem;
-    
-                align-items: center;
     
                 position: absolute;
                 right: 0;
     
     
                 background-color: $dark-background-color;
+
+                figure {
+                    width:  150px;
+
+                    @include flex(row);
+                    justify-content: flex-start;
+                }
+
+                .title {
+                    width: 100%;
+                    @include flex(row);
+                    justify-content: space-between;
+                    align-items: center;
+
+                    h2 {
+                        font-family: $theme-sacramento;
+                        color: $general-white; 
+                        font-size: large;
+                        text-align: center;
+            
+                        cursor: pointer;
+                    }
+                }
             }
         }
 

@@ -7,7 +7,11 @@ function label({type, name, text, valueInput, setValue, InputUse=true, clase=fal
     return (
         <div className={clase ? clase : 'formLabel'}>
             <label>{text}</label>
-            {InputUse ? <Input type={type} name={name} valueInput={valueInput} handleChange={(e) => { setValue(e.target.value) }} /> : <></>}
+            {
+                InputUse && type != 'textarea' ? 
+                <Input type={type} name={name} valueInput={valueInput} handleChange={(e) => { setValue(e.target.value) }} /> : 
+                <textarea rows='4' name={name} value={valueInput} onChange={(e) => { setValue(e.target.value) }}/>
+            }
         </div >
     );
 }

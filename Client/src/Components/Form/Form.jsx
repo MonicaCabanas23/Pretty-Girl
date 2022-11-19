@@ -18,7 +18,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
             const mappedForm = formFields.map(field => {
                 if (field.element === 'label') {
                     return (
-                        <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} />
+                        <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} clase={field.clase ? field.clase : false}/>
                     )
                 }
             });

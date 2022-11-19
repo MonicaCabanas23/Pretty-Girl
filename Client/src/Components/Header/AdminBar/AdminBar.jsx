@@ -35,7 +35,7 @@ const AdminBar = ({handleAdminBar, handleActionsBar}) => {
                 {
                     productClicked ? 
                     <div className="products-actions">
-                        <Link>
+                        <Link to={'/add-product'}>
                             <figure className={`btn-products`} onClick={handleProductClicked}>
                                 <i class="fa-solid fa-plus"></i>
                                 <p>Agregar</p>

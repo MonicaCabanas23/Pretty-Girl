@@ -4,7 +4,7 @@ import ImageUploading from 'react-images-uploading';
 
 const ImageUploader = () => {
     const [images, setImages] = useState([]);
-    const maxNumber = 20;
+    const maxNumber = 10;
 
     useEffect(() => {
         const images_ = JSON.parse(localStorage.getItem('images'));
@@ -35,21 +35,24 @@ const ImageUploader = () => {
                     </button>
                     <button onClick={onImageRemoveAll}>Eliminar todo</button>
                 </div>
-                {
-                    imageList.map((image, index) => (
-                        <div key={index} className="image-item">
-                            <div className="details-container">
-                                <figure>
-                                    <img src={image.data_url} alt={image.file.name} width="100" />
-                                </figure>
-                                <p>{image.file.name}</p>
+                <div className="images-container">
+                    {
+                        images ? <div className='information-message'> Aún no tienes nada </div> : 
+                        imageList.map((image, index) => (
+                            <div key={index} className="image-item">
+                                <div className="details-container">
+                                    <figure>
+                                        <img src={image.data_url} alt={image.file.name} width="100" />
+                                    </figure>
+                                    <p>{image.file.name}</p>
+                                </div>
+                                <div className="image-btn-wrapper">
+                                    <button className='delete' onClick={() => onImageRemove(index)}>X</button>
+                                </div>
                             </div>
-                            <div className="image-btn-wrapper">
-                                <button className='delete' onClick={() => onImageRemove(index)}>X</button>
-                            </div>
-                        </div>
-                ))
-                }
+                    ))
+                    }
+                </div>
             </div>
             )}
         </ImageUploading>

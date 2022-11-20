@@ -37,8 +37,11 @@ const ImageUploader = () => {
                 </div>
                 <div className="images-container">
                     {
-                        images ? 
+                        images.length == 0 ? 
                         <div className='information-message'>
+                            <figure>
+                                <img src="./../../src/assets/img/box.png" alt="empty" />
+                            </figure>
                             <p> Aún no tienes imágenes :/ </p>
                         </div> : 
                         imageList.map((image, index) => (

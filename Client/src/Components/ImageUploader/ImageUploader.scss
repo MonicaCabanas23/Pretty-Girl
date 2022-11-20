@@ -45,13 +45,42 @@ div.uploader-container {
         }
 
         .images-container {
+            width: auto;
             height: 500px;
+            padding: 2rem;
 
             @include flex(column);
             justify-content: center;
             align-items: center;
+
             overflow-x: hidden;
             overflow-y: auto;
+
+            background-color: rgba($color: black, $alpha: 0.2);
+            border-radius: 10px;
+
+            .information-message {
+                @include flex(column);
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+
+                figure {
+                    width: 150px;
+                    height: 150px;
+                    position: relative;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                    }
+                }
+                p {
+                    font-family: monospace;
+                    color: $general-white;
+                }
+            }
 
             .image-item {
                 width: 80%;

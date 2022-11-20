@@ -37,7 +37,10 @@ const ImageUploader = () => {
                 </div>
                 <div className="images-container">
                     {
-                        images ? <div className='information-message'> Aún no tienes nada </div> : 
+                        images ? 
+                        <div className='information-message'>
+                            <p> Aún no tienes imágenes :/ </p>
+                        </div> : 
                         imageList.map((image, index) => (
                             <div key={index} className="image-item">
                                 <div className="details-container">

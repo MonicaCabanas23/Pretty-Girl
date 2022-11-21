@@ -22,8 +22,6 @@ function Login() {
             .then(response => {
                 const token = response.data.token;
                 localStorage.setItem("token", token);
-                const user = response.data.user;
-                localStorage.setItem("user", JSON.stringify(user));
                 if(response.status === 200){
                     context.Login()
                     navigate("/feed");

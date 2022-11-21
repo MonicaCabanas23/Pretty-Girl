@@ -7,21 +7,17 @@ const ImageUploader = () => {
     const maxNumber = 10;
 
     useEffect(() => {
-        const images_ = JSON.parse(localStorage.getItem('images'));
+        const images_ = JSON.parse(localStorage.getItem("images"));
         if (images_) {
          setImages(images_);
         }
       }, []);
-
-    useEffect(() => {
-        console.log(images);
-        localStorage.setItem('images', JSON.stringify(images));
-      }, [images]);
-
+      
     const onChange = (imageList, addUpdateIndex) => {
         // data for submit
         console.log(imageList, addUpdateIndex);
         setImages(imageList);
+        localStorage.setItem("images", JSON.stringify(images));
     };
 
     return (

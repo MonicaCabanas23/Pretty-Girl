@@ -33,7 +33,6 @@ const ImageUploader = () => {
                     <button className='uploader-space' style={isDragging ? {color: '#EF233C'} : undefined} onClick={onImageUpload} {...dragProps}>
                     Arrastre y suelte las imágenes aquí para subirlas
                     </button>
-                    <button onClick={onImageRemoveAll}>Eliminar todo</button>
                 </div>
                 <div className="images-container">
                     {
@@ -58,6 +57,9 @@ const ImageUploader = () => {
                             </div>
                     ))
                     }
+                </div>
+                <div className="actions">
+                    <button onClick={onImageRemoveAll}>Eliminar todo</button>
                 </div>
             </div>
             )}

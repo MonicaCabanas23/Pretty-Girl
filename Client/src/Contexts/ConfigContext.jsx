@@ -2,12 +2,11 @@ import React, { useState } from "react";
 
 
 const ConfigContext = React.createContext();
-const token = localStorage.getItem("token");
-console.log(token)
 
 
 export const ConfigProvider = (props) => {
     const [isLogged, setIsLogged] = useState(false);
+    const [role, setRole] = useState();
 
     const Logout = () => {
         setIsLogged(false);
@@ -17,10 +16,23 @@ export const ConfigProvider = (props) => {
         setIsLogged(true);
     }
 
+    const Role = () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if(user)
+        {
+            console.log(user.role)
+            if(user.role === 'ADMIN_ROLE') setRole(true);
+            else setRole(false);
+        }
+        else setRole(false);
+    }
+
     const state = {
         isLogged,
+        role,
         Logout,
         Login,
+        Role,
     }
 
     return (

@@ -10,7 +10,7 @@ import ActionsBar from "./ActionsBar/ActionsBar";
 const Header = () => {
     const [showActions, setShowActions] = useState(true);
     const [isSearching, setIsSearching] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [isAdmin, setIsAdmin] = useState();
     const [showAdminBar, setShowAdminBar] = useState(false);
     const isMovile = useMediaQuery({query: '(max-width: 900px)'});
 

@@ -16,14 +16,13 @@ const Header = () => {
     const role = localStorage.getItem("role");
 
     useEffect(() => {
-        isMovile ? setShowActions(false) : setShowActions(true);
-        
-        if(role === "ADMIN_ROLE"){
+        if(role === "ADMIN_ROLE")
             setIsAdmin(true);
-        }
+        else
+            setIsAdmin(false);
+        
+        isMovile ? setShowActions(false) : setShowActions(true);
     }, [isMovile]);
-
-    console.log(role, isAdmin);
 
     const handleAdminBar = () => {
         showAdminBar ? setShowAdminBar(false) : setShowAdminBar(true);

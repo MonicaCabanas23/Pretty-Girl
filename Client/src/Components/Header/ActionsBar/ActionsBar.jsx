@@ -13,6 +13,7 @@ const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar, han
     const isMovile = useMediaQuery({query: '(max-width: 900px)'});
     const token = localStorage.getItem("token");
 
+
     const handleLogOut = () => {
         Logout();
     }

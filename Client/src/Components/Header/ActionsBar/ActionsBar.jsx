@@ -11,6 +11,7 @@ import {useConfigContext} from '../../../Contexts/ConfigContext'
 const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar, handleActionsBar}) => {
     const {isLogged, Logout} = useConfigContext();
     const isMovile = useMediaQuery({query: '(max-width: 900px)'});
+    const token = localStorage.getItem("token");
 
     const handleLogOut = () => {
         Logout();
@@ -31,7 +32,7 @@ const ActionsBar = ({isAdmin, showAdminBar, handleSearching, handleAdminBar, han
                     <p>Buscar</p>
                 </figure>
                 {
-                    isLogged ? 
+                    token ? 
                         <>
                             {
                                 isAdmin ? 

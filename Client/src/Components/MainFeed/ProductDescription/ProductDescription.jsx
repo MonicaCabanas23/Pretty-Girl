@@ -91,12 +91,12 @@ function ProductDescription({ id }) {
   }, [])
 
   return (
-    <>
+    <section className='product-description-container'>
       <Suspense fallback={<Loading></Loading>} >
         {encontrado ? <><ContainerPD title={'Registrarse'} formType={'registro'} formFields={fields} justContinue={true} continuePath={''} RevervarPatch={"/product/" + id} CrearRevervarPatch={"/product/#" + id} continueText={'Registrarse'} /> </> : <Loading></Loading>}
       </Suspense>
       <ProductsContainer title={'Recomendados para ti'} />
-    </>
+    </section>
   );
 }
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import './Products.scss'
-import DecorativeLines from '../DecorativeLines/DecorativeLines'
 import ProductCard from '../MainFeed/ProductsContainer/ProductCard/ProductCard'
 import axios from "axios";
 
@@ -19,7 +18,6 @@ const ProductsContainer = () => {
 
     return (
         <section className="recommended-products">
-            <DecorativeLines />
             <h1 className="title">Recién llegados</h1>
             <div className="cards">
                 {products.map((item, index) => {

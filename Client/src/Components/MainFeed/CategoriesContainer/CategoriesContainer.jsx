@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './CategoriesContainer.scss'
-import DecorativeLines from '../../DecorativeLines/DecorativeLines'
 import CategoryCard from './CategoryCard/CategoryCard'
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
@@ -22,7 +21,6 @@ const CategoriesContainer = () => {
   return (
     <section className="categoriesContainer">
       <h1 className="title">Explora nuestros productos</h1>
-      <DecorativeLines />
       <div className="categoryCards">
         {cargado ? <>
 

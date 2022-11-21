@@ -21,7 +21,11 @@ function Login() {
         axios.post(url, body)
             .then(response => {
                 const token = response.data.token;
+                const role = response.data.user.role;
+
                 localStorage.setItem("token", token);
+                localStorage.setItem("role", role);
+
                 if(response.status === 200){
                     context.Login()
                     navigate("/feed");

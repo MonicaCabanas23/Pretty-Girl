@@ -6,14 +6,14 @@ export const UserProvider = (props) => {
     const [token, setToken] = useState(false);
     const [role, setRole] = useState();
 
-    isAdmin = () => {
+    const isAdmin = () => {
         if(localRole === "ADMIN_ROLE")
             setRole("ADMIN_ROLE");
         else
             setRole("CLIENT_ROLE");
     }
 
-    hasToken = () => {
+    const hasToken = () => {
         if(localToken)
             setToken(true);
         else

@@ -2,16 +2,21 @@ import './Product.scss';
 import React, { useEffect, useLayoutEffect } from 'react';
 import ProductDescription from '../../Components/MainFeed/ProductDescription/ProductDescription';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-function Product() {    
+function Product() {
     const ruta = useLocation();
-    let id = (ruta.hash.replace('#', '')).length > 0 ? ruta.hash.replace('#', '') : false;
+    const [id, setID] = useState((ruta.hash.replace('#', '')).length > 0 ? ruta.hash.replace('#', '') : false);
     const navigate = useNavigate();
-    if(!id){
-        useEffect(() => {
+    useEffect(() => {
+        if (!id) {
             navigate('/feed');
-        },[])
-    }
+        }
+        setID((ruta.hash.replace('#', '')).length > 0 ? ruta.hash.replace('#', '') : false);
+        console.log(id);
+        
+    }, [ruta.hash])
+
     return (
         <>
             {id ? <ProductDescription id={id} /> : <></>}

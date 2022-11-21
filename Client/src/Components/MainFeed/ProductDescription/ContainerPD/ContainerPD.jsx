@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { Link } from "react-router-dom";
 import Label from '../../../Form/Label/Label';
 import Description from '../../../Form/Description/Description';
@@ -7,6 +7,7 @@ import A from '../../../a/a';
 import H from '../../../H/H';
 import P from '../../../P/P';
 import Combobox from '../../../Form/ComboBox/ComboBox';
+import Loading from '../../../Loading/Loading';
 
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
@@ -17,9 +18,11 @@ const ContainerPD = ({ title, formType, formFields, descriptionFields, justReser
     const [combobox, setCombobox] = useState();
     const [Boton, setButton] = useState([]);
     const [img, setImg] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     /* When render just once */
     useEffect(() => {
+        setLoading(true)
         if (formType != 'description') {
             /* Get label fields */
             const mappedDatos = formFields.map(field => {
@@ -66,30 +69,37 @@ const ContainerPD = ({ title, formType, formFields, descriptionFields, justReser
             setButton(mapeedButton);
             setImg(mapeedimg);
         }
-    }, []);
+        setLoading(false);
+    }, [formFields]);
 
     return (
-        <div className='form-container'>
-            <div className='form-img'>
-                {img}
-            </div>
-            <div className='form'>
-                <div className='form-datos'>
-                    {Datos}
-                </div>
-                <div className='form-description'>
-                    {Descripcion}
-                </div>
-                <div className='form-combobox'>
-                    {combobox}
-                </div>
-                <div className="actions">
-                    {
-                        justReserva ? <Link to={RevervarPatch}> {Boton} </Link> : <Link to={CrearRevervarPatch}>{Boton}</Link>
-                    }
-                </div>
-            </div>
-        </div>
+        <>
+            {
+                loading ? <Loading></Loading> : <>
+                    <div className='form-container'>
+                        <div className='form-img'>
+                            {img}
+                        </div>
+                        <div className='form'>
+                            <div className='form-datos'>
+                                {Datos}
+                            </div>
+                            <div className='form-description'>
+                                {Descripcion}
+                            </div>
+                            <div className='form-combobox'>
+                                {combobox}
+                            </div>
+                            <div className="actions">
+                                {
+                                    justReserva ? <Link to={RevervarPatch}> {Boton} </Link> : <Link to={CrearRevervarPatch}>{Boton}</Link>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </>
+            }
+        </>
     )
 }
 

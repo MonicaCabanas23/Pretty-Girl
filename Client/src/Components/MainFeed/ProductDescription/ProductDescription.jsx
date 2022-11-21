@@ -11,9 +11,11 @@ function ProductDescription({ id }) {
   const [fields, setFields] = useState();
   const url = "/api/products/" + id;
   const [encontrado, setEncontrado] = useState(false);
+  const [loading, setLoading] = useState(true);
   const context = useConfigContext();
-  useLayoutEffect(() => {
+  useEffect(() => {
 
+    setLoading(true)
     const getData = async () => {
       let { data } = await axios.get(url);
 
@@ -84,26 +86,26 @@ function ProductDescription({ id }) {
       ]
       setFields(formFields);
       setEncontrado(true);
+      setLoading(false)
+        
     }
     getData();
+      console.log(loading)
 
-
-  }, [])
+  }, [id])
 
   return (
     <section className='product-description-container'>
       <Suspense fallback={<Loading></Loading>} >
-        {encontrado ? <><ContainerPD title={'Registrarse'} formType={'registro'} formFields={fields} justContinue={true} continuePath={''} RevervarPatch={"/product/" + id} CrearRevervarPatch={"/product/#" + id} continueText={'Registrarse'} /> </> : <Loading></Loading>}
+        {
+          loading ? <Loading></Loading> :
+            <>
+              {encontrado ? <><ContainerPD title={'Registrarse'} formType={'registro'} formFields={fields} justContinue={true} continuePath={''} RevervarPatch={"/product/" + id} CrearRevervarPatch={"/product/#" + id} continueText={'Registrarse'} /> </> : <Loading></Loading>}
+            </>
+        }
       </Suspense>
       <ProductsContainer title={'Recomendados para ti'} />
     </section>
   );
 }
-
-function Datos({ id }) {
-
-
-  return Fields;
-}
-
 export default ProductDescription;

@@ -1,6 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+
 
 const ConfigContext = React.createContext();
+const token = localStorage.getItem("token");
+console.log(token)
+
 
 export const ConfigProvider = (props) => {
     const [isLogged, setIsLogged] = useState(false);
@@ -14,9 +18,9 @@ export const ConfigProvider = (props) => {
     }
 
     const state = {
-        isLogged, 
-        Logout, 
-        Login,  
+        isLogged,
+        Logout,
+        Login,
     }
 
     return (
@@ -28,7 +32,7 @@ export const useConfigContext = () => {
     const context = React.useContext(ConfigContext);
 
     if (!context)
-    throw new Error("useConfigContext must be call inside of a ConfigContextProvider component");
+        throw new Error("useConfigContext must be call inside of a ConfigContextProvider component");
 
     return context;
 }

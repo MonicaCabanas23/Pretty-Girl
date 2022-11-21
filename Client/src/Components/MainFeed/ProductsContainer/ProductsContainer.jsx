@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from 'react'
 import { Link } from "react-router-dom";
 import './ProductsContainer.scss'
-import DecorativeLines from '../../DecorativeLines/DecorativeLines'
+
 import ProductCard from './ProductCard/ProductCard'
 import axios from "axios";
 import Loading from '../../Loading/Loading';
@@ -23,7 +23,6 @@ const ProductsContainer = ({ title }) => {
   return (
     <section className="recommended-products">
       <h1 className="title">{title}</h1>
-      <DecorativeLines />
       <div className="cards">
         <Suspense>
           {cargado ? <>

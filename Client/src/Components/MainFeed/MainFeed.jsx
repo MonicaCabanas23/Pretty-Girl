@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import './MainFeed.scss'
 import { Routes, Route} from "react-router-dom";
 import CategoriesContainer from './CategoriesContainer/CategoriesContainer'
 import ProductDescription from './ProductDescription/ProductDescription'
@@ -12,12 +13,12 @@ const Body = () => {
 
   /* El body irá cambiando dependiendo de ciertos estados, esto puede ser con <Link/> */
   return (
-    <div>
+    <div className='main-feed-container'>
       <CategoriesContainer/>
-          {
-            context.isLogged ? <ProductsContainer title={'Recomendados para ti'}/> : <></>
-          }
-          <ProductsContainer title={'Recién llegados'}/>
+      {
+        context.isLogged ? <ProductsContainer title={'Recomendados para ti'}/> : <></>
+      }
+      <ProductsContainer title={'Recién llegados'}/>
     </div>
   )
 }

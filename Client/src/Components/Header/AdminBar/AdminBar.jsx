@@ -35,14 +35,14 @@ const AdminBar = ({handleAdminBar, handleActionsBar}) => {
                 {
                     productClicked ? 
                     <div className="products-actions">
-                        <Link>
-                            <figure className={`btn-products`} onClick={handleProductClicked}>
+                        <Link to={'/add-product'}>
+                            <figure className={`btn-products`} onClick={() => { isMovile ? handleActionsBar() : handleAdminBar()}}>
                                 <i class="fa-solid fa-plus"></i>
                                 <p>Agregar</p>
                             </figure>
                         </Link>
                         <Link>
-                            <figure className={`btn-products`} onClick={handleProductClicked}>
+                            <figure className={`btn-products`} onClick={() => { isMovile ? handleActionsBar() : handleAdminBar()}}>
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 <p>Editar</p>
                             </figure>
@@ -50,13 +50,13 @@ const AdminBar = ({handleAdminBar, handleActionsBar}) => {
                     </div> : <></>
                 }
                 <Link>
-                    <figure className={`btn-categories`}>
+                    <figure className={`btn-categories`} onClick={() => { isMovile ? handleActionsBar() : handleAdminBar()}}>
                         <i className="fa-solid fa-cubes-stacked"></i>
                         <p>Categorías</p>
                     </figure>
                 </Link>
                 <Link>
-                    <figure className={`btn-login`}>
+                    <figure className={`btn-bookings`} onClick={() => { isMovile ? handleActionsBar() : handleAdminBar()}}>
                         <i className="fa-regular fa-bookmark"></i>
                         <p>Reservas</p>
                     </figure>

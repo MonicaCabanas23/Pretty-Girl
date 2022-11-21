@@ -1,0 +1,13 @@
+@import '../../../assets/sass/mixins';
+@import '../../../assets/sass/variables';
+
+section.add-product {
+    @include flex(row);
+    flex-wrap: wrap;
+    gap: 0;
+
+    .uploader-container, .form-container {
+        width: 500px;
+        flex-grow: 1;
+    }
+}

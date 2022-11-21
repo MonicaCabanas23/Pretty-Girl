@@ -6,6 +6,7 @@ import Login from './Pages/Login/Login';
 import Feed from './Pages/Feed/Feed';
 import Filtered from './Pages/Feed/Filtered/Filtered';
 import Product from "./Pages/Product/Product";
+import AddProduct from "./Components/MainFeed/AddProduct/AddProduct";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path='/product/*' element={<Product />} />
           {/* En el login, redirigirá a register si no tiene cuenta */}
           <Route path='/login/*' element={<Login />} />
+          <Route path='/add-product' element={<AddProduct />} />
           <Route path='*' element={<h1> 404 not found </h1>} />
         </Routes>
       </main>

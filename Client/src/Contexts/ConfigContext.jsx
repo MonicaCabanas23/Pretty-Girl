@@ -10,6 +10,8 @@ export const ConfigProvider = (props) => {
 
     const Logout = () => {
         setIsLogged(false);
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
     }
 
     const Login = () => {

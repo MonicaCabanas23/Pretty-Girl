@@ -13,8 +13,14 @@ const Header = () => {
     const [isAdmin, setIsAdmin] = useState();
     const [showAdminBar, setShowAdminBar] = useState(false);
     const isMovile = useMediaQuery({query: '(max-width: 900px)'});
+    const role = localStorage.getItem("role");
 
     useEffect(() => {
+        if(role === "ADMIN_ROLE")
+            setIsAdmin(true);
+        else
+            setIsAdmin(false);
+        
         isMovile ? setShowActions(false) : setShowActions(true);
     }, [isMovile]);
 

@@ -2,6 +2,7 @@ const User = require("../models/user");
 const Category = require("../models/category");
 const Product = require("../models/product");
 const Booking = require("../models/booking");
+const Bag = require("../models/bag")
 
 const emailExist = async (email = "") => {
   const emailExist = await User.findOne({ email });
@@ -47,7 +48,13 @@ const bookingExistByID = async (id = "") => {
   }
 };
 
-// Validate collections
+const bagExistByID = async (id = "") => {
+  const bagExist = await Bag.findById(id);
+  if (!bagExist) {
+    throw new Error(`Bag ID:${id} does not exist`);
+  }
+};
+
 const allowedCollections = (collection = "", collections = []) => {
   const included = collections.includes(collection);
   if (!included) {
@@ -63,5 +70,6 @@ module.exports = {
   categoryExistByID,
   productExistByID,
   bookingExistByID,
+  bagExistByID,
   allowedCollections,
 };

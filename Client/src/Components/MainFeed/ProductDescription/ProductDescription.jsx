@@ -6,8 +6,7 @@ import ProductsContainer from '../ProductsContainer/ProductsContainer';
 import { useConfigContext } from '../../../Contexts/ConfigContext';
 const ContainerPD = React.lazy(() => import('./ContainerPD/ContainerPD'));
 import Swal from 'sweetalert2'
-
-const [agregando, setAgregando] = useState(false);
+let agregando = false;
 
 function ProductDescription({ id }) {
 
@@ -114,8 +113,9 @@ export default ProductDescription;
 
 
 async function PushBag(id) {
+  console.log(agregando)
   if (!agregando) {
-    setAgregando(true);
+    agregando = true;
     let url = "/api/bags/637030075a61d40805581882";
     const config = {
       headers: {
@@ -140,7 +140,7 @@ async function PushBag(id) {
           ]
         }
         axios.post(url, data, config).then(data => {
-        }).catch(error =>
+        }).catch(error => {
           Swal.fire({
             title: 'Ocurrio un error vuelve a intentarlo',
             timer: 2000,
@@ -149,6 +149,8 @@ async function PushBag(id) {
             timerProgressBar: true,
             allowOutsideClick: false
           })
+          agregando = false;
+        }
         )
       }
       else {
@@ -185,7 +187,8 @@ async function PushBag(id) {
             timerProgressBar: true,
             allowOutsideClick: false
           })
-        }).catch(error =>
+          agregando = false;
+        }).catch(error => {
           Swal.fire({
             title: 'Ocurrio un error vuelve a intentarlo',
             timer: 2000,
@@ -193,10 +196,12 @@ async function PushBag(id) {
             showConfirmButton: false,
             timerProgressBar: true,
             allowOutsideClick: false
-          })
+          });
+
+          agregando = false;
+        }
         )
       }
     })
-    setAgregando(false);
   }
 }

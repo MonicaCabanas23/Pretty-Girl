@@ -46,76 +46,16 @@ const AddProduct = () => {
     ];
 
     const getCategories = async () => {
-      let { data } = await axios.get(url);
+      await axios.get(url).then(data => {
+        data=data.data;
+        for (let i = 0; i < data.total; i++) {
+          const option = { 'value': data.categories[i].name };
+          categoryOptions.push(option);
+        }
+        setCategories(categoryOptions.length>1? categoryOptions:[{ 'value': 'Seleciona una categoría' }]);
+      }).
+      catch(error=>console.log(error))
 
-      for (let i = 0; i < data.total; i++) {
-        const option = { 'value': data.categories[i].name };
-        categoryOptions.push(option);
-      }
-      setCategories(categoryOptions);
-      setLoading(false);
-      const fields = [{
-        'key': '1',
-        'element': 'label',
-        'clase': 'whole-space',
-        'type': 'text',
-        'text': 'Nombre',
-        'valueInput': name,
-        'setValue': setName
-      }, {
-        'key': '2',
-        'element': 'label',
-        'clase': '',
-        'type': 'text',
-        'text': 'Precio',
-        'valueInput': price,
-        'setValue': setPrice
-      }, {
-        'key': '3',
-        'element': 'label',
-        'clase': '',
-        'type': 'number',
-        'text': 'Stock',
-        'valueInput': quantity,
-        'setValue': setQuantity
-      }, {
-        'key': '4',
-        'element': 'combobox',
-        'clase': 'combobox',
-        'type': 'combobox',
-        'text': 'Categoría',
-        'valueInput': category,
-        'setValue': setCategory,
-        'options': categories
-      }, {
-        'key': '5',
-        'element': 'combobox',
-        'clase': 'combobox',
-        'type': 'text',
-        'text': 'Género',
-        'valueInput': genre,
-        'setValue': setGenre,
-        'options': genreOptions
-      }, {
-        'key': '6',
-        'element': 'combobox',
-        'clase': 'combobox',
-        'type': 'text',
-        'text': 'Talla',
-        'valueInput': size,
-        'setValue': setSize,
-        'options': sizeOptions
-      }, {
-        'key': '7',
-        'element': 'combobox',
-        'clase': 'combobox',
-        'type': 'text',
-        'text': 'Color',
-        'valueInput': color,
-        'setValue': setColor,
-        'options': colorOptions
-      }]
-      setFormFields(fields);
     }
 
     getCategories();
@@ -123,7 +63,75 @@ const AddProduct = () => {
   }, [])
 
   useEffect(() => {
+    const fields = [{
+      'key': '1',
+      'element': 'label',
+      'clase': 'whole-space',
+      'type': 'text',
+      'text': 'Nombre',
+      'valueInput': name,
+      'setValue': setName
+    }, {
+      'key': '2',
+      'element': 'label',
+      'clase': '',
+      'type': 'text',
+      'text': 'Precio',
+      'valueInput': price,
+      'setValue': setPrice
+    }, {
+      'key': '3',
+      'element': 'label',
+      'clase': '',
+      'type': 'number',
+      'text': 'Stock',
+      'valueInput': quantity,
+      'setValue': setQuantity
+    }, {
+      'key': '4',
+      'element': 'combobox',
+      'clase': 'combobox',
+      'type': 'combobox',
+      'text': 'Categoría',
+      'valueInput': category,
+      'setValue': setCategory,
+      'options': categories
+    }, {
+      'key': '5',
+      'element': 'combobox',
+      'clase': 'combobox',
+      'type': 'text',
+      'text': 'Género',
+      'valueInput': genre,
+      'setValue': setGenre,
+      'options': genreOptions
+    }, {
+      'key': '6',
+      'element': 'combobox',
+      'clase': 'combobox',
+      'type': 'text',
+      'text': 'Talla',
+      'valueInput': size,
+      'setValue': setSize,
+      'options': sizeOptions
+    }, {
+      'key': '7',
+      'element': 'combobox',
+      'clase': 'combobox',
+      'type': 'text',
+      'text': 'Color',
+      'valueInput': color,
+      'setValue': setColor,
+      'options': colorOptions
+    }]
+    setFormFields(fields);
   }, [categories])
+
+  useEffect(() => {
+    console.log(categories, formFields)
+    setLoading((formFields.length>0 & categories.length>0)?false:true);
+    console.log(loading);
+  }, [formFields])
 
   return (
     <>

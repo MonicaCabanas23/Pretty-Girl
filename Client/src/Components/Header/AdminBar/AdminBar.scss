@@ -2,7 +2,7 @@
 @import "../../../assets/sass/variables";
 
 .admin-actions-container {
-    width: 70%;
+    width: 162.4px;
     height: 100vh;
     padding: 0 15.84px;
 
@@ -10,7 +10,7 @@
     top: -17px;
     right: -31px;
 
-    background-color: rgba($color: $black-background, $alpha: 0.5);
+    background-color: rgba($color: $black-background, $alpha: 0.7);
 
     z-index: 2;
     .admin-actions {

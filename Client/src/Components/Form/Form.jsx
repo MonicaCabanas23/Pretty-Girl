@@ -4,6 +4,7 @@ import './Form.scss'
 import Label from './Label/Label'
 import Description from './Description/Description';
 import Button from '../Button/Button'
+import Combobox from './ComboBox/ComboBox';
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */
@@ -19,6 +20,11 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                 if (field.element === 'label') {
                     return (
                         <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} clase={field.clase ? field.clase : false}/>
+                    )
+                }
+                if (field.element === 'combobox') {
+                    return (
+                        <Combobox key={field.key} clase={field.clase} name={field.name} options={field.options} setOption={field.setValue}/>
                     )
                 }
             });
@@ -46,6 +52,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     )
                 }
             });
+
 
             if(formType != 'description'){
                 setFields(mappedForm);

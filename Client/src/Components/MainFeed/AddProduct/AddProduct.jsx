@@ -1,9 +1,64 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './AddProduct.scss'
 import ImageUploader from '../../ImageUploader/ImageUploader'
 import Form from '../../Form/Form'
+import axios from 'axios'
 
 const AddProduct = () => {
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [category, setCategory] = useState('');
+  const [genre, setGenre] = useState('');
+  const [size, setSize] = useState('');
+  const [color, setColor] = useState('');
+  const [categories, setCategories] = useState([]);
+
+  const url = "/api/categories/";
+  
+  const sizeOptions = [
+    {'value': 'Selecciona una talla'},
+    {'value': 'XS'}, 
+    {'value': 'S'}, 
+    {'value': 'M'}, 
+    {'value': 'L'}, 
+    {'value': 'XL'}
+  ];
+  const genreOptions = [
+    {'value': 'Seleciona un género'},
+    {'value': 'Masculino'}, 
+    {'value': 'Femenino'}, 
+    {'value': 'Unisex'}, 
+  ];
+  const colorOptions = [
+    {'value': 'Selecciona un color'},
+    {'value': 'Azul'}, 
+    {'value': 'Amarillo'}, 
+    {'value': 'Rojo'}, 
+  ];
+
+  useEffect(() => {
+    const categoryOptions = [
+      {'value': 'Seleciona una categoría'}
+    ];
+
+    const getCategories = async () => {
+      let {data} = await axios.get(url);
+
+      for (let i = 0; i < data.total; i++){
+        const option = {'value': data.categories[i].name};
+        categoryOptions.push(option);
+      }
+    }
+
+    getCategories();
+    setCategories(categoryOptions);
+
+  }, [])
+
+  useEffect(() => {
+    console.log(categories);
+  }, [categories])
 
   const formFields = [{
     'key':'1',
@@ -11,72 +66,60 @@ const AddProduct = () => {
     'clase': 'whole-space',
     'type': 'text',
     'text': 'Nombre',
-    'valueInput': 'name',
-    'setValue': 'setProductName'
+    'valueInput': name,
+    'setValue': setName
 }, {
     'key':'2',
-    'element': 'label',
-    'clase': 'textarea',
-    'type': 'textarea',
-    'text': 'Descripción',
-    'valueInput': 'password',
-    'setValue': 'setPassword'   
-}, {
-    'key':'3',
     'element': 'label',
     'clase': '',
     'type': 'text',
     'text': 'Precio',
-    'valueInput': 'username',
-    'setValue': 'setUsername'
+    'valueInput': price,
+    'setValue': setPrice
 }, {
-    'key':'4',
+    'key':'3',
     'element': 'label',
     'clase': '',
     'type': 'number',
     'text': 'Stock',
-    'valueInput': 'username',
-    'setValue': 'setUsername'
+    'valueInput': quantity,
+    'setValue': setQuantity
 }, {
-    'key':'5',
-    'element': 'label',
+    'key':'4',
+    'element': 'combobox',
     'clase': '',
-    'type': 'text',
+    'type': 'combobox',
     'text': 'Categoría',
-    'valueInput': 'username',
-    'setValue': 'setUsername'
+    'valueInput': category,
+    'setValue': setCategory,
+    'options': categories
 }, {
   'key':'5',
-  'element': 'label',
+  'element': 'combobox',
   'clase': '',
   'type': 'text',
   'text': 'Género',
-  'valueInput': 'username',
-  'setValue': 'setUsername'
+  'valueInput': genre,
+  'setValue': setGenre, 
+  'options': genreOptions
 }, {
-  'key':'5',
-  'element': 'label',
+  'key':'6',
+  'element': 'combobox',
   'clase': '',
   'type': 'text',
   'text': 'Talla',
-  'valueInput': 'username',
-  'setValue': 'setUsername'
+  'valueInput': size,
+  'setValue': setSize,
+  'options': sizeOptions
 }, {
-  'key':'5',
-  'element': 'label',
+  'key':'7',
+  'element': 'combobox',
   'clase': '',
   'type': 'text',
   'text': 'Color',
-  'valueInput': 'username',
-  'setValue': 'setUsername'
-}, {
-  'key':'5',
-  'element': 'label',
-  'clase': '',
-  'type': 'text',
-  'text': 'Etiquetas',
-  'valueInput': 'username',
-  'setValue': 'setUsername'
+  'valueInput': color,
+  'setValue': setColor, 
+  'options': colorOptions
 }]
 
   return (

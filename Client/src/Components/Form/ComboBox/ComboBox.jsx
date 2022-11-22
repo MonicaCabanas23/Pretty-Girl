@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function Combobox({ clase, name, options }) {
+function Combobox({ clase, name, options, setOption}) {
     const [value, setValue] = useState('');
 
     useEffect(() => {
@@ -17,7 +17,7 @@ function Combobox({ clase, name, options }) {
     }, [])
 
     return (
-        <div className={clase}>
+        <div className={clase} onChange={(e) => {setOption(e.target.value)}}>
             <select name={name}>
                 {value}
             </select>

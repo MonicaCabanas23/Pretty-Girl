@@ -114,95 +114,113 @@ export default ProductDescription;
 
 
 async function PushBag(id) {
-  console.log(moment().unix())
-  // if (!agregando) {
-  //   agregando = true;
-  //   let url = "/api/bags/637030075a61d40805581882";
-  //   const config = {
-  //     headers: {
-  //       'x-token': localStorage.getItem("token")
-  //     }
-  //   };
-  //   await axios.get(url, config).then(datos => {
-  //     if (datos.data.length == 0) {
-  //       url = "/api/bags/";
-  //       const config = {
-  //         headers: {
-  //           'x-token': localStorage.getItem("token")
-  //         }
-  //       };
-  //       const data = {
-  //         user: '637030075a61d40805581882',
-  //         products: [
-  //           {
-  //             "_id": id,
-  //             amount: 1
-  //           }
-  //         ]
-  //       }
-  //       axios.post(url, data, config).then(data => {
-  //       }).catch(error => {
-  //         Swal.fire({
-  //           title: 'Ocurrio un error vuelve a intentarlo',
-  //           timer: 2000,
-  //           icon: 'error',
-  //           showConfirmButton: false,
-  //           timerProgressBar: true,
-  //           allowOutsideClick: false
-  //         })
-  //         agregando = false;
-  //       }
-  //       )
-  //     }
-  //     else {
-  //       url = "/api/bags/" + datos.data[0]._id;
-  //       const config = {
-  //         headers: {
-  //           'x-token': localStorage.getItem("token")
-  //         }
-  //       };
-  //       let data = {
-  //         user: datos.data[0].user,
-  //         products: []
-  //       }
-  //       let update = false;
-  //       datos.data[0].products.forEach((element, index) => {
-  //         if (element._id == id) {
-  //           data.products.push({
-  //             "_id": element._id,
-  //             amount: element.amount + 1
-  //           })
-  //           update = true;
-  //         }
-  //       });
-  //       if (!update) data.products.push({
-  //         "_id": id,
-  //         amount: 1
-  //       })
-  //       axios.put(url, data, config).then(data => {
-  //         Swal.fire({
-  //           title: 'Agregado a la bolsa',
-  //           timer: 2000,
-  //           icon: 'success',
-  //           showConfirmButton: false,
-  //           timerProgressBar: true,
-  //           allowOutsideClick: false
-  //         })
-  //         agregando = false;
-  //       }).catch(error => {
-  //         Swal.fire({
-  //           title: 'Ocurrio un error vuelve a intentarlo',
-  //           timer: 2000,
-  //           icon: 'error',
-  //           showConfirmButton: false,
-  //           timerProgressBar: true,
-  //           allowOutsideClick: false
-  //         });
+  if (!agregando) {
+    agregando = true;
+    let url = "/api/auth/validate/" + localStorage.getItem("token");
+    await axios.get(url).then(TokenData => {
+      console.log(TokenData.data.uid);
+      if (TokenData.data.exp >= moment().unix()) {
+        url = "/api/bags/" + TokenData.data.uid;
+        const config = {
+          headers: {
+            'x-token': localStorage.getItem("token")
+          }
+        };
+        axios.get(url, config).then((datos) => {
+          if (datos.data.length == 0) {
+            url = "/api/bags/";
+            const config = {
+              headers: {
+                'x-token': localStorage.getItem("token")
+              }
+            };
+            const data = {
+              user: TokenData.data.uid,
+              products: [
+                {
+                  "_id": id,
+                  amount: 1
+                }
+              ]
+            }
+            console.log(data)
+            axios.post(url, data, config).then(data => {
+              console.log(data)
+              Swal.fire({
+                title: 'Agregado a la bolsa',
+                timer: 2000,
+                icon: 'success',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                allowOutsideClick: false
+              })
+              
+              agregando = false;
+            }).catch(error => {
+              Swal.fire({
+                title: 'Ocurrio un error vuelve a intentarlo',
+                timer: 2000,
+                icon: 'error',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                allowOutsideClick: false
+              })
+              agregando = false;
+            }
+            )
+          }
+          else {
+            url = "/api/bags/" + datos.data[0]._id;
+            const config = {
+              headers: {
+                'x-token': localStorage.getItem("token")
+              }
+            };
+            let data = {
+              user: datos.data[0].user,
+              products: []
+            }
+            let update = false;
+            datos.data[0].products.forEach((element) => {
+              console.log(element._id == id)
+              if (element._id == id) {
+                data.products.push({
+                  "_id": element._id,
+                  amount: element.amount + 1
+                })
+                update = true;
+              }
+            });
+            if (!update) data.products.push({
+              "_id": id,
+              amount: 1
+            })
+            axios.put(url, data, config).then(data => {
+              Swal.fire({
+                title: 'Agregado a la bolsa',
+                timer: 2000,
+                icon: 'success',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                allowOutsideClick: false
+              })
+              agregando = false;
+            }).catch(error => {
+              Swal.fire({
+                title: 'Ocurrio un error vuelve a intentarlo',
+                timer: 2000,
+                icon: 'error',
+                showConfirmButton: false,
+                timerProgressBar: true,
+                allowOutsideClick: false
+              });
 
-  //         agregando = false;
-  //       }
-  //       )
-  //     }
-  //   })
-  // }
+              agregando = false;
+            }
+            )
+          }
+        })
+      }
+    })
+  }
 }

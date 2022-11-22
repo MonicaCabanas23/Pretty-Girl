@@ -7,7 +7,65 @@ section.bag-container {
     align-items: center;
     background-color: $dark-background-color;
 
+    div.cards {
+        width: 100%;
+        height: auto;
+
+        @include flex(row);
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
     button.reserve {
         margin: 2rem;
+    }
+
+    .cards {
+        article.product-card {
+            @include flex(column);
+            position: relative;
+            width: 13.5rem;
+
+            p{
+                input{
+                    text-align: center;
+                    width: 40%;
+                }
+            }
+
+            button.delete {
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                right: 0;
+                background-color: transparent;
+
+                figure.delete {
+                    border-radius: 50%;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: end;
+                    transition: all 0.3s;
+
+                    &:hover {
+                        background-color: $red-principal-color;
+                        svg{
+                            fill: $black-background;
+                        }
+                    }
+
+                    svg {
+                        width: 24px;
+                        height: 24px;
+                        fill: $red-principal-color;
+                        cursor: pointer;
+                        display: block;
+
+                    }
+                }
+            }
+        }
     }
 }

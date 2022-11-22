@@ -11,12 +11,12 @@ const ProductsBag = ({ title, bag = false, products }) => {
                 {
                     products.map((item, index) => {
                         return (
-                            <ProductCardBag key={index} image={item.picture} name={item.name} price={item.price} />
+                            <ProductCardBag key={index} product={item} />
                         )
                     })
                 }
             </div>
-        </ >
+        </>
     )
 }
 

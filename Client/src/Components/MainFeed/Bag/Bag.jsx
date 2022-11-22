@@ -11,18 +11,19 @@ const Bag = () => {
   useEffect(() => {
     const getData = async () => {
       let url = "/api/auth/validate/" + localStorage.getItem('token');
-      await axios.get(url).then((res) => {
+      await axios.get(url).then(async (res) => {
         const config = {
           headers: {
             'x-token': localStorage.getItem("token")
           }
         };
-        axios.get("/api/bags/" + res.data.uid, config).then((data) => {
+        await axios.get("/api/bags/" + res.data.uid, config).then(async (data) => {
           url = '/api/bags/products/' + data.data[0]._id
-          axios.get(url, config).then((res) => {
+          await axios.get(url, config).then((res) => {
             let fields;
-            fields = res.data.map((item) => {
-              const amount = data.data[0].products.map((product) => { if (item._id === product._id) return product.amount });
+            fields = res.data.map(async (item) => {
+              console.log(item._id,product._id)
+              const amount = await data.data[0].products.map((product) => { if (item._id === product._id) return product.amount });
               return {
                 available: item.available,
                 color: [
@@ -34,7 +35,8 @@ const Bag = () => {
                 size: [
                   item.size
                 ],
-                amount: amount[0]
+                amount: amount[0],
+                max: item.amount
               }
             })
             setProducts(fields)

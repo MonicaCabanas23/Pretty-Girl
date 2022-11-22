@@ -6,7 +6,7 @@ import ProductCard from './ProductCard/ProductCard'
 import axios from "axios";
 import Loading from '../../Loading/Loading';
 
-const ProductsContainer = ({ title }) => {
+const ProductsContainer = ({ title, bag=false }) => {
   const [products, setProducts] = useState([]);
   const [cargado, setCargado] = useState(false);
   const url = "/api/products";
@@ -22,7 +22,7 @@ const ProductsContainer = ({ title }) => {
 
   return (
     <section className="recommended-products">
-      <h1 className="title">{title}</h1>
+      {title?<h1 className="title">{title}</h1>:<></>}
       <div className="cards">
         <Suspense>
           {cargado ? <>

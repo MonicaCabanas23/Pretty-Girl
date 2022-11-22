@@ -15,15 +15,14 @@ export const ConfigProvider = (props) => {
     }
 
     const Login = () => {
-        setIsLogged(true);
+        setIsLogged(localStorage.getItem('token') ? true : false)
     }
 
     const Role = () => {
         const user = JSON.parse(localStorage.getItem("user"));
-        if(user)
-        {
+        if (user) {
             console.log(user.role)
-            if(user.role === 'ADMIN_ROLE') setRole(true);
+            if (user.role === 'ADMIN_ROLE') setRole(true);
             else setRole(false);
         }
         else setRole(false);

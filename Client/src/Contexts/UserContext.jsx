@@ -1,28 +1,19 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 const UserContext = React.createContext();
 
 export const UserProvider = (props) => {
     const [token, setToken] = useState(false);
-    const [role, setRole] = useState();
+    const [admin, setAdmin] = useState(false);
 
     const isAdmin = () => {
-        if(localRole === "ADMIN_ROLE")
-            setRole("ADMIN_ROLE");
-        else
-            setRole("CLIENT_ROLE");
-    }
 
-    const hasToken = () => {
-        if(localToken)
-            setToken(true);
-        else
-            setToken(false);
     }
 
     const state = {
         isAdmin,
         hasToken,
+        admin
     }
 
     return (
@@ -34,7 +25,7 @@ export const useUserContext = () => {
     const context = React.useContext(UserContext);
 
     if (!context)
-    throw new Error("useUserContext must be call inside of a UserContextProvider component");
+        throw new Error(context);
 
     return context;
 }

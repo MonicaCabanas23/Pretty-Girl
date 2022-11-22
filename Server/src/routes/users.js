@@ -59,11 +59,10 @@ router.put(
         check("id").custom(userExistByID),
         check("name", "Name is required").not().isEmpty(),
         check("dui", "DUI is required").not().isEmpty(),
-        check("dui").isLength({ min:8, max:9 }).custom(duiExist),
+        check("dui").isLength({ max:9 }),
         check("email", "Invalid email").isEmail(),
-        check("email").custom(emailExist),
         check("phone", "Phone is required").not().isEmpty(),
-        check("phone").isLength({ max: 12 }),
+        check("phone").isLength({ max: 8 }),
         check("address", "Address is required").not().isEmpty(),
         check("password", "The password must have more than 6 letters").isLength({
             min: 6,

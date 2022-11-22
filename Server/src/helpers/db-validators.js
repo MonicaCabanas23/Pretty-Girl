@@ -55,6 +55,13 @@ const bagExistByID = async (id = "") => {
   }
 };
 
+const bagExistByUser = async (id = "") => {
+  const bagExist = await Bag.find({user: id,});
+  if (!bagExist) {
+    throw new Error(`Bag User ID:${id} does not exist`);
+  }
+};
+
 const allowedCollections = (collection = "", collections = []) => {
   const included = collections.includes(collection);
   if (!included) {
@@ -71,5 +78,6 @@ module.exports = {
   productExistByID,
   bookingExistByID,
   bagExistByID,
+  bagExistByUser,
   allowedCollections,
 };

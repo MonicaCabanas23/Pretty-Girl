@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ConfigProvider } from './Contexts/ConfigContext';
 import { ProductProvider } from './Contexts/ProductContext';
 import axios from 'axios';
+import { UserProvider } from './Contexts/UserContext';
 
 axios.defaults.baseURL = import.meta.env.VITE_API || "https://prettygirl-api-production.up.railway.app/"
 
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <ConfigProvider>
-        <App />
+        <UserProvider>
+          <App />
+        </UserProvider>
       </ConfigProvider>
     </BrowserRouter>
   </React.StrictMode>

@@ -10,14 +10,18 @@ import AddProduct from "./Components/MainFeed/AddProduct/AddProduct";
 import { useLayoutEffect, useState } from "react";
 import { useConfigContext } from "./Contexts/ConfigContext";
 import Loading from "./Components/Loading/Loading";
+import { useUserContext } from "./Contexts/UserContext";
 
 function App() {
   const context = useConfigContext();
+  const UserContext = useUserContext();
   const [loading, setLoading] = useState(true);
   useLayoutEffect(() => {
     context.Login();
+    UserContext.isAdmin();
+    console.log(UserContext.admin);
     setLoading(false)
-  }, [])
+  }, [UserContext.admin || context.isLogged])
   return (
     <div className="App">
       {

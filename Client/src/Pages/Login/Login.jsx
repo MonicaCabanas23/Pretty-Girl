@@ -6,9 +6,11 @@ import Form from '../../Components/Form/Form';
 import axios from "axios";
 /* Context */
 import {useConfigContext} from '../../Contexts/ConfigContext'
+import { useUserContext } from '../../Contexts/UserContext';
 
 function Login() {
     const context = useConfigContext();
+    const {isAdmin} = useUserContext();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -28,6 +30,7 @@ function Login() {
 
                 if(response.status === 200){
                     context.Login()
+                    isAdmin()
                     navigate("/feed");
                 }
         });

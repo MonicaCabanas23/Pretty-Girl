@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import SearchModal from "./SearchModal/SearchModal";
 import ActionsBar from "./ActionsBar/ActionsBar";
 import { useConfigContext } from "../../Contexts/ConfigContext";
+import { useUserContext } from "../../Contexts/UserContext";
 
 const Header = () => {
     const [showActions, setShowActions] = useState(true);
@@ -15,15 +16,10 @@ const Header = () => {
     const [showAdminBar, setShowAdminBar] = useState(false);
     const isMovile = useMediaQuery({ query: '(max-width: 900px)' });
     const role = localStorage.getItem("role");
-    
+    const context = useUserContext();
     useEffect(() => {
-        if (role === "ADMIN_ROLE")
-            setIsAdmin(true);
-        else
-            setIsAdmin(false);
-
-    }, [])
-
+        setIsAdmin(context.admin);
+    }, [context.admin])
     useEffect(() => {
         isMovile ? setShowActions(false) : setShowActions(true);
     }, [isMovile]);

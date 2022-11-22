@@ -6,7 +6,7 @@ import Button from '../../Button/Button'
 const Bag = () => {
   return (
     <section className='bag-container'>
-        <ProductsContainer />
+        <ProductsContainer bag={true}/>
         <Button clase={'reserve'} text={'Reservar'}/>
     </section>
   )

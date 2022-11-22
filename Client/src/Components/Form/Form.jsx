@@ -8,7 +8,7 @@ import Combobox from './ComboBox/ComboBox';
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */
-const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText }) => {
+const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText, Activo }) => {
     const [fields, setFields] = useState([]);
     const [links, setLinks] = useState([]);
 
@@ -75,7 +75,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     {
                         justContinue ? <></> : <Link to={cancelPath}><Button clase='cancel' onClick={cancelHandle} text={cancelText} /></Link>
                     }
-                    <Link to={continuePath}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
+                    <Link to={Activo?continuePath:''}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
                 </div>
                 {links.length != 0 ? 
                 <div className="links">

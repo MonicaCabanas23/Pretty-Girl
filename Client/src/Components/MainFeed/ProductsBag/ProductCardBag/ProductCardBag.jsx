@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import Button from '../../../Button/Button';
 import './ProductCardBag.scss';
-import Delete from '../../../../assets/img/delete.svg';
-
 const ProductCardBag = ({ product }) => {
-  console.log(product)
-  const [valor, setValor] = useState(product.amount);
+  const [Product, setProduct] = useState(product);
+  const [Value, setValue] = useState(product.amount);
+  
+  useEffect(() => {
+    Product.amount = Value;
+  }, [Value]);
+
   return (
     <article className={"product-card "}>
       <Button clase={'delete'} onClick={() => {
-        console.log('delete');
+        
       }} text={
         <>
           <figure className='delete'>
@@ -18,13 +21,15 @@ const ProductCardBag = ({ product }) => {
         </>
       } ></Button>
       <figure>
-        <img src={product.picture} alt="" />
+        <img src={Product.picture} alt="" />
       </figure>
-      <p className="product-name">{product.name}</p>
-      <p className="product-price">${product.price}</p>
-      <p className='product-amount'>Cantidad: <input type='number' name={'cantidad'} value={valor} min={1} max={product.max} onChange={(e) => {
-        setValor(e.target.value);
-        product.amount = e.target.value;
+      <p className="product-name">{Product.name}</p>
+      <p className="product-price">${Product.price}</p>
+      <p className='product-amount'>Cantidad: <input type='number' name={'cantidad'} value={Value} min={1} max={Product.max} onChange={(e) => {
+        Product.SetValue(e.target.value);
+        setValue(e.target.value);
+        Product.SetID(Product.id)
+        console.log(Product.id)
       }} ></input> </p>
     </article>
   )

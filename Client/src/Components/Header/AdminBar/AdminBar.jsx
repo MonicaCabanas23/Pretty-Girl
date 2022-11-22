@@ -37,13 +37,13 @@ const AdminBar = ({handleAdminBar, handleActionsBar}) => {
                     <div className="products-actions">
                         <Link to={'/add-product'}>
                             <figure className={`btn-products`} onClick={() => { isMovile ? handleActionsBar() : handleAdminBar()}}>
-                                <i class="fa-solid fa-plus"></i>
+                                <i className="fa-solid fa-plus"></i>
                                 <p>Agregar</p>
                             </figure>
                         </Link>
                         <Link>
                             <figure className={`btn-products`} onClick={() => { isMovile ? handleActionsBar() : handleAdminBar()}}>
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                                 <p>Editar</p>
                             </figure>
                         </Link>

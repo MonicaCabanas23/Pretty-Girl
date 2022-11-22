@@ -87,7 +87,7 @@ const AddProduct = () => {
 }, {
     'key':'4',
     'element': 'combobox',
-    'clase': '',
+    'clase': 'combobox',
     'type': 'combobox',
     'text': 'Categoría',
     'valueInput': category,
@@ -96,7 +96,7 @@ const AddProduct = () => {
 }, {
   'key':'5',
   'element': 'combobox',
-  'clase': '',
+  'clase': 'combobox',
   'type': 'text',
   'text': 'Género',
   'valueInput': genre,
@@ -105,7 +105,7 @@ const AddProduct = () => {
 }, {
   'key':'6',
   'element': 'combobox',
-  'clase': '',
+  'clase': 'combobox',
   'type': 'text',
   'text': 'Talla',
   'valueInput': size,
@@ -114,7 +114,7 @@ const AddProduct = () => {
 }, {
   'key':'7',
   'element': 'combobox',
-  'clase': '',
+  'clase': 'combobox',
   'type': 'text',
   'text': 'Color',
   'valueInput': color,

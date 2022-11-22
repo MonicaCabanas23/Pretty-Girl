@@ -123,7 +123,6 @@ const AddProduct = () => {
   }, [])
 
   useEffect(() => {
-    console.log(categories);
   }, [categories])
 
   return (

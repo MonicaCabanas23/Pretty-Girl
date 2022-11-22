@@ -21,7 +21,6 @@ export const ConfigProvider = (props) => {
     const Role = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         if (user) {
-            console.log(user.role)
             if (user.role === 'ADMIN_ROLE') setRole(true);
             else setRole(false);
         }

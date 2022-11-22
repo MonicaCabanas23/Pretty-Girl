@@ -7,9 +7,9 @@ const Body = () => {
 
     /* El body irá cambiando dependiendo de ciertos estados, esto puede ser con <Link/> */
     return (
-        <div>
+        <>
             <ProductsContainer />
-        </div>
+        </>
     )
 }
 

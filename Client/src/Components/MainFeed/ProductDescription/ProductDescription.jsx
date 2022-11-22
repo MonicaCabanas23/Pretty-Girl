@@ -118,7 +118,6 @@ async function PushBag(id) {
     agregando = true;
     let url = "/api/auth/validate/" + localStorage.getItem("token");
     await axios.get(url).then(TokenData => {
-      console.log(TokenData.data.uid);
       if (TokenData.data.exp >= moment().unix()) {
         url = "/api/bags/" + TokenData.data.uid;
         const config = {
@@ -143,9 +142,7 @@ async function PushBag(id) {
                 }
               ]
             }
-            console.log(data)
             axios.post(url, data, config).then(data => {
-              console.log(data)
               Swal.fire({
                 title: 'Agregado a la bolsa',
                 timer: 2000,
@@ -182,7 +179,6 @@ async function PushBag(id) {
             }
             let update = false;
             datos.data[0].products.forEach((element) => {
-              console.log(element._id == id)
               if (element._id == id) {
                 data.products.push({
                   "_id": element._id,

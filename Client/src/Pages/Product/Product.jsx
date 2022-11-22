@@ -13,7 +13,6 @@ function Product() {
             navigate('/feed');
         }
         setID((ruta.hash.replace('#', '')).length > 0 ? ruta.hash.replace('#', '') : false);
-        console.log(id);
         
     }, [ruta.hash])
 

@@ -14,7 +14,7 @@ const Feed = () => {
   /* El feed irá cambiando dependiendo de ciertos estados, esto puede ser con <Link/> */
 
   return (
-    <div>
+    <>
       <ProductProvider>
         <Routes>
           <Route path='/' element={<MainFeed />}/> 
@@ -22,7 +22,7 @@ const Feed = () => {
           <Route path='/bag/*' element={<Bag />}/> 
         </Routes>  
       </ProductProvider>
-    </div>
+    </>
   );
 };
 

@@ -7,7 +7,6 @@ export const UserProvider = (props) => {
     const [admin, setAdmin] = useState(false);
 
     const isAdmin = () => {
-        console.log(localStorage.getItem("role") == 'ADMIN_ROLE' ? true : false)
         setAdmin(localStorage.getItem("role") == 'ADMIN_ROLE'? true : false);
     }
 

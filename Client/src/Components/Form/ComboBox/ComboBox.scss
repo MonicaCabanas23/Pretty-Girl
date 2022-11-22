@@ -2,13 +2,22 @@
 @import '../../../assets/sass/variables';
 
 div.combobox {
-    width: 48%;
+    width: 40%;
     height: 30px;
+
+    flex-grow: 1;
 
     select {
         width: 100%;
         height: 100%;
 
         border-radius: 5px;
+    }
+}
+
+/* Media query for increasing label's width */
+@media only screen and (max-width: 900px) {
+    div.combobox {
+        width: 100%;
     }
 }

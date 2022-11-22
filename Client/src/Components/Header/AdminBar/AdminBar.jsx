@@ -62,7 +62,7 @@ const AdminBar = ({handleAdminBar, handleActionsBar}) => {
                     </figure>
                 </Link>
                 <Link to={'/'}>
-                    <figure onClick={() => {handleLogOut(); handleActionsBar();}} className="btn-logout">
+                    <figure onClick={() => {handleLogOut(); handleActionsBar(); handleAdminBar();}} className="btn-logout">
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>
                         <p>Cerrar sesión</p>
                     </figure>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './ComboBox.scss'
 
 function Combobox({ clase, name, options, setOption}) {
     const [value, setValue] = useState('');

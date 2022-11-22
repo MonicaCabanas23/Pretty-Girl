@@ -34,7 +34,7 @@
 }
 
 .textarea {
-    width: 100%;
+    width: 40%;
     
     @include flex(column, true);
     flex-grow: 1;

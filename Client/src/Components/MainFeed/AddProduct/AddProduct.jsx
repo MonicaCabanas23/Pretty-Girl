@@ -14,33 +14,11 @@ const AddProduct = () => {
   const [genre, setGenre] = useState('');
   const [size, setSize] = useState('');
   const [color, setColor] = useState('');
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [formFields, setFormFields] = useState([])
-
-
-  useEffect(() => {
-    if (category.substring(0,10) === 'Selecciona'){
-      setCategory('');
-    }
-    if (genre.substring(0,10) === 'Selecciona'){
-      setGenre('');
-    }
-
-    const product_ = {
-      'name': name,
-      'category': category,
-      'size': size,
-      'color': color,
-      'gender': genre,
-      'available': true,
-      'amount': quantity,
-      'price': price,
-    }
-
-    console.log(product_);
-
-  }, [name, price, quantity, category, genre, size, color])
 
   const url = "/api/categories/";
 
@@ -64,6 +42,40 @@ const AddProduct = () => {
     { 'value': 'Amarillo' },
     { 'value': 'Rojo' },
   ];
+
+  useEffect(() => {
+    if (category.substring(0,10) === 'Selecciona'){
+      setCategory('');
+    }
+    if (genre.substring(0,10) === 'Selecciona'){
+      setGenre('');
+    }
+
+    const _colors = colors;
+    const _sizes = sizes;
+    _colors.push(color);
+    _sizes.push(size);
+
+    setColors(_colors);
+    setSizes(_sizes);
+
+
+    const product_ = {
+      'name': name,
+      'category': category,
+      'size': size,
+      'color': color,
+      'gender': genre,
+      'available': true,
+      'amount': quantity,
+      'price': price,
+    }
+
+    console.log(product_);
+
+
+
+  }, [name, price, quantity, category, genre, size, color])
 
   useEffect(() => {
     const categoryOptions = [
@@ -94,7 +106,7 @@ const AddProduct = () => {
       'clase': 'whole-space',
       'type': 'text',
       'text': 'Nombre',
-      'valueInput': name,
+      
       'setValue': setName
     }, {
       'key': '2',
@@ -102,7 +114,6 @@ const AddProduct = () => {
       'clase': '',
       'type': 'text',
       'text': 'Precio',
-      'valueInput': price,
       'setValue': setPrice
     }, {
       'key': '3',
@@ -110,7 +121,6 @@ const AddProduct = () => {
       'clase': '',
       'type': 'number',
       'text': 'Stock',
-      'valueInput': quantity,
       'setValue': setQuantity
     }, {
       'key': '4',
@@ -118,7 +128,6 @@ const AddProduct = () => {
       'clase': 'combobox',
       'type': 'combobox',
       'text': 'Categoría',
-      'valueInput': category,
       'setValue': setCategory,
       'options': categories
     }, {
@@ -127,7 +136,6 @@ const AddProduct = () => {
       'clase': 'combobox',
       'type': 'text',
       'text': 'Género',
-      'valueInput': genre,
       'setValue': setGenre,
       'options': genreOptions
     }, {
@@ -136,7 +144,7 @@ const AddProduct = () => {
       'clase': 'combobox',
       'type': 'text',
       'text': 'Talla',
-      'valueInput': size,
+      
       'setValue': setSize,
       'options': sizeOptions
     }, {
@@ -145,7 +153,26 @@ const AddProduct = () => {
       'clase': 'combobox',
       'type': 'text',
       'text': 'Color',
-      'valueInput': color,
+      'setValue': setColor,
+      'options': colorOptions
+    },
+    {
+      'key': '8',
+      'element': 'label',
+      'clase': 'textarea',
+      'type': 'textarea',
+      'text': 'Tallas',
+      'value': color,
+      'setValue': setColor,
+      'options': colorOptions
+    }, 
+    {
+      'key': '9',
+      'element': 'label',
+      'clase': 'textarea',
+      'type': 'textarea',
+      'text': 'Colores',
+      'value': color,
       'setValue': setColor,
       'options': colorOptions
     }]

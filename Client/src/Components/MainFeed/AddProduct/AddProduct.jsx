@@ -6,6 +6,7 @@ import axios from 'axios'
 import Loading from '../../Loading/Loading'
 
 const AddProduct = () => {
+  const [product, setProduct] = useState({});
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(1);
@@ -16,6 +17,30 @@ const AddProduct = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [formFields, setFormFields] = useState([])
+
+
+  useEffect(() => {
+    if (category.substring(0,10) === 'Selecciona'){
+      setCategory('');
+    }
+    if (genre.substring(0,10) === 'Selecciona'){
+      setGenre('');
+    }
+
+    const product_ = {
+      'name': name,
+      'category': category,
+      'size': size,
+      'color': color,
+      'gender': genre,
+      'available': true,
+      'amount': quantity,
+      'price': price,
+    }
+
+    console.log(product_);
+
+  }, [name, price, quantity, category, genre, size, color])
 
   const url = "/api/categories/";
 
@@ -28,7 +53,7 @@ const AddProduct = () => {
     { 'value': 'XL' }
   ];
   const genreOptions = [
-    { 'value': 'Seleciona un género' },
+    { 'value': 'Selecciona un género' },
     { 'value': 'Masculino' },
     { 'value': 'Femenino' },
     { 'value': 'Unisex' },
@@ -42,7 +67,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     const categoryOptions = [
-      { 'value': 'Seleciona una categoría' }
+      { 'value': 'Selecciona una categoría' }
     ];
 
     const getCategories = async () => {
@@ -128,9 +153,7 @@ const AddProduct = () => {
   }, [categories])
 
   useEffect(() => {
-    console.log(categories, formFields)
     setLoading((formFields.length>0 & categories.length>0)?false:true);
-    console.log(loading);
   }, [formFields])
 
   return (

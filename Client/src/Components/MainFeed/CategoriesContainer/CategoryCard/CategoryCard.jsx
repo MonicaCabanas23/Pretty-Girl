@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import './CategoryCard.scss'
 
-const CategoryCard = ({image, name}) => {
+const CategoryCard = ({image, name, onClickHandle}) => {
   return (
-    <article className="category-card">
+    <article className="category-card" onClick={onClickHandle}>
         <figure>
             <img src={image} alt=""/>
             

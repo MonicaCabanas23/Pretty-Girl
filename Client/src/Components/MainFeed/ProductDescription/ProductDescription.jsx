@@ -6,6 +6,8 @@ import ProductsContainer from '../ProductsContainer/ProductsContainer';
 import { useConfigContext } from '../../../Contexts/ConfigContext';
 const ContainerPD = React.lazy(() => import('./ContainerPD/ContainerPD'));
 import Swal from 'sweetalert2'
+import moment from 'moment';
+
 let agregando = false;
 
 function ProductDescription({ id }) {
@@ -35,7 +37,6 @@ function ProductDescription({ id }) {
       const color = (data.color).map(item => {
         return { value: item }
       });
-      console.log(context.isLogged)
       const formFields = [{
         'key': '1',
         'element': 'label',
@@ -113,95 +114,95 @@ export default ProductDescription;
 
 
 async function PushBag(id) {
-  console.log(agregando)
-  if (!agregando) {
-    agregando = true;
-    let url = "/api/bags/637030075a61d40805581882";
-    const config = {
-      headers: {
-        'x-token': localStorage.getItem("token")
-      }
-    };
-    await axios.get(url, config).then(datos => {
-      if (datos.data.length == 0) {
-        url = "/api/bags/";
-        const config = {
-          headers: {
-            'x-token': localStorage.getItem("token")
-          }
-        };
-        const data = {
-          user: '637030075a61d40805581882',
-          products: [
-            {
-              "_id": id,
-              amount: 1
-            }
-          ]
-        }
-        axios.post(url, data, config).then(data => {
-        }).catch(error => {
-          Swal.fire({
-            title: 'Ocurrio un error vuelve a intentarlo',
-            timer: 2000,
-            icon: 'error',
-            showConfirmButton: false,
-            timerProgressBar: true,
-            allowOutsideClick: false
-          })
-          agregando = false;
-        }
-        )
-      }
-      else {
-        url = "/api/bags/" + datos.data[0]._id;
-        const config = {
-          headers: {
-            'x-token': localStorage.getItem("token")
-          }
-        };
-        let data = {
-          user: datos.data[0].user,
-          products: []
-        }
-        let update = false;
-        datos.data[0].products.forEach((element, index) => {
-          if (element._id == id) {
-            data.products.push({
-              "_id": element._id,
-              amount: element.amount + 1
-            })
-            update = true;
-          }
-        });
-        if (!update) data.products.push({
-          "_id": id,
-          amount: 1
-        })
-        axios.put(url, data, config).then(data => {
-          Swal.fire({
-            title: 'Agregado a la bolsa',
-            timer: 2000,
-            icon: 'success',
-            showConfirmButton: false,
-            timerProgressBar: true,
-            allowOutsideClick: false
-          })
-          agregando = false;
-        }).catch(error => {
-          Swal.fire({
-            title: 'Ocurrio un error vuelve a intentarlo',
-            timer: 2000,
-            icon: 'error',
-            showConfirmButton: false,
-            timerProgressBar: true,
-            allowOutsideClick: false
-          });
+  console.log(moment().unix())
+  // if (!agregando) {
+  //   agregando = true;
+  //   let url = "/api/bags/637030075a61d40805581882";
+  //   const config = {
+  //     headers: {
+  //       'x-token': localStorage.getItem("token")
+  //     }
+  //   };
+  //   await axios.get(url, config).then(datos => {
+  //     if (datos.data.length == 0) {
+  //       url = "/api/bags/";
+  //       const config = {
+  //         headers: {
+  //           'x-token': localStorage.getItem("token")
+  //         }
+  //       };
+  //       const data = {
+  //         user: '637030075a61d40805581882',
+  //         products: [
+  //           {
+  //             "_id": id,
+  //             amount: 1
+  //           }
+  //         ]
+  //       }
+  //       axios.post(url, data, config).then(data => {
+  //       }).catch(error => {
+  //         Swal.fire({
+  //           title: 'Ocurrio un error vuelve a intentarlo',
+  //           timer: 2000,
+  //           icon: 'error',
+  //           showConfirmButton: false,
+  //           timerProgressBar: true,
+  //           allowOutsideClick: false
+  //         })
+  //         agregando = false;
+  //       }
+  //       )
+  //     }
+  //     else {
+  //       url = "/api/bags/" + datos.data[0]._id;
+  //       const config = {
+  //         headers: {
+  //           'x-token': localStorage.getItem("token")
+  //         }
+  //       };
+  //       let data = {
+  //         user: datos.data[0].user,
+  //         products: []
+  //       }
+  //       let update = false;
+  //       datos.data[0].products.forEach((element, index) => {
+  //         if (element._id == id) {
+  //           data.products.push({
+  //             "_id": element._id,
+  //             amount: element.amount + 1
+  //           })
+  //           update = true;
+  //         }
+  //       });
+  //       if (!update) data.products.push({
+  //         "_id": id,
+  //         amount: 1
+  //       })
+  //       axios.put(url, data, config).then(data => {
+  //         Swal.fire({
+  //           title: 'Agregado a la bolsa',
+  //           timer: 2000,
+  //           icon: 'success',
+  //           showConfirmButton: false,
+  //           timerProgressBar: true,
+  //           allowOutsideClick: false
+  //         })
+  //         agregando = false;
+  //       }).catch(error => {
+  //         Swal.fire({
+  //           title: 'Ocurrio un error vuelve a intentarlo',
+  //           timer: 2000,
+  //           icon: 'error',
+  //           showConfirmButton: false,
+  //           timerProgressBar: true,
+  //           allowOutsideClick: false
+  //         });
 
-          agregando = false;
-        }
-        )
-      }
-    })
-  }
+  //         agregando = false;
+  //       }
+  //       )
+  //     }
+  //   })
+  // }
 }

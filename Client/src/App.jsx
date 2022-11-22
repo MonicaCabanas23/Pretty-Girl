@@ -19,7 +19,6 @@ function App() {
   useLayoutEffect(() => {
     context.Login();
     UserContext.isAdmin();
-    console.log(UserContext.admin);
     setLoading(false)
   }, [UserContext.admin || context.isLogged])
   return (

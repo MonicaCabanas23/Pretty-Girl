@@ -16,7 +16,6 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
     const token = localStorage.getItem("token");
 
     useLayoutEffect(() => {
-        console.log(isAdmin)
     }, [isAdmin]);
 
     const handleLogOut = () => {

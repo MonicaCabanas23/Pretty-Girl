@@ -17,16 +17,19 @@ const FirstStep = ({ onLoad }) => {
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
 
-    const [data, setData] = useState('');
+    const [data, setData] = useState({});
 
     useEffect(() => {
-        setData({
-            name: name,
-            email: email,
-            phone: phone,
-            address: address,
-            setActivo: setActivo
-        })
+        console.log('Hola');
+        if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0){
+            setData({
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                setActivo: setActivo
+            })
+        }
     }, [name, email, phone, address])
 
 
@@ -68,12 +71,14 @@ const FirstStep = ({ onLoad }) => {
     }]
 
     useEffect(() => {
-        const CorreoValido = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
-        if (datos.name.length > 0 & datos.email.length > 0 & datos.phone.length == 8 & datos.email.match(CorreoValido) != null) {
-            console.log(datos);
-            datos.setActivo(true);
+
+        if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0) {
+            const CorreoValido = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+            if (data.name.length > 0 & data.email.length > 0 & data.phone.length == 8 & data.email.match(CorreoValido) != null) {
+                data.setActivo(true);
+            }
         }
-    },[data])
+    }, [data])
 
     return (
         <Form title={'Datos del cliente'} formType={'client-data'} formFields={formFields} justContinue={false} cancelPath={'/feed'} cancelText={'Cancelar'} continuePath={'../delivery-method'} continueText={'Continuar'} Activo={Activo} />

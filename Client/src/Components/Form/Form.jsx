@@ -29,7 +29,11 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     )
                 }
                 if (field.element === 'react') {
-                    return field.text;
+                    return (
+                        <div className="cards">
+                            {field.text}
+                        </div>
+                    );
                 }
             });
 
@@ -70,10 +74,10 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     {fields}
                 </div>
                 <div className="actions">
+                    <Link to={Activo?continuePath:''}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
                     {
                         justContinue ? <></> : <Link to={cancelPath}><Button clase='cancel' onClick={cancelHandle} text={cancelText} /></Link>
                     }
-                    <Link to={Activo?continuePath:''}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
                 </div>
                 {links.length != 0 ? 
                 <div className="links">

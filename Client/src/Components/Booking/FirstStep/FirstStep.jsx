@@ -21,13 +21,15 @@ const FirstStep = ({ onLoad }) => {
 
     useEffect(() => {
         console.log('Hola');
-        setData({
-            name: name,
-            email: email,
-            phone: phone,
-            address: address,
-            setActivo: setActivo
-        })
+        if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0){
+            setData({
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                setActivo: setActivo
+            })
+        }
     }, [name, email, phone, address])
 
 
@@ -70,7 +72,7 @@ const FirstStep = ({ onLoad }) => {
 
     useEffect(() => {
 
-        if (data) {
+        if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0) {
             const CorreoValido = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
             if (data.name.length > 0 & data.email.length > 0 & data.phone.length == 8 & data.email.match(CorreoValido) != null) {
                 data.setActivo(true);

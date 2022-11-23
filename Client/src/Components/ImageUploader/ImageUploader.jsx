@@ -44,8 +44,8 @@ const ImageUploader = () => {
                                     <img src={image.data_url} alt={image.file.name} width="100" />
                                 </figure>
                                 <div className="image-btn-wrapper">
-                                    <button className='update' onClick={() => onImageUpdate(index)}><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button className='delete' onClick={() => onImageRemove(index)}><i class="fa-solid fa-trash"></i></button>
+                                    <button className='update' onClick={() => onImageUpdate(index)}><i className="fa-solid fa-pen-to-square"></i></button>
+                                    <button className='delete' onClick={() => onImageRemove(index)}><i className="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
                     ))

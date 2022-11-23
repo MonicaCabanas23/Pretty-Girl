@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import './ComboBox.scss'
 
-function Combobox({ clase, name, options, setOption}) {
+function Combobox({ clase, name, options, setOption }) {
     const [value, setValue] = useState('');
 
     useEffect(() => {
 
-        let id=0;
+        let id = 0;
 
         const mappedOption = options.map(opcion => {
             id++;
@@ -18,8 +18,14 @@ function Combobox({ clase, name, options, setOption}) {
     }, [])
 
     return (
-        <div className={clase} onChange={(e) => {setOption(e.target.value)}}>
-            <select name={name}>
+        <div className={clase} >
+            <select name={name} onChange={(e) => {
+                setOption(e.target.value)
+                console.log(e.target.selectedIndex)
+                e.target.selectedIndex = 0;
+                console.log(e.target.selectedIndex)
+            }
+            }>
                 {value}
             </select>
         </div>

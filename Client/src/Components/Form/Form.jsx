@@ -11,6 +11,7 @@ import Combobox from './ComboBox/ComboBox';
 const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText, Activo }) => {
     const [fields, setFields] = useState([]);
     const [links, setLinks] = useState([]);
+    const [Loading, setLoading] = useState(false);
 
     /* When render just once */
     useEffect(() => {

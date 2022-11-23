@@ -17,7 +17,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
     useEffect(() => {
         if(formFields != undefined){
             /* Get label fields */
-            const mappedForm = formFields.map(field => {
+            const mappedForm = formFields.map((field, index) => {
                 if (field.element === 'label') {
                     return (
                         <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} InputUse={field.use} clase={field.clase ? field.clase : false}/>
@@ -30,7 +30,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                 }
                 if (field.element === 'react') {
                     return (
-                        <div className="cards">
+                        <div key={2555} className="cards">
                             {field.text}
                         </div>
                     );

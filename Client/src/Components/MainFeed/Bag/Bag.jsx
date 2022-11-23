@@ -4,12 +4,14 @@ import Button from '../../Button/Button'
 import axios from 'axios'
 import ProductsBag from '../ProductsBag/ProductsBag'
 import Loading from '../../Loading/Loading'
+import { useNavigate } from 'react-router-dom'
 
 const Bag = () => {
   const [loading, setLoading] = useState(true);
   const [Products, setProducts] = useState([]);
   const [Value, SetValue] = useState(0);
   const [ID, SetID] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Value != 0) {
@@ -78,7 +80,7 @@ const Bag = () => {
         loading ? <Loading /> : <>
           <section className='bag-container'>
             <ProductsBag bag={true} products={Products} />
-            <Button clase={'reserve'} text={'Reservar'} onClick={() => { AddReserva(Products) }} />
+            <Button clase={'reserve'} text={'Reservar'} onClick={() => { AddReserva(Products, navigate) }} />
           </section>
         </>
       }
@@ -86,8 +88,9 @@ const Bag = () => {
   )
 }
 
-function AddReserva(Products, Value) {
-  console.log(Products)
+function AddReserva(Products, navigate) {
+  localStorage.setItem('products', JSON.stringify(Products));
+  navigate('/feed/booking/client-data');
 }
 
 export default Bag

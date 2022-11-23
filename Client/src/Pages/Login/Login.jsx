@@ -42,7 +42,14 @@ function Login() {
                     isAdmin()
                     navigate("/feed");
                 }
-        });
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+            });
     }
 
     useEffect(() => {

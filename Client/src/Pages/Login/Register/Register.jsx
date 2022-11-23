@@ -32,13 +32,13 @@ function Registro() {
                     })
                     navigate("/login");
                 }
-                else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    })
-                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
             });
     }
 

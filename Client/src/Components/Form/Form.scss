@@ -65,7 +65,21 @@
         .formFields {
             @include flex(column);
 
-            hr{
+            div.cards {
+                position: relative;
+                width: 100%;
+                height: 500px;
+
+                @include flex(row);
+                align-items: center;
+                justify-content: center;
+                
+                overflow-y: hidden;
+                overflow-x: auto;
+                
+            }
+
+            /* hr{
                 width: 50%;
                 border: 0.5px $general-white solid;
 
@@ -74,7 +88,7 @@
 
             hr:last-child {
                 display: none;
-            }
+            } */
         }
     }
 

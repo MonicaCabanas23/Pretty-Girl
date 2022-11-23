@@ -28,7 +28,11 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     )
                 }
                 if (field.element === 'react') {
-                    return field.text;
+                    return (
+                        <div className="cards">
+                            {field.text}
+                        </div>
+                    );
                 }
             });
 

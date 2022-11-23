@@ -17,6 +17,8 @@ const Header = () => {
     const isMovile = useMediaQuery({ query: '(max-width: 900px)' });
     const role = localStorage.getItem("role");
     const context = useUserContext();
+    const loggedContext = useConfigContext();
+
     useEffect(() => {
         setIsAdmin(context.admin);
     }, [context.admin])
@@ -37,8 +39,17 @@ const Header = () => {
             <div className="header-title-categories">
                 <Link to={'/feed'}> <h2>Pretty Girl</h2> </Link>
                 <div className="categories">
-                    <h3>Hombre</h3>
-                    <h3>Mujer</h3>
+                    {
+                        loggedContext.isLogged ? 
+                        <>
+                            <a href="#recommended"><h3>Hombre</h3></a>
+                            <a href="#recommended"><h3>Mujer</h3></a>
+                        </> :
+                        <>
+                            <a href="#arrived"><h3>Hombre</h3></a>
+                            <a href="#arrived"><h3>Mujer</h3></a>
+                        </>
+                    }
                 </div>
             </div>
             {

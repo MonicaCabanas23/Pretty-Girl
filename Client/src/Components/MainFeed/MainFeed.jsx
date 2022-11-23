@@ -23,9 +23,9 @@ const Body = () => {
     <div className='main-feed-container'>
       <CategoriesContainer handleCategoryClick={handleCategoryClick}/>
       {
-        context.isLogged ? <ProductsContainer title={'Recomendados para ti'}/> : <></>
+        context.isLogged ? <ProductsContainer id={'recommended'} title={'Recomendados para ti'}/> : <></>
       }
-      <ProductsContainer title={'Recién llegados'}/>
+      <ProductsContainer id={'arrived'} title={'Recién llegados'}/>
     </div>
   )
 }

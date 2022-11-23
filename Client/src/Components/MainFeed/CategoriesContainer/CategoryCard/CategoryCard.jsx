@@ -1,19 +1,21 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import './CategoryCard.scss'
 
-const CategoryCard = ({image, name, onClickHandle}) => {
+const CategoryCard = ({ image, name, onClickHandle }) => {
   return (
-    <article className="category-card" onClick={onClickHandle}>
+    <a href="#recommended">
+      <article className="category-card" onClick={onClickHandle}>
         <figure>
-            <img src={image} alt=""/>
-            
-            <div className="hover-container">
-              <div className="hover">
+          <img src={image} alt="" />
+
+          <div className="hover-container">
+            <div className="hover">
               <p>{name}</p>
-              </div>
+            </div>
           </div>
         </figure>
-    </article>
+      </article>
+    </a>
   )
 }
 

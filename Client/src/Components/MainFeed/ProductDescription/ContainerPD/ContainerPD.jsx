@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { Link } from "react-router-dom";
 import Label from '../../../Form/Label/Label';
-import Description from '../../../Form/Description/Description';
 import Button from '../../../Button/Button';
 import A from '../../../a/a';
 import H from '../../../H/H';

@@ -19,7 +19,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
             const mappedForm = formFields.map(field => {
                 if (field.element === 'label') {
                     return (
-                        <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} clase={field.clase ? field.clase : false}/>
+                        <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} InputUse={field.use} clase={field.clase ? field.clase : false}/>
                     )
                 }
                 if (field.element === 'combobox') {
@@ -27,13 +27,16 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                         <Combobox key={field.key} clase={field.clase} name={field.name} options={field.options} setOption={field.setValue}/>
                     )
                 }
+                if (field.element === 'react') {
+                    return field.text;
+                }
             });
 
             /* Get links fields */
             const mappedLinks = formFields.map(link => {
                 if (link.element === 'link') {
                     return (
-                        <Link key={link.key} to={link.path}>
+                        <Link key={link.key} to={link.path} >
                             <>{link.text}</>
                             {/* <A key={link.key} href={link.href} text={link.text} /> */}
                         </Link>
@@ -52,13 +55,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     )
                 }
             });
-
-
-            if(formType != 'description'){
-                setFields(mappedForm);
-            } else {
-                setFields(mappedDescription);
-            }
+            setFields(mappedForm);
             setLinks(mappedLinks);
         }
 

@@ -2,7 +2,6 @@
 @import './../../assets//sass/variables';
 
 div.main-feed-container {
-    padding: 30px;
     @include flex(column);
     gap: 10px; 
 

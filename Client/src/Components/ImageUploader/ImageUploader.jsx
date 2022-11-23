@@ -4,7 +4,6 @@ import ImageUploading from 'react-images-uploading';
 
 const ImageUploader = () => {
     const [images, setImages] = useState([]);
-    const maxNumber = 10;
 
     useEffect(() => {
         const images_ = JSON.parse(localStorage.getItem("images"));
@@ -22,7 +21,7 @@ const ImageUploader = () => {
 
     return (
         <div className="uploader-container">
-        <ImageUploading multiple  value={images} onChange={onChange} maxNumber={maxNumber} dataURLKey="data_url">
+        <ImageUploading value={images} onChange={onChange} dataURLKey="data_url">
             {({ imageList, onImageUpload, onImageRemoveAll, onImageUpdate, onImageRemove, isDragging, dragProps,}) => (
             <div className="uploader-wrapper">
                 <div className="actions">
@@ -41,21 +40,16 @@ const ImageUploader = () => {
                         </div> : 
                         imageList.map((image, index) => (
                             <div key={index} className="image-item">
-                                <div className="details-container">
-                                    <figure>
-                                        <img src={image.data_url} alt={image.file.name} width="100" />
-                                    </figure>
-                                    <p>{image.file.name}</p>
-                                </div>
+                                <figure>
+                                    <img src={image.data_url} alt={image.file.name} width="100" />
+                                </figure>
                                 <div className="image-btn-wrapper">
-                                    <button className='delete' onClick={() => onImageRemove(index)}>X</button>
+                                    <button className='update' onClick={() => onImageUpdate(index)}><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button className='delete' onClick={() => onImageRemove(index)}><i class="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
                     ))
                     }
-                </div>
-                <div className="actions">
-                    <button onClick={onImageRemoveAll}>Eliminar todo</button>
                 </div>
             </div>
             )}

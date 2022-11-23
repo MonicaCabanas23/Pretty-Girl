@@ -21,6 +21,43 @@ const AddProduct = () => {
   const [_color, _setColor] = useState(true);
   const [_size, _setSize] = useState(true);
 
+  const handleSubmit = () => {
+    const url = "/api/products";
+    const token = localStorage.getItem('token');
+
+    // Test variables
+    const sized = ["L", "M"];
+    const colored = ["Gris"];
+    const category = "ST"
+    
+    // Header variables configuration
+    const config = {
+      headers: { "x-token": token }
+    };
+
+    const body = {
+      'name': name,
+      'category': category,
+      'size': sized,
+      'color': colored,
+      'gender': genre,
+      'available': true,
+      'amount': quantity,
+      'price': price,
+    };
+    console.log(body);
+    
+    axios.post(url, body, config)
+      .then(response => {
+        if (response.status === 200) {
+          console.log(response);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
     if (color !== 'none' && color !== 'Selecciona un color') {
       _setColor(true);
@@ -31,16 +68,15 @@ const AddProduct = () => {
     if (size !== 'none' && size !== 'Selecciona un talla') {
       _setSize(true);
       _setColor(false);
-      
     }
   }, [size])
 
   useEffect(() => {
-    if(!_size) setSize('none');
-  },[_size])
+    if (!_size) setSize('none');
+  }, [_size])
   useEffect(() => {
-    if(!_color) setColor('none');
-  },[_color])
+    if (!_color) setColor('none');
+  }, [_color])
 
   const url = "/api/categories/";
   const sizeOptions = [
@@ -75,14 +111,12 @@ const AddProduct = () => {
     if (_color) {
       const _colors = colors;
       const initColor = _colors.findIndex(item => color == item);
-      console.log(initColor, color)
       if (initColor != -1) _colors.splice(initColor, 1);
       if (initColor == -1 && color !== 'none' && color !== 'Selecciona un color') _colors.push(color);
       setColors(_colors);
       _setColor(false);
     }
     if (_size) {
-      console.log(size,'Entre en size')
       const _sizes = sizes;
       const initSize = _sizes.findIndex(item => size == item);
       if (initSize != -1) _sizes.splice(initSize, 1);
@@ -90,18 +124,6 @@ const AddProduct = () => {
       setSizes(_sizes);
       _setSize(false);
     }
-
-    const product_ = {
-      'name': name,
-      'category': category,
-      'size': size,
-      'color': color,
-      'gender': genre,
-      'available': true,
-      'amount': quantity,
-      'price': price,
-    }
-
   }, [name, price, quantity, category, genre, _size, _color])
 
   useEffect(() => {
@@ -119,11 +141,8 @@ const AddProduct = () => {
         setCategories(categoryOptions.length > 1 ? categoryOptions : [{ 'value': 'Seleciona una categoría' }]);
       }).
         catch(error => console.log(error))
-
     }
-
     getCategories();
-
   }, [])
 
   useEffect(() => {
@@ -214,7 +233,7 @@ const AddProduct = () => {
           <>
             <section className='add-product'>
               <ImageUploader />
-              <Form title={'Información de producto'} formType={'add-product'} formFields={formFields} justContinue={false} cancelPath={'/feed'} cancelText={'Cancelar'} continuePath={''} continueText={'Agregar'} />
+              <Form title={'Información de producto'} formType={'add-product'} formFields={formFields} justContinue={false} cancelPath={'/feed'} cancelText={'Cancelar'} continuePath={''} continueText={'Agregar'} continueHandle={(e) => handleSubmit(e)} />
             </section>
           </>
       }

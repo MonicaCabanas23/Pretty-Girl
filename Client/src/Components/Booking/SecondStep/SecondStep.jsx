@@ -1,9 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react'
 import Form from '../../Form/Form';
-import ProductCard from '../../MainFeed/ProductsContainer/ProductCard/ProductCard';
+import ProductCardBooking from '../ProductCardBooking/ProductCardBooking';
 
 const SecondStep = ({ onLoad }) => {
   const [Products, setProducts] = useState(JSON.parse(localStorage.getItem("products")) || []);
+  const [total, setTotal] = useState(0);
+
+  let SubTotal = 0;
+
+  useEffect(() => {
+    if (SubTotal > 0) setTotal(SubTotal);
+  }, [SubTotal])
+  
+  useEffect(() => {
+    if (!localStorage.getItem("products")) navigate('/feed')
+  }, [localStorage.getItem("products")])
+
   useEffect(() => {
     console.log(Products)
     onLoad(2);
@@ -21,8 +33,9 @@ const SecondStep = ({ onLoad }) => {
     'key': '2',
     'element': 'react',
     'text': Products.map((item, index) => {
+      SubTotal+= parseInt(item.amount) * parseInt(item.price);
       return (
-        <ProductCard key={index} image={item.picture} name={item.name} price={item.price} id={'reserva'} />
+        <ProductCardBooking key={index} item={item} id={'reserva'} />
       )
     }),
   },
@@ -33,11 +46,9 @@ const SecondStep = ({ onLoad }) => {
     'use': false,
     'clase': 'Description-delivery'
   }]
-
+  console.log(total);
   return (
-    <>
-      <Form title={'Método de envío y reserva'} formType={'description'} formFields={descriptionFields} justContinue={false} cancelPath={'../client-data'} cancelText={'Volver'} continuePath={'../confirmation'} continueText={'Continuar'} />
-    </>
+    <Form title={'Método de envío y reserva'} formType={'description'} formFields={descriptionFields} justContinue={false} cancelPath={'../client-data'} cancelText={'Volver'} continuePath={'../confirmation'} continueText={'Continuar'} />
   )
 }
 

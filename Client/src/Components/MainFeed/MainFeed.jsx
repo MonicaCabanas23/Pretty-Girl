@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './MainFeed.scss'
 import { Routes, Route} from "react-router-dom";
 import CategoriesContainer from './CategoriesContainer/CategoriesContainer'
@@ -8,17 +8,24 @@ import { useConfigContext} from '../../Contexts/ConfigContext'
 
 const Body = () => {
   const context = useConfigContext();
-  /* Ocultar categoriesContainer si está en ProductDescription */
-  const [isReading, setIsReading] = useState(false);
+  const [categoryClicked, setCategoryClicked] = useState('');
 
-  /* El body irá cambiando dependiendo de ciertos estados, esto puede ser con <Link/> */
+  const handleCategoryClick = (value) => {
+    setCategoryClicked(value);
+  }
+
+  useEffect(() => {
+    console.log(categoryClicked);
+  }, [categoryClicked])
+  
+
   return (
     <div className='main-feed-container'>
-      <CategoriesContainer/>
+      <CategoriesContainer handleCategoryClick={handleCategoryClick}/>
       {
-        context.isLogged ? <ProductsContainer title={'Recomendados para ti'}/> : <></>
+        context.isLogged ? <ProductsContainer id={'recommended'} title={'Recomendados para ti'}/> : <></>
       }
-      <ProductsContainer title={'Recién llegados'}/>
+      <ProductsContainer id={'arrived'} title={'Recién llegados'}/>
     </div>
   )
 }

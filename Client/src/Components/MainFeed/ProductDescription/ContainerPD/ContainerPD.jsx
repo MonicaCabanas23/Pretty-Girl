@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
 import { Link } from "react-router-dom";
 import Label from '../../../Form/Label/Label';
-import Description from '../../../Form/Description/Description';
 import Button from '../../../Button/Button';
 import A from '../../../a/a';
 import H from '../../../H/H';
 import P from '../../../P/P';
 import Combobox from '../../../Form/ComboBox/ComboBox';
 import Loading from '../../../Loading/Loading';
+import './ContainerPD.scss';
 
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
@@ -36,7 +36,7 @@ const ContainerPD = ({ title, formType, formFields, descriptionFields, justReser
             const mappedCombobox = formFields.map(field => {
                 if (field.element === 'combobox') {
                     return (
-                        <Combobox key={field.key} clase={field.clase} name={field.name} options={field.options} />
+                        <Combobox key={field.key} clase={'combobox'} name={field.name} options={field.options} />
                     )
                 }
             });
@@ -44,7 +44,7 @@ const ContainerPD = ({ title, formType, formFields, descriptionFields, justReser
             const mapeedButton = formFields.map(btn => {
                 if (btn.element === 'button') {
                     return (
-                        <Button key={btn.key} clase={btn.clase} text={btn.text} onClick={btn.onClick} />
+                        <Button key={btn.key} clase={'add-to-bag'} text={btn.text} onClick={btn.onClick} />
                     )
                 }
             });
@@ -76,10 +76,10 @@ const ContainerPD = ({ title, formType, formFields, descriptionFields, justReser
         <>
             {
                 loading ? <Loading></Loading> : <>
-                    <div className='form-container'>
-                        <div className='form-img'>
+                    <div className='container-description'>
+                        <figure className='form-img'>
                             {img}
-                        </div>
+                        </figure>
                         <div className='form'>
                             <div className='form-datos'>
                                 {Datos}

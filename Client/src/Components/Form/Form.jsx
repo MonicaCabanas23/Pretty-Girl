@@ -8,18 +8,19 @@ import Combobox from './ComboBox/ComboBox';
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */
-const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText }) => {
+const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelPath, cancelText, continueHandle, continuePath, continueText, Activo }) => {
     const [fields, setFields] = useState([]);
     const [links, setLinks] = useState([]);
+    const [Loading, setLoading] = useState(false);
 
     /* When render just once */
     useEffect(() => {
         if(formFields != undefined){
             /* Get label fields */
-            const mappedForm = formFields.map(field => {
+            const mappedForm = formFields.map((field, index) => {
                 if (field.element === 'label') {
                     return (
-                        <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} clase={field.clase ? field.clase : false}/>
+                        <Label key={field.key} type={field.type} text={field.text} valueInput={field.value} setValue={field.setValue} InputUse={field.use} clase={field.clase ? field.clase : false}/>
                     )
                 }
                 if (field.element === 'combobox') {
@@ -27,13 +28,20 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                         <Combobox key={field.key} clase={field.clase} name={field.name} options={field.options} setOption={field.setValue}/>
                     )
                 }
+                if (field.element === 'react') {
+                    return (
+                        <div key={2555} className="cards">
+                            {field.text}
+                        </div>
+                    );
+                }
             });
 
             /* Get links fields */
             const mappedLinks = formFields.map(link => {
                 if (link.element === 'link') {
                     return (
-                        <Link key={link.key} to={link.path}>
+                        <Link key={link.key} to={link.path} >
                             <>{link.text}</>
                             {/* <A key={link.key} href={link.href} text={link.text} /> */}
                         </Link>
@@ -52,13 +60,7 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     )
                 }
             });
-
-
-            if(formType != 'description'){
-                setFields(mappedForm);
-            } else {
-                setFields(mappedDescription);
-            }
+            setFields(mappedForm);
             setLinks(mappedLinks);
         }
 
@@ -72,10 +74,10 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                     {fields}
                 </div>
                 <div className="actions">
+                    <Link to={Activo?continuePath:''}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
                     {
                         justContinue ? <></> : <Link to={cancelPath}><Button clase='cancel' onClick={cancelHandle} text={cancelText} /></Link>
                     }
-                    <Link to={continuePath}><Button clase='continue' onClick={continueHandle} text={continueText} /></Link>
                 </div>
                 {links.length != 0 ? 
                 <div className="links">

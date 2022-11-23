@@ -126,6 +126,7 @@ async function PushBag(id) {
           }
         };
         axios.get(url, config).then((datos) => {
+          console.log(datos.data.length)
           if (datos.data.length == 0) {
             url = "/api/bags/";
             const config = {
@@ -185,6 +186,12 @@ async function PushBag(id) {
                   amount: element.amount + 1
                 })
                 update = true;
+              }
+              else{
+                data.products.push({
+                  "_id": element._id,
+                  amount: element.amount
+                })
               }
             });
             if (!update) data.products.push({

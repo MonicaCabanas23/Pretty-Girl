@@ -3,20 +3,18 @@ import './ProductsBag.scss'
 
 import ProductCardBag from './ProductCardBag/ProductCardBag'
 
-const ProductsBag = ({ title, bag = false, products }) => {
+const ProductsBag = ({ bag = false, products, onClick }) => {
     return (
         <>
-            {title ? <h1 className="title">{title}</h1> : <></>}
             <div className="cards">
                 {
                     products.map((item, index) => {
-                        return (
-                            <ProductCardBag key={index} image={item.picture} name={item.name} price={item.price} />
-                        )
+                        
+                        return <ProductCardBag key={index} product={item} />
                     })
                 }
             </div>
-        </ >
+        </>
     )
 }
 

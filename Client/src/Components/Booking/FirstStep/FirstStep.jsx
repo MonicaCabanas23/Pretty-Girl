@@ -1,8 +1,38 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 /* Import the form */
 import Form from '../../Form/Form';
 
-const FirstStep = ({onLoad}) => {
+const FirstStep = ({ onLoad }) => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!localStorage.getItem("products")) navigate('/feed')
+    }
+        , [localStorage.getItem("products")])
+
+    const [Activo, setActivo] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [address, setAddress] = useState('');
+
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        console.log('Hola');
+        if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0){
+            setData({
+                name: name,
+                email: email,
+                phone: phone,
+                address: address,
+                setActivo: setActivo
+            })
+        }
+    }, [name, email, phone, address])
+
+
     /* Change the current step */
     useEffect(() => {
         onLoad(1);
@@ -10,44 +40,48 @@ const FirstStep = ({onLoad}) => {
 
     /* Form fields for the first step */
     const formFields = [{
-        'key':'1',
+        'key': '1',
         'element': 'label',
         'type': 'text',
         'text': 'Nombre',
-        'valueInput': 'name',
-        'setValue': 'setUsername'
-    }, {
-        'key':'2',
-        'element': 'label',
-        'type': 'text',
-        'text': 'DUI',
-        'valueInput': 'password',
-        'setValue': 'setPassword'   
-    }, {
-        'key':'3',
+        'valueInput': name,
+        'setValue': setName
+    },
+    {
+        'key': '2',
         'element': 'label',
         'type': 'text',
         'text': 'Correo electrónico',
-        'valueInput': 'username',
-        'setValue': 'setUsername'
+        'valueInput': email,
+        'setValue': setEmail
     }, {
-        'key':'4',
+        'key': '3',
         'element': 'label',
-        'type': 'text',
+        'type': 'tel',
         'text': 'Número de teléfono',
-        'valueInput': 'username',
-        'setValue': 'setUsername'
+        'valueInput': phone,
+        'setValue': setPhone
     }, {
-        'key':'5',
+        'key': '4',
         'element': 'label',
         'type': 'text',
         'text': 'Dirección',
-        'valueInput': 'username',
-        'setValue': 'setUsername'
+        'valueInput': address,
+        'setValue': setAddress
     }]
-    
+
+    useEffect(() => {
+
+        if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0) {
+            const CorreoValido = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+            if (data.name.length > 0 & data.email.length > 0 & data.phone.length == 8 & data.email.match(CorreoValido) != null) {
+                data.setActivo(true);
+            }
+        }
+    }, [data])
+
     return (
-        <Form title={'Datos del cliente'} formType={'client-data'} formFields={formFields} justContinue={false} cancelPath={'/feed'} cancelText={'Cancelar'} continuePath={'../delivery-method'} continueText={'Continuar'}/>
+        <Form title={'Datos del cliente'} formType={'client-data'} formFields={formFields} justContinue={false} cancelPath={'/feed'} cancelText={'Cancelar'} continuePath={'../delivery-method'} continueText={'Continuar'} Activo={Activo} />
     )
 }
 

@@ -4,7 +4,7 @@ import CategoryCard from './CategoryCard/CategoryCard'
 import axios from 'axios';
 import Loading from '../../Loading/Loading';
 
-const CategoriesContainer = () => {
+const CategoriesContainer = ({handleCategoryClick}) => {
   const [categories, setCategories] = useState([]);
   const [cargado, setCargado] = useState(false);
   const url = "/api/categories";
@@ -27,7 +27,7 @@ const CategoriesContainer = () => {
           {
             categories.map((item, index) => {
               return (
-                <CategoryCard key={index} image={item.picture.secure_url} name={item.name} />
+                <CategoryCard key={index} image={item.picture.secure_url} name={item.name} onClickHandle={() => {handleCategoryClick(item.name)}}/>
               )
             })
           }

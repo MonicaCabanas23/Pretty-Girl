@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route, Navigate} from "react-router-dom";
 import './Feed.scss';
 import MainFeed from '../../Components/MainFeed/MainFeed';
 import Booking from '../../Components/Booking/Booking';
@@ -18,6 +18,7 @@ const Feed = () => {
       <ProductProvider>
         <Routes>
           <Route path='/' element={<MainFeed />}/> 
+          <Route path='/booking' element={<Navigate to='/feed/booking/client-data' />}/>
           <Route path='/booking/*' element={<Booking />}/> 
           <Route path='/bag/*' element={<Bag />}/> 
         </Routes>  

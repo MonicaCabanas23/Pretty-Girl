@@ -21,9 +21,8 @@ const SecondStep = ({ onLoad }) => {
     'key': '2',
     'element': 'react',
     'text': Products.map((item, index) => {
-      /* La ruta a la que redirigirá cada producto es ProductDescription */
       return (
-        <ProductCard key={index} image={item.picture.secure_url} name={item.name} price={item.price} />
+        <ProductCard key={index} image={item.picture} name={item.name} price={item.price} id={'reserva'} />
       )
     }),
   },

@@ -4,6 +4,7 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 import Register from './Register/Register';
 import Form from '../../Components/Form/Form';
 import axios from "axios";
+import Swal from 'sweetalert2';
 /* Context */
 import {useConfigContext} from '../../Contexts/ConfigContext'
 import { useUserContext } from '../../Contexts/UserContext';
@@ -30,6 +31,14 @@ function Login() {
 
                 if(response.status === 200){
                     context.Login()
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login exitoso',
+                        text: 'Redirigiendo a la página principal',
+                        timer: 1000,
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                    })
                     isAdmin()
                     navigate("/feed");
                 }

@@ -28,7 +28,6 @@ const AddProduct = () => {
     // Test variables
     const sized = ["L", "M"];
     const colored = ["Gris"];
-    const category = "ST"
     
     // Header variables configuration
     const config = {

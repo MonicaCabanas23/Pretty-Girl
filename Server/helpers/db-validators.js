@@ -19,18 +19,10 @@ const userExistByID = async (id = "") => {
   }
 };
 
-const duiExist = async (dui = "") => {
-  const duiExist = await User.findOne({ dui });
-
-  if (duiExist) {
-    throw new Error(`DUI: ${dui} already exist`);
-  }
-};
-
-const categoryExistByID = async (id = "") => {
-  const categoryExist = await Category.findById(id);
+const categoryExistByID = async (name = "") => {
+  const categoryExist = await Category.findOne({name});
   if (!categoryExist) {
-    throw new Error(`Category ID:${id} does not exist`);
+    throw new Error(`Category:${name} does not exist`);
   }
 };
 
@@ -73,7 +65,6 @@ const allowedCollections = (collection = "", collections = []) => {
 module.exports = { 
   emailExist,
   userExistByID,
-  duiExist,
   categoryExistByID,
   productExistByID,
   bookingExistByID,

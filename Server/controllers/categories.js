@@ -24,9 +24,9 @@ const getCategory = async (req, res) => {
 };
 
 const categoryPost = async (req, res) => {
-    const id = req.body._id.toUpperCase();
+    const { name } = req.body;
+    const categoryDB = await Category.findOne({name: name});
 
-    const categoryDB = await Category.findById(id);
     if (categoryDB) {
         return res.status(400).json({
             msg: `Category: ${categoryDB.name}, already exists`,
@@ -35,9 +35,10 @@ const categoryPost = async (req, res) => {
     else{
         const data = {...req.body};
         const category = new Category(data);
+        const type = "categories";
 
         if(req.files?.picture){
-            const result = await uploadFile(req.files.picture.tempFilePath);
+            const result = await uploadFile(req.files.picture.tempFilePath, type);
             category.picture = {
                 public_id: result.public_id,
                 secure_url: result.secure_url
@@ -60,9 +61,10 @@ const categoryPost = async (req, res) => {
 const categoryPut = async (req, res) => {
     const { id } = req.params;
     const newCategory = {...req.body};
+    const type = "categories";
 
     if(req.files?.picture){
-        const result = await uploadFile(req.files.picture.tempFilePath);
+        const result = await uploadFile(req.files.picture.tempFilePath, type);
         newCategory.picture = {
             public_id: result.public_id,
             secure_url: result.secure_url

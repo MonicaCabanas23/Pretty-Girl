@@ -19,24 +19,24 @@ You can also run
 Application Path
 -----------
 
-        this.paths = {
-            auth: "/api/auth",
-            categories: "/api/categories",
-            products: "/api/products",
-            booking: "/api/bookings",
-            users: "/api/users",
-        };
+        app.use('/', indexRouter);
+        app.use('/api/auth', authRouter);
+        app.use('/api/bags', bagsRouter);
+        app.use('/api/bookings', bookingRouter);
+        app.use('/api/categories', categoryRouter);
+        app.use('/api/products', productRouter);
+        app.use('/api/users', usersRouter);
 
 Router File
 -----------
 
-        routes() {
-                this.app.use(this.paths.auth, require("../routes/auth"));
-                this.app.use(this.paths.categories, require("../routes/categories"));
-                this.app.use(this.paths.products, require("../routes/products"));
-                this.app.use(this.paths.booking, require("../routes/bookings"));
-                this.app.use(this.paths.users, require("../routes/users"));
-        }
+        var indexRouter = require('./routes/index');
+        var authRouter = require('./routes/auth');
+        var bagsRouter = require('./routes/bags');
+        var bookingRouter = require('./routes/bookings');
+        var categoryRouter = require('./routes/categories');
+        var productRouter = require('./routes/products');
+        var usersRouter = require('./routes/users');
 
 Release Notes
 -------------

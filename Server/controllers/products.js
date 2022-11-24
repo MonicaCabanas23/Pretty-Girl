@@ -41,11 +41,11 @@ const getProduct = async (req, res = response) => {
 };
 
 const productPost = async (req, res) => {
-    const data = {...req.body};
-    const product = new Product(data);
+    const product = new Product(req.body);
+    const type = "products";
 
     if(req.files?.picture){
-        const result = await uploadFile(req.files.picture.tempFilePath);
+        const result = await uploadFile(req.files.picture.tempFilePath, type);
         product.picture = {
             public_id: result.public_id,
             secure_url: result.secure_url
@@ -58,18 +58,26 @@ const productPost = async (req, res) => {
         }
     }
 
-    await product.save();
-    res.json({
-        product,
-    });
+    if(validateGender(product.gender)){
+        await product.save();
+        res.json({
+            product,
+        });
+    }
+    else{
+        return res.status(400).json({
+            msg: "Invalid gender"
+        });
+    }
 };
 
 const productPut = async (req, res = response) => {
     const { id } = req.params;
     const newProduct = {...req.body};
+    const type = "products";
 
     if(req.files?.picture){
-        const result = await uploadFile(req.files.picture.tempFilePath);
+        const result = await uploadFile(req.files.picture.tempFilePath, type);
         newProduct.picture = {
             public_id: result.public_id,
             secure_url: result.secure_url
@@ -93,6 +101,14 @@ const productDelete = async (req, res = response) => {
     deleteFile(categoryDB.picture.public_id);
     res.json(productDB);
 };
+
+//Helper functions
+const validateGender = (gender) =>{
+    if(gender == "Masculino" || gender == "Femenino" || gender == "Unisex"){
+        return true;
+    }
+    return false;
+}
 
 module.exports = {
     feedProductsGet,

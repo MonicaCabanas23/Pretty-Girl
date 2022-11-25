@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './ImageUploader.scss'
 import ImageUploading from 'react-images-uploading';
 
-const ImageUploader = () => {
-    const [images, setImages] = useState([]);
+const ImageUploader = ({images, setImages}) => {
 
     useEffect(() => {
         const images_ = JSON.parse(localStorage.getItem("images"));

@@ -17,12 +17,14 @@ const AddProduct = () => {
   const [category, setCategory] = useState('');
   const [genre, setGenre] = useState('');
   const [categories, setCategories] = useState([]);
-  // Form fields
-  const [formFields, setFormFields] = useState([]);
-  const [detailsFields, setDetailsFields] = useState([]);
   // Colors and Sizes to save in the database
   const [size, setSize] = useState('none');
   const [color, setColor] = useState('none');
+  // Image
+  const [images, setImages] = useState([]);
+  // Form fields
+  const [formFields, setFormFields] = useState([]);
+  const [detailsFields, setDetailsFields] = useState([]);
   // Auxiliar variables for color and sizes
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
@@ -57,10 +59,6 @@ const AddProduct = () => {
   const handleSubmit = () => {
     const url = "/api/products";
     const token = localStorage.getItem('token');
-
-    // Test variables
-    const sized = ["L", "M"];
-    const colored = ["Gris"];
     
     // Header variables configuration
     const config = {
@@ -275,7 +273,7 @@ const AddProduct = () => {
         loading ? <Loading></Loading> :
           <>
             <section className='add-product'>
-              <ImageUploader />
+              <ImageUploader images={images} setImages={setImages}/>
               <div className='form-container'>
                 <form className='add-product'>
                     <h1>Información de producto</h1>

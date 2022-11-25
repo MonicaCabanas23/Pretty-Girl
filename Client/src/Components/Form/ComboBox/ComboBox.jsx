@@ -17,6 +17,10 @@ function Combobox({ clase, name, options, setOption }) {
         setValue(mappedOption);
     }, [])
 
+    const handleReusableType = (e) => {
+        e.target.selectedIndex = 0;
+    }
+
     return (
         <div className={clase} >
             <select name={name} onChange={(e) => {
@@ -24,6 +28,7 @@ function Combobox({ clase, name, options, setOption }) {
                 console.log(e.target.value)
                 e.target.selectedIndex = 0;
                 console.log(e.target.selectedIndex)
+                name === 'reusable' && handleReusableType(e);
             }
             }>
                 {value}

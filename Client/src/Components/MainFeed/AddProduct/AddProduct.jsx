@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './AddProduct.scss'
 import ImageUploader from '../../ImageUploader/ImageUploader'
 import Button from '../../Button/Button'
@@ -17,6 +17,7 @@ const AddProduct = () => {
   const [category, setCategory] = useState('');
   const [genre, setGenre] = useState('');
   const [categories, setCategories] = useState([]);
+  const [sizeOptions, setSizeOptions] = useState([{ 'value': 'Selecciona una talla' }]);
   // Colors and Sizes to save in the database
   const [size, setSize] = useState('none');
   const [color, setColor] = useState('none');
@@ -35,14 +36,6 @@ const AddProduct = () => {
   const url = "/api/categories/";
 
   // Combobox options
-  const sizeOptions = [
-    { 'value': 'Selecciona una talla' },
-    { 'value': 'XS' },
-    { 'value': 'S' },
-    { 'value': 'M' },
-    { 'value': 'L' },
-    { 'value': 'XL' }
-  ];
   const genreOptions = [
     { 'value': 'Selecciona un género' },
     { 'value': 'Masculino' },
@@ -168,11 +161,6 @@ const AddProduct = () => {
   }, [categories])
 
   // For updating textareas and comoboxes of size and color
-  useEffect(()=> {
-    handleSizeChange();
-    handleColorChange();
-  }, [_size, _color])
-
   const handleColorChange = () => {
     if (!_color) setColor('none');
     if (_color) {
@@ -197,8 +185,82 @@ const AddProduct = () => {
     }
   }
 
-  useEffect(() => {
+  useEffect(()=> {
+    handleSizeChange();
+    handleColorChange();
+  }, [_size, _color])
 
+  useEffect(() => {
+    const clothesSizeOptions = [
+      { 'value': 'Selecciona una talla' },
+      { 'value': 'XS' },
+      { 'value': 'S' },
+      { 'value': 'M' },
+      { 'value': 'L' },
+      { 'value': 'XL' }
+    ];
+    const shoesSizes = [
+      { 'value': 'Selecciona una talla' },
+      { 'value': '4.0' },
+      { 'value': '4.5' },
+      { 'value': '5.0'},
+      { 'value': '5.5'},
+      { 'value': '6.0'},
+      { 'value': '6.5'},
+      { 'value': '7.0'},
+      { 'value': '7.5'},
+      { 'value': '8.0'},
+      { 'value': '8.5'},
+      { 'value': '9.0'},
+      { 'value': '9.5'},
+      { 'value': '10.0'},
+      { 'value': '10.5'},
+      { 'value': '11.0'},
+      { 'value': '11.5'},
+      { 'value': '12.0'},
+      { 'value': '12.5'},
+      { 'value': '13.0'},
+      { 'value': '13.5'},
+      { 'value': '14.0'},
+    ];
+    const jeansSizes = [
+      { 'value': 'Selecciona una talla' },
+      { 'value': '26' },
+      { 'value': '27' },
+      { 'value': '28'},
+      { 'value': '29'},
+      { 'value': '30'},
+      { 'value': '31'},
+      { 'value': '32'},
+      { 'value': '33'},
+      { 'value': '34'},
+      { 'value': '35'},
+      { 'value': '36'},
+      { 'value': '37'},
+      { 'value': '38'},
+      { 'value': '39'},
+      { 'value': '40'},
+      { 'value': '41'},
+      { 'value': '42'},
+      { 'value': '43'},
+      { 'value': '44'},
+    ];
+
+    if (category === 'Accesorios' || category === 'Bolsos' || category === 'Lentes')
+      setSizeOptions([{ 'value': 'Selecciona una talla' }]);
+    else if (category === 'Bikini' || category === 'Camisas' || category === 'Vestidos' || category === 'Shorts')
+      setSizeOptions(clothesSizeOptions);
+    else if (category === 'Zapatos')
+      setSizeOptions(shoesSizes);
+    else if (category === 'Pantalones')
+      setSizeOptions(jeansSizes);
+    else
+      setSizeOptions([{ 'value': 'Selecciona una talla' }]);
+
+    console.log('hola')
+  }, [category])
+
+  useEffect(() => {
     if (color !== 'none' && color !== 'Selecciona un color') {
       _setColor(true);
       _setSize(false);
@@ -260,8 +322,7 @@ const AddProduct = () => {
     });
 
     setDetailsFields(mappedDetails);
-  }, [size, color])
-
+  }, [sizeOptions, size, color])
 
   useEffect(() => {
     setLoading((formFields.length > 0 && categories.length > 0) ? false : true);
@@ -280,6 +341,7 @@ const AddProduct = () => {
                     <div className="formFields">
                       {formFields}
                       {detailsFields}
+                      {console.log(detailsFields)}
                     </div>
                     <div className="actions">
                         <Link ><Button clase='continue' onClick={(e) => handleSubmit(e)} text={'Agregar'} /></Link>

@@ -2,12 +2,20 @@ import React, { useState, useEffect } from 'react'
 import './ImageUploader.scss'
 import ImageUploading from 'react-images-uploading';
 
-const ImageUploader = ({images, setImages}) => {
+const ImageUploader = ({images, setImages, formData, setFormData}) => {
+    const auxForm = new FormData();
+    auxForm.append('upload_preset', 'xrtjqe03');
 
-    useEffect(() => {
+    useEffect(() => {   
         const images_ = JSON.parse(localStorage.getItem("images"));
         if (images_) {
             setImages(images_);
+        }
+    }, []);
+
+    useEffect(() => {
+        if(images.length > 0) {
+            setFormData(auxForm);
         }
     }, []);
 
@@ -38,6 +46,7 @@ const ImageUploader = ({images, setImages}) => {
                                         <p> Aún no tienes imágenes :/ </p>
                                     </div> :
                                     imageList.map((image, index) => (
+                                        auxForm.append('file', image.file),
                                         <div key={index} className="image-item">
                                             <figure>
                                                 <img src={image.data_url} alt={image.file.name} width="100" />

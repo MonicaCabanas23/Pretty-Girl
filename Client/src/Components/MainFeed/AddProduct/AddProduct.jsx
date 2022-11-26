@@ -31,23 +31,12 @@ const AddProduct = () => {
   const [sizes, setSizes] = useState([]);
   const [_color, _setColor] = useState(true);
   const [_size, _setSize] = useState(true);
+  const [formData , setFormData] = useState(new FormData());
   
+  console.log(formData);
+
   const [loading, setLoading] = useState(true);
   const url = "/api/categories/";
-
-  // Combobox options
-  const genreOptions = [
-    { 'value': 'Selecciona un género' },
-    { 'value': 'Masculino' },
-    { 'value': 'Femenino' },
-    { 'value': 'Unisex' },
-  ];
-  const colorOptions = [
-    { 'value': 'Selecciona un color' },
-    { 'value': 'Azul' },
-    { 'value': 'Amarillo' },
-    { 'value': 'Rojo' },
-  ];
 
   const handleSubmit = () => {
     const url = "/api/products";
@@ -58,18 +47,19 @@ const AddProduct = () => {
       headers: { "x-token": token }
     };
 
+    const sized = ['small', 'medium', 'large'];
     const body = {
       'name': name,
       'category': category,
-      'size': sizes,
+      'size': sized,
       'color': colors,
       'gender': genre,
       'available': true,
       'amount': quantity,
       'price': price,
+      'picture': images,
     };
-    console.log(body);
-    
+
     axios.post(url, body, config)
       .then(response => {
         if (response.status === 200) {
@@ -101,6 +91,29 @@ const AddProduct = () => {
     getCategories();
   }, [])
 
+  // Combobox options
+  const genreOptions = [
+    { 'value': 'Selecciona un género' },
+    { 'value': 'Masculino' },
+    { 'value': 'Femenino' },
+    { 'value': 'Unisex' },
+  ];
+  const colorOptions = [
+    { 'value': 'Selecciona un color' },
+    { 'value': 'Aqua' },
+    { 'value': 'Azul' },
+    { 'value': 'Amarillo' },
+    { 'value': 'Beige' },
+    { 'value': 'Blanco' },
+    { 'value': 'Cafe' },
+    { 'value': 'Celeste' },
+    { 'value': 'Gris' },
+    { 'value': 'Naranja' },
+    { 'value': 'Negro' },
+    { 'value': 'Purpura' },
+    { 'value': 'Rojo' },
+    { 'value': 'Verde' },
+  ];
 
   // For Fields rendering just when categories are loaded
   useEffect(() => {
@@ -256,8 +269,6 @@ const AddProduct = () => {
       setSizeOptions(jeansSizes);
     else
       setSizeOptions([{ 'value': 'Selecciona una talla' }]);
-
-    console.log('hola')
   }, [category])
 
   useEffect(() => {
@@ -334,14 +345,13 @@ const AddProduct = () => {
         loading ? <Loading></Loading> :
           <>
             <section className='add-product'>
-              <ImageUploader images={images} setImages={setImages}/>
+              <ImageUploader images={images} setImages={setImages} formData={formData} setFormData={setFormData}/>
               <div className='form-container'>
                 <form className='add-product'>
                     <h1>Información de producto</h1>
                     <div className="formFields">
                       {formFields}
                       {detailsFields}
-                      {console.log(detailsFields)}
                     </div>
                     <div className="actions">
                         <Link ><Button clase='continue' onClick={(e) => handleSubmit(e)} text={'Agregar'} /></Link>

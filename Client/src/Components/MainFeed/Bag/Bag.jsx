@@ -95,9 +95,12 @@ const Bag = () => {
                   </figure>
                   <p> Aún no tienes nada en la bolsa :/ </p>
                 </div> :
-                <ProductsBag bag={true} products={Products} />
+                <>
+                  <ProductsBag bag={true} products={Products} />
+
+                  <Button clase={'reserve'} text={'Reservar'} onClick={() => { AddReserva(Products, navigate) }} />
+                </>
             }
-            <Button clase={'reserve'} text={'Reservar'} onClick={() => { AddReserva(Products, navigate) }} />
           </section>
         </>
       }

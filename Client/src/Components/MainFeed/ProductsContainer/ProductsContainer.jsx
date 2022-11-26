@@ -33,7 +33,7 @@ const ProductsContainer = ({ id, title, bag=false }) => {
             {products.map((item, index) => {
               /* La ruta a la que redirigirá cada producto es ProductDescription */
               return (
-                <Link to={{ pathname: '/product/', hash: item._id }} key={index}><ProductCard image={item.picture.secure_url} name={item.name} price={item.price} /></Link>
+                <Link to={{ pathname: '/product/', hash: item._id }} key={index}><ProductCard image={item.picture} name={item.name} price={item.price} /></Link>
               )
             })}</> : <Loading />}
         </Suspense>

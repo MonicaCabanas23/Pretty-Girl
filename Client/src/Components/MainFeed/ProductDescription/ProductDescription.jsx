@@ -85,7 +85,7 @@ function ProductDescription({ id }) {
       {
         'key': '6',
         'element': 'img',
-        'src': data.picture.secure_url,
+        'src': data.picture,
         'clase': 'ImagenProducto'
 
       },

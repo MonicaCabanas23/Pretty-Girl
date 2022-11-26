@@ -32,7 +32,9 @@ const AddProduct = () => {
   const [formData , setFormData] = useState(new FormData());
   const [loading, setLoading] = useState(true);
   const url = "/api/categories/";
-
+  
+  console.log(formData.get('file'));
+  
   const handleSubmit = () => {
     const url = "/api/products";
     const token = localStorage.getItem('token');
@@ -52,7 +54,7 @@ const AddProduct = () => {
       'available': true,
       'amount': quantity,
       'price': price,
-      /* 'picture': images, */
+      'picture': formData.get('file'),
     };
 
     axios.post(url, body, config)
@@ -274,8 +276,6 @@ const AddProduct = () => {
       _setColor(false);
     }
 
-    console.log(sizeOptions);
-
     const details = [
       {
         'key': '6',
@@ -333,10 +333,6 @@ const AddProduct = () => {
   useEffect(() => {
     setLoading((formFields.length > 0 && categories.length > 0) ? false : true);
   }, [formFields])
-
-  useEffect(() => {
-    console.log('sí funciona esta wea');
-  }, [detailsFields])
 
   return (
     <>

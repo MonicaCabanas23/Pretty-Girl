@@ -4,7 +4,7 @@ import ImageUploading from 'react-images-uploading';
 
 const ImageUploader = ({setFormData}) => {
     const [images, setImages] = useState([]);
-    const auxForm = new FormData();
+    let auxForm = new FormData();
     auxForm.append('upload_preset', 'xrtjqe03');
 
     useEffect(() => {   
@@ -15,7 +15,6 @@ const ImageUploader = ({setFormData}) => {
     }, []);
 
     useEffect(() => {
-        console.log('cambio con cada imagen')
         if(images.length > 0) {
             setFormData(auxForm);
         }
@@ -23,7 +22,6 @@ const ImageUploader = ({setFormData}) => {
 
     const onChange = (imageList, addUpdateIndex) => {
         // data for submit
-        console.log(imageList, addUpdateIndex);
         setImages(imageList);
         localStorage.setItem("images", JSON.stringify(images));
     };

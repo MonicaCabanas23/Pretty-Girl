@@ -34,17 +34,45 @@ function ProductDescription({ id }) {
   const [Descripcion, setDescription] = useState([])
   const [img, setImg] = useState([])
   const [Boton, setButton] = useState([]);
+  const [SelectedIndex, setSelectedIndex] = useState({
+    c1: {
+      index: 'Selecciona una talla',
+    },
+    c2: {
+      index: 'Selecciona un color',
+    }
+  });
 
   useEffect(() => {
-    const mappedCombobox = formFields.map(field => {
+    let index = 1;
+    const mappedCombobox = formFields.map((field) => {
       if (field.element === 'combobox') {
-        return (
-          <Combobox key={field.key} clase={'combobox'} name={field.name} options={field.options} setOption={field.setOption} />
-        )
+        if (index == 1) {
+          return (
+            <Combobox key={field.key} clase={'save-index'} name={field.name} options={field.options} setOption={field.setOption} selectedIndex={SelectedIndex} setIndex={setSelectedIndex} id={index} Comboboxindex={field.index} />
+          )
+        }
+        else if (index == 2) {
+          return (
+            <Combobox key={field.key} clase={'save-index'} name={field.name} options={field.options} setOption={field.setOption} selectedIndex={SelectedIndex} setIndex={setSelectedIndex} id={index} Comboboxindex={field.index} />
+          )
+        }
+        index++;
       }
     });
     setCombobox(mappedCombobox);
   }, [formFields])
+
+  useEffect(() => {
+    setSelectedIndex({
+      c1: {
+        index: 'Selecciona una talla',
+      },
+      c2: {
+        index: 'Selecciona un color',
+      }
+    });
+  }, [id])
 
   useEffect(() => {
 
@@ -98,6 +126,7 @@ function ProductDescription({ id }) {
         'name': 'Talla',
         'options': talla,
         'clase': 'Talla',
+        'index': 1,
         'setOption': setTalla
       },
       {
@@ -106,6 +135,7 @@ function ProductDescription({ id }) {
         'name': 'Color',
         'options': color,
         'clase': 'Color',
+        'index': 2,
         'setOption': setColor
       },
       {
@@ -132,7 +162,6 @@ function ProductDescription({ id }) {
 
   useEffect(() => {
     if (formFields.length > 0) {
-      console.log(formFields.length);
       setLoading(true)
       const mappedDatos = formFields.map(field => {
         if (field.element === 'label') {
@@ -169,7 +198,6 @@ function ProductDescription({ id }) {
       setButton(mapeedButton);
       setImg(mapeedimg);
     }
-    console.log(loading)
     setLoading(false);
   }, [formFields]);
 

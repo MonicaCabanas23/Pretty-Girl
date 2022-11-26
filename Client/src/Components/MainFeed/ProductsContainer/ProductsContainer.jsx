@@ -32,7 +32,6 @@ const ProductsContainer = ({ id, title, bag=false }) => {
           {cargado ? <>
             {products.map((item, index) => {
               /* La ruta a la que redirigirá cada producto es ProductDescription */
-              console.log(item)
               return (
                 <Link to={{ pathname: '/product/', hash: item._id }} key={index}><ProductCard image={item.picture} name={item.name} price={item.price} /></Link>
               )

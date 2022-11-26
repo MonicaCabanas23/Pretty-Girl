@@ -24,7 +24,7 @@ function Combobox({ clase, name, options, setOption }) {
     return (
         <div className={clase} >
             <select name={name} onChange={(e) => {
-                setOption(e.target.value)
+                setOption(e.target.value);
                 name === 'reusable' && handleReusableType(e);
             }
             }>

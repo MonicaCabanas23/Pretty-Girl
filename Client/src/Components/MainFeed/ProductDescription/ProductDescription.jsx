@@ -17,6 +17,8 @@ function ProductDescription({ id }) {
   const [encontrado, setEncontrado] = useState(false);
   const [loading, setLoading] = useState(true);
   const context = useConfigContext();
+  const [Talla, setTalla] = useState('');
+  const [Color, setColor] = useState('');
 
   useEffect(() => {
 
@@ -31,12 +33,18 @@ function ProductDescription({ id }) {
       const Dia = new Date(data.createdAt).getDate();
       const Mes = new Date(data.createdAt).getMonth();
 
-      const talla = (data.size).map(item => {
-        return { value: item }
-      });
-      const color = (data.color).map(item => {
-        return { value: item }
-      });
+      const talla = [
+        { 'value': 'Selecciona una talla' }
+      ]
+      talla.push(...data.size.map(t => {
+        return { 'value': t }
+      }))
+      const color = [
+        { 'value': 'Selecciona un color' }
+      ];
+      color.push(...data.color.map(c => {
+        return { 'value': c }
+      }))
       const formFields = [{
         'key': '1',
         'element': 'label',
@@ -63,14 +71,16 @@ function ProductDescription({ id }) {
         'element': 'combobox',
         'name': 'Talla',
         'options': talla,
-        'clase': 'Talla'
+        'clase': 'Talla',
+        'setOption': setTalla
       },
       {
         'key': '5',
         'element': 'combobox',
         'name': 'Color',
         'options': color,
-        'clase': 'Color'
+        'clase': 'Color',
+        'setOption': setColor
       },
       {
         'key': '6',
@@ -83,7 +93,7 @@ function ProductDescription({ id }) {
         'key': '7',
         'element': context.isLogged ? 'button' : '',
         'text': 'Agregar a la bolsa',
-        'onClick': () => { PushBag(id) },
+        'onClick': () => { PushBag(id, Color, Talla) },
         'clase': 'AgregarCarrito'
       },
       ]
@@ -113,7 +123,7 @@ function ProductDescription({ id }) {
 export default ProductDescription;
 
 
-async function PushBag(id) {
+async function PushBag(id, color, talla) {
   if (!agregando) {
     agregando = true;
     let url = "/api/auth/validate/" + localStorage.getItem("token");

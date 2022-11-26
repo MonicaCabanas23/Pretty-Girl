@@ -11,6 +11,7 @@ const Bag = () => {
   const [Products, setProducts] = useState([]);
   const [Value, SetValue] = useState(0);
   const [ID, SetID] = useState(0);
+  const [notavailable, setnotAvailable] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,51 +36,67 @@ const Bag = () => {
           }
         };
         await axios.get("/api/bags/" + res.data.uid, config).then(async (data) => {
-          url = '/api/bags/products/' + data.data[0]._id
-          await axios.get(url, config).then((res) => {
-            let fields = [];
-            res.data.map(async (item, index) => {
-              await data.data[0].products.map(async (product) => {
-                if (item._id === product._id) {
-                  SetValue(product.amount)
-                  fields.push({
-                    id: index + 1,
-                    available: item.available,
-                    color: [
-                      item.color
-                    ],
-                    name: item.name,
-                    picture: item.picture.secure_url,
-                    price: item.price,
-                    size: [
-                      item.size
-                    ],
-                    amount: product.amount,
-                    max: item.amount,
-                    SetValue: SetValue,
-                    SetID: SetID
-                  });
-                }
-              });
-              return 'ok'
+          if (data.data.length > 0) {
+            url = '/api/bags/products/' + data.data[0]._id
+            await axios.get(url, config).then((res) => {
+              let fields = [];
+              res.data.map(async (item, index) => {
+                await data.data[0].products.map(async (product) => {
+                  if (item._id === product._id) {
+                    SetValue(product.amount)
+                    fields.push({
+                      id: index + 1,
+                      available: item.available,
+                      color: [
+                        item.color
+                      ],
+                      name: item.name,
+                      picture: item.picture.secure_url,
+                      price: item.price,
+                      size: [
+                        item.size
+                      ],
+                      amount: product.amount,
+                      max: item.amount,
+                      SetValue: SetValue,
+                      SetID: SetID
+                    });
+                  }
+                });
+                return 'ok'
+              })
+              setProducts(fields)
             })
-            setProducts(fields)
-          })
+          }
+          else setnotAvailable(true)
         })
       });
     }
     getData();
   }, []);
   useEffect(() => {
-    if (Products.length > 0) setLoading(false);
+    if ((Products.length > 0 && !notavailable)) setLoading(false);
   }, [Products])
+  useEffect(() => {
+    if (notavailable) setLoading(false);
+  }, [notavailable])
+
 
   return (
     <>
       {
         loading ? <Loading /> : <>
           <section className='bag-container'>
-            <ProductsBag bag={true} products={Products} />
+            {
+              notavailable ?
+                <div className='information-message'>
+                  <figure>
+                    <img src="./../../src/assets/img/box.png" alt="empty" />
+                  </figure>
+                  <p> Aún no tienes nada en la bolsa :/ </p>
+                </div> :
+                <ProductsBag bag={true} products={Products} />
+            }
             <Button clase={'reserve'} text={'Reservar'} onClick={() => { AddReserva(Products, navigate) }} />
           </section>
         </>

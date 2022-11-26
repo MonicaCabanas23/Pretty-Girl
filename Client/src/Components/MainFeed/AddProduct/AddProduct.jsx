@@ -21,8 +21,6 @@ const AddProduct = () => {
   // Colors and Sizes to save in the database
   const [size, setSize] = useState('none');
   const [color, setColor] = useState('none');
-  // Image
-  const [images, setImages] = useState([]);
   // Form fields
   const [formFields, setFormFields] = useState([]);
   const [detailsFields, setDetailsFields] = useState([]);
@@ -57,7 +55,7 @@ const AddProduct = () => {
       'available': true,
       'amount': quantity,
       'price': price,
-      'picture': images,
+      /* 'picture': images, */
     };
 
     axios.post(url, body, config)
@@ -345,7 +343,7 @@ const AddProduct = () => {
         loading ? <Loading></Loading> :
           <>
             <section className='add-product'>
-              <ImageUploader images={images} setImages={setImages} formData={formData} setFormData={setFormData}/>
+              <ImageUploader setFormData={setFormData}/>
               <div className='form-container'>
                 <form className='add-product'>
                     <h1>Información de producto</h1>

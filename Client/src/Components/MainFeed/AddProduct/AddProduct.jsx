@@ -30,9 +30,6 @@ const AddProduct = () => {
   const [_color, _setColor] = useState(true);
   const [_size, _setSize] = useState(true);
   const [formData , setFormData] = useState(new FormData());
-  
-  console.log(formData);
-
   const [loading, setLoading] = useState(true);
   const url = "/api/categories/";
 
@@ -265,8 +262,6 @@ const AddProduct = () => {
       setSizeOptions(shoesSizes);
     else if (category === 'Pantalones')
       setSizeOptions(jeansSizes);
-    else
-      setSizeOptions([{ 'value': 'Selecciona una talla' }]);
   }, [category])
 
   useEffect(() => {
@@ -278,6 +273,8 @@ const AddProduct = () => {
       _setSize(true);
       _setColor(false);
     }
+
+    console.log(sizeOptions);
 
     const details = [
       {
@@ -336,6 +333,10 @@ const AddProduct = () => {
   useEffect(() => {
     setLoading((formFields.length > 0 && categories.length > 0) ? false : true);
   }, [formFields])
+
+  useEffect(() => {
+    console.log('sí funciona esta wea');
+  }, [detailsFields])
 
   return (
     <>

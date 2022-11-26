@@ -1,38 +1,51 @@
 const { response } = require("express");
-const {uploadFile} = require("../helpers/upload-file");
-const {deleteFile} = require("../helpers/delete-file");
-const { body } = require("express-validator");
+const { uploadFile } = require("../helpers/upload-file");
 const Product = require("../models/product");
 
-const feedProductsGet = async (req, res = response) => {
-    const { limit = 5, skip = 0 } = req.query;
-    const query = { status: true };
-
-    const [total, products] = await Promise.all([
-        Product.countDocuments(query),
-        Product.find(query).limit(Number(limit)).skip(Number(skip)),
-    ]);
-
-    res.json({
-        total,
-        products,
-    });
-};
-
+// Get products by search engine
 const productsGet = async (req, res = response) => {
-    const query = { status: true };
+    const filters = req.query;
+    
+    if (filters.limit) {
+        const { limit, skip = 0 } = req.query;
+        const query = { status: true };
 
-    const [total, products] = await Promise.all([
-        Product.countDocuments(query),
-        Product.find(query)
-    ]);
+        const [total, products] = await Promise.all([
+            Product.countDocuments(query),
+            Product.find(query)
+                .limit(Number(limit))
+                .skip(Number(skip))
+                .sort({ createdAt: -1 })
+        ]);
 
-    res.json({
-        total,
-        products,
-    });
+        res.json({
+            total,
+            products
+        });
+    }
+    else {
+        // Access to products array
+        const productsFiltered = await Product.find(filters);
+
+        // Find filtered products
+        const products = productsFiltered.filter(product => {
+            let isValid = true;
+            for (const key in filters) {
+                isValid = isValid && product[key] == filters[key];
+            }
+            return isValid;
+        })
+
+        const total = products.length;
+
+        res.json({
+            total,
+            products
+        });
+    }
 };
 
+// Get an specific product
 const getProduct = async (req, res = response) => {
     const { id } = req.params;
     const product = await Product.findById(id)
@@ -40,78 +53,68 @@ const getProduct = async (req, res = response) => {
     res.json(product);
 };
 
+// Post a new product
 const productPost = async (req, res) => {
     const product = new Product(req.body);
+
     const type = "products";
 
-    if(req.files?.picture){
+    // Upload file to cloudinary
+    if (req.files?.picture) {
         const result = await uploadFile(req.files.picture.tempFilePath, type);
-        product.picture = {
-            public_id: result.public_id,
-            secure_url: result.secure_url
-        }
-    }
-    else{
-        product.picture = {
-            public_id: "none",
-            secure_url: "https://res.cloudinary.com/cabrera-evil/image/upload/v1668401831/prettygirl-api/default/no-image_qtyjtw.jpg"
-        }
+        product.picture = result.url;
     }
 
-    if(validateGender(product.gender)){
+    // Validate if the gender is valid to save the product
+    if (validateGender(product.gender)) {
         await product.save();
         res.json({
             product,
         });
     }
-    else{
+    // Show an error and don't save the product
+    else {
         return res.status(400).json({
             msg: "Invalid gender"
         });
     }
 };
 
+// Put an existing product
 const productPut = async (req, res = response) => {
     const { id } = req.params;
-    const newProduct = {...req.body};
-    const type = "products";
+    const newProduct = { ...req.body };
 
-    if(req.files?.picture){
-        const result = await uploadFile(req.files.picture.tempFilePath, type);
-        newProduct.picture = {
-            public_id: result.public_id,
-            secure_url: result.secure_url
-        }
+    // Validate if the gender is valid to save the product
+    if (validateGender(product.gender)) {
+        const updatedProduct = await Product.findByIdAndUpdate(id, newProduct, { new: true });
+        res.json(updatedProduct);
     }
-    else{
-        product.picture = {
-            public_id: "none",
-            secure_url: "https://res.cloudinary.com/cabrera-evil/image/upload/v1668401831/prettygirl-api/default/no-image_qtyjtw.jpg"
-        }
+    // Show an error and don't save the product
+    else {
+        return res.status(400).json({
+            msg: "Invalid gender"
+        });
     }
-
-    const updatedProduct = await Product.findByIdAndUpdate(id, newProduct , {new: true});
-    res.json(updatedProduct);
 };
 
+// Set product status to unavailable
 const productDelete = async (req, res = response) => {
     const { id } = req.params;
-    const productDB = await Product.findByIdAndDelete(id);
-    
-    deleteFile(categoryDB.picture.public_id);
-    res.json(productDB);
+    const unabledProduct = await Product.findByIdAndUpdate(id, { available: false });
+
+    res.json(unabledProduct);
 };
 
 //Helper functions
-const validateGender = (gender) =>{
-    if(gender == "Masculino" || gender == "Femenino" || gender == "Unisex"){
+const validateGender = (gender) => {
+    if (gender == "Masculino" || gender == "Femenino" || gender == "Unisex") {
         return true;
     }
     return false;
 }
 
 module.exports = {
-    feedProductsGet,
     productsGet,
     getProduct,
     productPost,

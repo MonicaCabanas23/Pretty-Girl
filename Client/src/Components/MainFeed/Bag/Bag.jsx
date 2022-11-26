@@ -51,7 +51,7 @@ const Bag = () => {
                         item.color
                       ],
                       name: item.name,
-                      picture: item.picture.secure_url,
+                      picture: item.picture,
                       price: item.price,
                       size: [
                         item.size

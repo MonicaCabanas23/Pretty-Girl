@@ -27,7 +27,7 @@ const CategoriesContainer = ({handleCategoryClick}) => {
           {
             categories.map((item, index) => {
               return (
-                <CategoryCard key={index} image={item.picture.secure_url} name={item.name} onClickHandle={() => {handleCategoryClick(item.name)}}/>
+                <CategoryCard key={index} image={item.picture} name={item.name} onClickHandle={() => {handleCategoryClick(item.name)}}/>
               )
             })
           }

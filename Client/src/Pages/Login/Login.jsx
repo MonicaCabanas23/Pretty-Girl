@@ -47,7 +47,7 @@ function Login() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong!',
+                    text: 'El usuario o la contraseña son incorrectos',
                 })
             });
     }

@@ -9,7 +9,11 @@ import Loading from '../../Loading/Loading';
 const ProductsContainer = ({ id, title, bag=false }) => {
   const [products, setProducts] = useState([]);
   const [cargado, setCargado] = useState(false);
-  const url = "/api/products";
+  let url = "/api/products/";
+  
+  if(title == 'Recién llegados'){
+    url = "/api/products/limit/5";
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -30,7 +34,7 @@ const ProductsContainer = ({ id, title, bag=false }) => {
               /* La ruta a la que redirigirá cada producto es ProductDescription */
               console.log(item)
               return (
-                <Link to={{ pathname: '/product/', hash: item._id }} key={index}><ProductCard image={item.picture.secure_url} name={item.name} price={item.price} /></Link>
+                <Link to={{ pathname: '/product/', hash: item._id }} key={index}><ProductCard image={item.picture} name={item.name} price={item.price} /></Link>
               )
             })}</> : <Loading />}
         </Suspense>

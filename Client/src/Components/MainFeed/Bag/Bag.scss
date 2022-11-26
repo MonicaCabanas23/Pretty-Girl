@@ -20,6 +20,31 @@ section.bag-container {
         margin: 2rem;
     }
 
+    div.information-message {
+        padding: 3rem;
+        @include flex(column);
+        justify-content: center;
+        align-items: center;
+
+        figure {
+            width: 150px;
+            height: 150px;
+
+            position: relative;
+            img {
+                width: 100%;
+                height: 100%;
+
+                position: absolute;
+                object-fit: contain;
+            }
+        }
+        p {
+            font-family: monospace;
+            color: $general-white;
+        }
+    }
+
     .cards {
         article.product-card {
             @include flex(column);

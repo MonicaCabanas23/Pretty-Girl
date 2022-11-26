@@ -32,10 +32,11 @@ const AddProduct = () => {
   const [formData , setFormData] = useState(new FormData());
   const [loading, setLoading] = useState(true);
   const url = "/api/categories/";
-  
-  console.log(formData.get('file'));
-  
-  const handleSubmit = () => {
+
+  const handleSubmit = async () => {
+    const response = await fetch("https://api.cloudinary.com/v1_1/cabrera-evil/upload", {body: formData, params: formData.get("upload_preset") , method: "POST"});
+    const cloudR = await response.json();
+
     const url = "/api/products";
     const token = localStorage.getItem('token');
     
@@ -54,7 +55,7 @@ const AddProduct = () => {
       'available': true,
       'amount': quantity,
       'price': price,
-      'picture': formData.get('file'),
+      'picture': cloudR.url,
     };
 
     axios.post(url, body, config)

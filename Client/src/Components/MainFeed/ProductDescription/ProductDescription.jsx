@@ -7,7 +7,7 @@ import { useConfigContext } from '../../../Contexts/ConfigContext';
 import Swal from 'sweetalert2'
 import moment from 'moment';
 import Combobox from '../../Form/ComboBox/ComboBox';
-import Label from '../../form/Label/Label';
+import Label from '../../Form/Label/Label';
 import Button from '../../Button/Button';
 import H from '../../H/H'
 

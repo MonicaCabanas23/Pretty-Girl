@@ -12,7 +12,7 @@ import './ContainerPD.scss';
 
 /* A form can have different types in this app: login, register, client-data, delivery-info, description*/
 /* cancelHandle y continueHandle son parámetros para funciones en caso de que se de click en esos bootones */
-const ContainerPD = ({ title, formType, formFields, descriptionFields, justReserva, CrearRevervarPatch, RevervarPatch }) => {
+const ContainerPD = ({ title, formType, formFields, descriptionFields, justReserva, CrearRevervarPatch, RevervarPatch, setOption}) => {
     const [Datos, setDatos] = useState([]);
     const [Descripcion, setDescription] = useState([]);
     const [combobox, setCombobox] = useState();
@@ -36,7 +36,7 @@ const ContainerPD = ({ title, formType, formFields, descriptionFields, justReser
             const mappedCombobox = formFields.map(field => {
                 if (field.element === 'combobox') {
                     return (
-                        <Combobox key={field.key} clase={'combobox'} name={field.name} options={field.options} />
+                        <Combobox key={field.key} clase={'combobox'} name={field.name} options={field.options} setOption={field.setOption} />
                     )
                 }
             });

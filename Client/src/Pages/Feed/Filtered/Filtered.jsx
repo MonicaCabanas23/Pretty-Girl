@@ -1,14 +1,15 @@
 import React from 'react'
-import { Routes, Route } from "react-router-dom";
 import ProductsContainer from '../../../Components/FilteredProducts/Products';
+import { useLocation } from "react-router-dom";
 
-const Body = () => {
-    /* Ocultar categoriesContainer si está en ProductDescription */
-
-    /* El body irá cambiando dependiendo de ciertos estados, esto puede ser con <Link/> */
+const Body = ({filteredUrl}) => {
+    const location = useLocation();
+    const url = location.state.filteredUrl;
+    // console.log(url);
+    
     return (
         <>
-            <ProductsContainer />
+            <ProductsContainer filteredUrl={url} />
         </>
     )
 }

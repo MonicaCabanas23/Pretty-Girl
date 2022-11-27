@@ -64,7 +64,10 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                                             </figure>
                                         </Link>
                                         <Link to={'/'}>
-                                            <figure onClick={() => { handleLogOut(); handleActionsBar(); }} className="btn-logout">
+                                            <figure className="btn-logout" onClick={() => {
+                                                handleLogOut(); 
+                                                handleActionsBar(); 
+                                                }}>
                                                 <i className="fa-solid fa-arrow-right-from-bracket"></i>
                                                 <p>Cerrar sesión</p>
                                             </figure>
@@ -73,7 +76,10 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                             }
                         </> :
                         <Link to={'/login'}>
-                            <figure className={`btn-login`} onClick={handleActionsBar}>
+                            <figure className={`btn-login`} onClick={() => {
+                                handleActionsBar(); 
+                                scroll.scrollToTop();
+                                }}>
                                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
                                 <p>Iniciar sesión</p>
                             </figure>

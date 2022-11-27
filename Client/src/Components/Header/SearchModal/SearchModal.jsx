@@ -177,14 +177,6 @@ const SearchModal = ({ cancelSearch }) => {
     return (
         <div className='modal-container'>
             <section className="search-modal">
-                <div className="search-modal-searching-section">
-                    <div className="search-figure">
-                        <i className="fa-solid fa-magnifying-glass"></i>
-                        <input className="search" type="text" placeholder="Tu búsqueda aquí" />
-                    </div>
-                    {/* Close the modal */}
-                    <button onClick={() => { cancelSearch(false); }}>Cancelar</button>
-                </div>
                 <div className="search-modal-filters">
                     <h3>Búsqueda por filtros</h3>
                     <div className="form-filters">
@@ -256,6 +248,8 @@ const SearchModal = ({ cancelSearch }) => {
                             <button name="filter" className="search-modal-filter" onClick={(e) => { setFilterButton(true) }}>Filtrar</button>
                         </div>
                     </div>
+                </div>
+                <div className='close' onClick={() => { cancelSearch(false); }}>
                 </div>
             </section>
         </div>

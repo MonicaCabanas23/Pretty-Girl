@@ -34,6 +34,7 @@ function ProductDescription({ id }) {
   const [Descripcion, setDescription] = useState([])
   const [img, setImg] = useState([])
   const [Boton, setButton] = useState([]);
+  const [Update, setUpdate] = useState(false);
   const [SelectedIndex, setSelectedIndex] = useState({
     c1: {
       index: 'Selecciona una talla',
@@ -49,18 +50,19 @@ function ProductDescription({ id }) {
       if (field.element === 'combobox') {
         if (index == 1) {
           return (
-            <Combobox key={field.key} clase={'save-index'} name={field.name} options={field.options} setOption={field.setOption} selectedIndex={SelectedIndex} setIndex={setSelectedIndex} id={index} Comboboxindex={field.index} />
+            <Combobox key={field.key} clase={'save-index'} name={field.name} options={field.options} setOption={field.setOption} selectedIndex={SelectedIndex} setIndex={setSelectedIndex} id={index} Comboboxindex={field.index} update={setUpdate} />
           )
         }
         else if (index == 2) {
           return (
-            <Combobox key={field.key} clase={'save-index'} name={field.name} options={field.options} setOption={field.setOption} selectedIndex={SelectedIndex} setIndex={setSelectedIndex} id={index} Comboboxindex={field.index} />
+            <Combobox key={field.key} clase={'save-index'} name={field.name} options={field.options} setOption={field.setOption} selectedIndex={SelectedIndex} setIndex={setSelectedIndex} id={index} Comboboxindex={field.index} update={setUpdate} />
           )
         }
         index++;
       }
     });
     setCombobox(mappedCombobox);
+    setUpdate(false);
   }, [formFields])
 
   useEffect(() => {
@@ -72,6 +74,8 @@ function ProductDescription({ id }) {
         index: 'Selecciona un color',
       }
     });
+    setColor('Selecciona un color');
+    setTalla('Selecciona una talla');
   }, [id])
 
   useEffect(() => {
@@ -149,7 +153,7 @@ function ProductDescription({ id }) {
         'key': '7',
         'element': context.isLogged ? 'button' : '',
         'text': 'Agregar a la bolsa',
-        'onClick': () => { PushBag(id, Color, Talla) },
+        'onClick': () => { PushBag(id, Color, Talla, setColor, setTalla) },
         'clase': 'AgregarCarrito'
       },
       ]
@@ -158,9 +162,11 @@ function ProductDescription({ id }) {
     }
     getData();
 
-  }, [id, Color, Talla]);
+  }, [id, Update]);
+
 
   useEffect(() => {
+    console.log(Update)
     if (formFields.length > 0) {
       setLoading(true)
       const mappedDatos = formFields.map(field => {
@@ -233,6 +239,140 @@ function ProductDescription({ id }) {
 export default ProductDescription;
 
 
-async function PushBag(id, color, talla) {
-  console.log(id, color, talla);
+async function PushBag(id, color, talla, setColor, setTalla) {
+  if (color !== 'Selecciona un color' && talla !== 'Selecciona una talla') {
+    if (!agregando) {
+      agregando = true;
+      let url = "/api/auth/validate/" + localStorage.getItem("token");
+      await axios.get(url).then(TokenData => {
+        if (TokenData.data.exp >= moment().unix()) {
+          url = "/api/bags/" + TokenData.data.uid;
+          const config = {
+            headers: {
+              'x-token': localStorage.getItem("token")
+            }
+          };
+          axios.get(url, config).then((datos) => {
+            console.log(datos.data.length)
+            if (datos.data.length == 0) {
+              url = "/api/bags/";
+              const config = {
+                headers: {
+                  'x-token': localStorage.getItem("token")
+                }
+              };
+              const data = {
+                user: TokenData.data.uid,
+                products: [
+                  {
+                    "_id": id,
+                    amount: 1,
+                    color: color,
+                    size: talla
+                  }
+                ]
+              }
+              axios.post(url, data, config).then(data => {
+                Swal.fire({
+                  title: 'Agregado a la bolsa',
+                  timer: 2000,
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timerProgressBar: true,
+                  allowOutsideClick: false
+                })
+                setColor('Selecciona un color');
+                setTalla('Selecciona una talla');
+
+                agregando = false;
+              }).catch(error => {
+                Swal.fire({
+                  title: 'Ocurrio un error vuelve a intentarlo',
+                  timer: 2000,
+                  icon: 'error',
+                  showConfirmButton: false,
+                  timerProgressBar: true,
+                  allowOutsideClick: false
+                })
+                agregando = false;
+              }
+              )
+            }
+            else {
+              url = "/api/bags/" + datos.data[0]._id;
+              const config = {
+                headers: {
+                  'x-token': localStorage.getItem("token")
+                }
+              };
+              let data = {
+                user: datos.data[0].user,
+                products: []
+              }
+              let update = false;
+              datos.data[0].products.forEach((element) => {
+                if (element._id == id && element.color == color && element.size == talla) {
+                  data.products.push({
+                    "_id": element._id,
+                    amount: element.amount + 1,
+                    color: element.color,
+                    size: element.size
+                  })
+                  update = true;
+                }
+                else {
+                  data.products.push({
+                    "_id": element._id,
+                    amount: element.amount,
+                    color: element.color,
+                    size: element.size
+                  })
+                }
+              });
+
+              console.log(color, talla);
+              if (!update) data.products.push({
+                "_id": id,
+                amount: 1,
+                color: color,
+                size: talla
+              })
+              axios.put(url, data, config).then(data => {
+                Swal.fire({
+                  title: 'Agregado a la bolsa',
+                  timer: 2000,
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timerProgressBar: true,
+                  allowOutsideClick: false
+                })
+                agregando = false;
+              }).catch(error => {
+                Swal.fire({
+                  title: 'Ocurrio un error vuelve a intentarlo',
+                  timer: 2000,
+                  icon: 'error',
+                  showConfirmButton: false,
+                  timerProgressBar: true,
+                  allowOutsideClick: false
+                });
+
+                agregando = false;
+              }
+              )
+            }
+          })
+        }
+      })
+    }
+  }
+  else {
+    Swal.fire({
+      title: 'Seleccione un color y una talla',
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: true,
+      timerProgressBar: true,
+    })
+  }
 }

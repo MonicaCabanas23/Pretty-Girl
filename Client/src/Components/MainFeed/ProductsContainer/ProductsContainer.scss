@@ -4,12 +4,11 @@
 section.recommended-products {
     width: 100%;
     height: auto;
-    padding: 8rem 3rem;
-    gap: 3rem;
+    padding: 2rem 3rem;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 1fr;
+    grid-template-rows: 50px 1fr;
     grid-template-areas: "title"
         "cards";
 

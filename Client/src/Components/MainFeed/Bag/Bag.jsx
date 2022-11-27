@@ -22,7 +22,6 @@ const Bag = () => {
         }
         return data;
       }))
-      console.log(Products)
     }
   }, [Value, ID]);
 
@@ -40,22 +39,21 @@ const Bag = () => {
             url = '/api/bags/products/' + data.data[0]._id
             await axios.get(url, config).then((res) => {
               let fields = [];
+              let ProductColor;
               res.data.map(async (item, index) => {
-                await data.data[0].products.map(async (product) => {
-                  if (item._id === product._id) {
+                await data.data[0].products.map(async (product, id) => {
+                  if (item._id === product._id && ProductColor !== item.color) {
+                    ProductColor = item.color;
+                    console.log('ID: ',id, ' Index: ', index);
                     SetValue(product.amount)
                     fields.push({
                       id: index + 1,
                       available: item.available,
-                      color: [
-                        item.color
-                      ],
+                      color: product.color,
                       name: item.name,
                       picture: item.picture,
                       price: item.price,
-                      size: [
-                        item.size
-                      ],
+                      size: product.size,
                       amount: product.amount,
                       max: item.amount,
                       SetValue: SetValue,

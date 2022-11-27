@@ -5,8 +5,7 @@ const ContactInformation = () => {
   return (
     <div className="footer-contact-info">
         <h3>Información de contacto</h3>
-        <p>Dirección</p>
-        <p>Correo electrónico</p>
+        <p>Antiguo Cuscatlán, Jardines de Guadalupe, 48-B BIS pol.B</p>
         <p>+503 7434 3732</p>
     </div>
   )

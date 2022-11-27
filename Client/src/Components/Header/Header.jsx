@@ -3,7 +3,7 @@ import "./Header.scss";
 import { useMediaQuery } from 'react-responsive'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 import SearchModal from "./SearchModal/SearchModal";
 import ActionsBar from "./ActionsBar/ActionsBar";
 import { useConfigContext } from "../../Contexts/ConfigContext";
@@ -42,8 +42,8 @@ const Header = () => {
                     {
                         loggedContext.isLogged ? 
                         <>
-                            <a href="#recommended"><h3>Hombre</h3></a>
-                            <a href="#recommended"><h3>Mujer</h3></a>
+                            <Link to={'/filtered'}><h3>Hombre</h3></Link>
+                            <Link to={'/filtered'}><h3>Mujer</h3></Link>
                         </> :
                         <>
                             <a href="#arrived"><h3>Hombre</h3></a>

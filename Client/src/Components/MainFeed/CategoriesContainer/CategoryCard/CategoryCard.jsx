@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import './CategoryCard.scss'
+import { Link } from 'react-scroll'
 
 const CategoryCard = ({ image, name, onClickHandle }) => {
   return (
-    <a href="#recommended">
+    <Link to='recommended' smooth={true} offset={-100} duration={1000}>
       <article className="category-card" onClick={onClickHandle}>
         <figure>
           <img src={image} alt="" />
@@ -15,7 +16,7 @@ const CategoryCard = ({ image, name, onClickHandle }) => {
           </div>
         </figure>
       </article>
-    </a>
+    </Link>
   )
 }
 

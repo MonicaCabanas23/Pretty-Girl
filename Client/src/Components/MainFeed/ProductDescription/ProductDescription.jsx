@@ -23,8 +23,8 @@ function ProductDescription({ id }) {
   const [loading, setLoading] = useState(true);
   const context = useConfigContext();
 
-  const [Talla, setTalla] = useState('');
-  const [Color, setColor] = useState('');
+  const [Talla, setTalla] = useState('Selecciona una talla');
+  const [Color, setColor] = useState('Selecciona un color');
 
   const [_talla, _setTalla] = useState('');
   const [_color, _setColor] = useState('');

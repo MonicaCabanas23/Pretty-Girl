@@ -22,10 +22,10 @@ const Body = () => {
   return (
     <div className='main-feed-container'>
       <CategoriesContainer handleCategoryClick={handleCategoryClick}/>
+      <ProductsContainer id={'arrived'} title={'Recién llegados'}/>
       {
         context.isLogged ? <ProductsContainer id='recommended' title={'Recomendados para ti'}/> : <></>
       }
-      <ProductsContainer id={'arrived'} title={'Recién llegados'}/>
     </div>
   )
 }

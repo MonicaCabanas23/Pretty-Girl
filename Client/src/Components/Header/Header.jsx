@@ -8,6 +8,7 @@ import SearchModal from "./SearchModal/SearchModal";
 import ActionsBar from "./ActionsBar/ActionsBar";
 import { useConfigContext } from "../../Contexts/ConfigContext";
 import { useUserContext } from "../../Contexts/UserContext";
+import { animateScroll as scroll } from 'react-scroll'
 
 const Header = () => {
     const [showActions, setShowActions] = useState(true);
@@ -38,7 +39,7 @@ const Header = () => {
     return (
         <header>
             <div className="header-title-categories">
-                <Link to={'/feed'}> <h2>Pretty Girl</h2> </Link>
+                <Link to={'/feed'}><h2 onClick={() => {scroll.scrollToTop();}}>Pretty Girl</h2> </Link>
                 <div className="categories">
                     {
                         loggedContext.isLogged ?

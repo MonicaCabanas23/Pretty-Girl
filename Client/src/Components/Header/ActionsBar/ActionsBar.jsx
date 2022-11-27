@@ -37,7 +37,7 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                     handleActionsBar();
                 }}>
                     <i className="fa-solid fa-magnifying-glass"></i>
-                    <a>Buscar</a>
+                    <p>Buscar</p>
                 </figure>
                 {
                     token ?
@@ -47,7 +47,7 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                                     <>
                                         <figure className={`btn-admin`} onClick={handleAdminBar}>
                                             <i className="fa-solid fa-wrench"></i>
-                                            <a>Administrar</a>
+                                            <p>Administrar</p>
                                         </figure>
                                         {
                                             isMovile && showAdminBar ? <AdminBar handleAdminBar={handleAdminBar} handleActionsBar={handleActionsBar} /> : <></>
@@ -60,7 +60,7 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                                                 scroll.scrollToTop();   
                                             }}>
                                                 <i className="fa-solid fa-bag-shopping"></i>
-                                                <a>Bolsa</a>
+                                                <p>Bolsa</p>
                                             </figure>
                                         </Link>
                                         <Link to={'/'}>
@@ -69,7 +69,7 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                                                 handleActionsBar(); 
                                                 }}>
                                                 <i className="fa-solid fa-arrow-right-from-bracket"></i>
-                                                <a>Cerrar sesión</a>
+                                                <p>Cerrar sesión</p>
                                             </figure>
                                         </Link>
                                     </>
@@ -81,7 +81,7 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                                 scroll.scrollToTop();
                                 }}>
                                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                                <a>Iniciar sesión</a>
+                                <p>Iniciar sesión</p>
                             </figure>
                         </Link>
                 }

@@ -129,6 +129,7 @@ const AddProduct = () => {
   ];
 
   // For Fields rendering just when categories are loaded
+
   useEffect(() => {
     const fields = [{
       'key': '1',
@@ -141,7 +142,7 @@ const AddProduct = () => {
       'key': '2',
       'element': 'label',
       'clase': '',
-      'type': 'text',
+      'type': 'number',
       'text': 'Precio',
       'setValue': setPrice,
     }, {

@@ -42,8 +42,8 @@ const Header = () => {
                     {
                         loggedContext.isLogged ? 
                         <>
-                            <Link to={'/filtered'}><h3>Hombre</h3></Link>
-                            <Link to={'/filtered'}><h3>Mujer</h3></Link>
+                            <Link to={'/feed/filtered'}><h3>Hombre</h3></Link>
+                            <Link to={'/feed/filtered'}><h3>Mujer</h3></Link>
                         </> :
                         <>
                             <a href="#arrived"><h3>Hombre</h3></a>

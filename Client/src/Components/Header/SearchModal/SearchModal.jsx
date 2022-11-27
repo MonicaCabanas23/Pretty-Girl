@@ -3,17 +3,27 @@ import React, { useEffect, useState } from 'react'
 import './SearchModal.scss'
 
 const SearchModal = ({ cancelSearch }) => {
-    const url = "/api/categories";
+    const categoriesUrl = "/api/categories";
+    let filterUrl = "/api/products?";
     
     // Set categories from API
     const [Categories, setCategories] = useState();
-    
-    // Set search filters
-    const [CategorySearch, setCategorySearch] = useState(false);
-    const [SizeSearch, setSizeSearch] = useState(false);
-    const [ColorSearch, setColorSearch] = useState(false);
+
+    // Set combo box values
     const [sizeOptions, setSizeOptions] = useState([]);
     const [category, setCategory] = useState('');
+    const [AllowSize, setAllowSize] = useState(false);
+    
+    // Set search filters
+    const [GenderSearch, setGenderSearch] = useState(false);
+    const [ColorSearch, setColorSearch] = useState(false);
+    const [CategorySearch, setCategorySearch] = useState(false);
+    const [SizeSearch, setSizeSearch] = useState(false);
+
+    useEffect(() => {
+        console.log(`Filters: ${GenderSearch} ${ColorSearch} ${CategorySearch} ${SizeSearch}`);
+        
+    }, [GenderSearch, ColorSearch, CategorySearch, SizeSearch]);
 
     useEffect(() => {
         let _sizeOptions;
@@ -96,7 +106,7 @@ const SearchModal = ({ cancelSearch }) => {
     
     useEffect(() => {
         const getData = async () => {
-            let { data } = await axios.get(url);
+            let { data } = await axios.get(categoriesUrl);
             const mappedCategories = (data.categories).map((cat, index) => {
                 return <option key={index} value={cat.value}>{cat.name}</option>
             })
@@ -120,37 +130,57 @@ const SearchModal = ({ cancelSearch }) => {
                     <h3>Búsqueda por filtros</h3>
                     <form className="form-filters">
                         <label>Género:
-                            <select name="genre" className="select-genre">
+                            <select name="genre" className="select-genre" onChange={(e) => {
+                                    if(e.target.value === "man")
+                                        setGenderSearch("Masculino")
+                                    else if(e.target.value === "woman")
+                                        setGenderSearch("Femenino")
+                                    else
+                                        setGenderSearch(false)
+                                }}>
                                 <option value="none">Selecciona tu género</option>
                                 <option value="woman">Mujer</option>
                                 <option value="man">Hombre</option>
                             </select>
                         </label>
                         <label>Color:
-                            <select name="genre" className="select-genre">
+                            <select name="color" className="select-genre" onChange={(e) => {
+                                    if(e.target.value !== "none")
+                                        setColorSearch(e.target.value)
+                                    else
+                                        setColorSearch(false)
+                                }}>
                                 <option value="none">Selecciona un color</option>
-                                <option value="red">Rojo</option>
-                                <option value="green">Verde</option>
-                                <option value="blue">Azul</option>
-                                <option value="magenta">Magenta</option>
-                                <option value="yellow">Amarillo</option>
-                                <option value="cyan">cyan</option>
+                                <option value="Rojo">Rojo</option>
+                                <option value="Verde">Verde</option>
+                                <option value="Azul">Azul</option>
+                                <option value="Morado">Morado</option>
+                                <option value="Amarillo">Amarillo</option>
+                                <option value="Cyan">Cyan</option>
                             </select>
                         </label>
                         {/* Puede dejar sin seleccionar la categoría */}
                         <label>Categoría:
-                            <select name="genre" className="select-genre" onChange={(e)=>{
+                            <select name="category" className="select-genre" onChange={(e)=>{
                                 setCategory(e.target.value);
-                                if(e.target.value !== 'none') setSizeSearch(true);
-                                else if(e.target.value === 'none') setSizeSearch(false);
+                                if(e.target.value !== "none"){
+                                    setCategorySearch(e.target.value);
+                                    setAllowSize(true);
+                                }
+                                else{
+                                    setCategorySearch(false);
+                                    setAllowSize(false);
+                                }
                                 }}>
                                 <option value="none">Selecciona una categoría</option>
                                 {Categories}
                             </select>
                         </label>
                         {/* Si no ha seleccionado una categoría entonces no podrá escoger una talla porque este cambia según el tipo de producto */}
-                        {SizeSearch ? (<label>Talla:
-                            <select name="genre" className="select-genre">
+                        {AllowSize ? (<label>Talla:
+                            <select name="genre" className="select-genre" onChange={(e) => {
+                                setSizeSearch(e.target.value);
+                            }}>
                                 {sizeOptions}
                             </select>
                         </label>):<></>}

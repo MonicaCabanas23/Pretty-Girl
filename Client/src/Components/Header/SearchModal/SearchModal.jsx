@@ -98,7 +98,7 @@ const SearchModal = ({ cancelSearch }) => {
         const getData = async () => {
             let { data } = await axios.get(url);
             const mappedCategories = (data.categories).map((cat, index) => {
-                return <option key={index} value={cat._id}>{cat.name}</option>
+                return <option key={index} value={cat.value}>{cat.name}</option>
             })
             setCategories(mappedCategories);
         };
@@ -140,6 +140,7 @@ const SearchModal = ({ cancelSearch }) => {
                         {/* Puede dejar sin seleccionar la categoría */}
                         <label>Categoría:
                             <select name="genre" className="select-genre" onChange={(e)=>{
+                                setCategory(e.target.value);
                                 if(e.target.value !== 'none') setSizeSearch(true);
                                 else if(e.target.value === 'none') setSizeSearch(false);
                                 }}>

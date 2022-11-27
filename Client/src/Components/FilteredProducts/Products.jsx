@@ -16,7 +16,7 @@ const ProductsContainer = ({filteredUrl}) => {
     }, []);
 
     return (
-        <section className="recommended-products">
+        <section className="filtered-products">
             <h1 className="title">Resultados de la búsqueda</h1>
             <div className="cards">
                 {products.map((item, index) => {

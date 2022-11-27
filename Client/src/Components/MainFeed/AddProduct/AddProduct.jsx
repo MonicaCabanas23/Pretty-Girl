@@ -3,7 +3,7 @@ import './AddProduct.scss'
 import ImageUploader from '../../ImageUploader/ImageUploader'
 import Button from '../../Button/Button'
 import Label from '../../Form/Label/Label'
-import Combobox from '../../Form/ComboBox/ComboBox';
+import Combobox from './ComboBox/ComboBox';
 import { Link } from "react-router-dom";
 
 import axios from 'axios'
@@ -129,6 +129,7 @@ const AddProduct = () => {
   ];
 
   // For Fields rendering just when categories are loaded
+
   useEffect(() => {
     const fields = [{
       'key': '1',
@@ -141,7 +142,7 @@ const AddProduct = () => {
       'key': '2',
       'element': 'label',
       'clase': '',
-      'type': 'text',
+      'type': 'number',
       'text': 'Precio',
       'setValue': setPrice,
     }, {
@@ -272,14 +273,26 @@ const AddProduct = () => {
       { 'value': '44' },
     ];
 
-    if (category === 'Accesorios' || category === 'Bolsos' || category === 'Lentes')
+    if (category === 'Accesorios' || category === 'Bolsos' || category === 'Lentes'){
       setSizeOptions([{ 'value': 'Selecciona una talla' }]);
-    else if (category === 'Bikini' || category === 'Camisas' || category === 'Vestidos' || category === 'Shorts')
+      setSizes([]);
+      setColors([]);
+    }
+    else if (category === 'Bikini' || category === 'Camisas' || category === 'Vestidos' || category === 'Shorts'){
       setSizeOptions(clothesSizeOptions);
-    else if (category === 'Zapatos')
+      setSizes([]);
+      setColors([]);
+    }
+    else if (category === 'Zapatos'){
       setSizeOptions(shoesSizes);
-    else if (category === 'Pantalones')
+      setSizes([]);
+      setColors([]);
+    }
+    else if (category === 'Pantalones'){
       setSizeOptions(jeansSizes);
+      setSizes([]);
+      setColors([]);
+    }
   }, [category])
 
   useEffect(() => {

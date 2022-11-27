@@ -24,6 +24,8 @@ const ProductCardBag = ({ product }) => {
         <img src={Product.picture} alt="" />
       </figure>
       <p className="product-name">{Product.name}</p>
+      <p className="product-color">{Product.color}</p>
+      <p className="product-talla">{Product.size}</p>
       <p className="product-price">${Product.price}</p>
       <p className='product-amount'>Cantidad: <input type='number' name={'cantidad'} value={Value} min={1} max={Product.max} onChange={(e) => {
         Product.SetValue(e.target.value);

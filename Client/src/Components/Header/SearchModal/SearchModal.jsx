@@ -3,17 +3,23 @@ import React, { useEffect, useState } from 'react'
 import './SearchModal.scss'
 
 const SearchModal = ({ cancelSearch }) => {
-
     const url = "/api/categories";
-    const [Categorias, setCategorias] = useState();
-    const [BusquedaTalla, setBusquedaTalla] = useState(false);
+    
+    // Set categories from API
+    const [Categories, setCategories] = useState();
+    
+    // Set search filters
+    const [CategorySearch, setCategorySearch] = useState(false);
+    const [SizeSearch, setSizeSearch] = useState(false);
+    const [ColorSearch, setColorSearch] = useState(false);
+    
     useEffect(() => {
         const getData = async () => {
             let { data } = await axios.get(url);
-            const mappedCategorias = (data.categories).map((cat, index) => {
+            const mappedCategories = (data.categories).map((cat, index) => {
                 return <option key={index} value={cat._id}>{cat.name}</option>
             })
-            setCategorias(mappedCategorias);
+            setCategories(mappedCategories);
         };
         getData();
     });
@@ -53,15 +59,15 @@ const SearchModal = ({ cancelSearch }) => {
                         {/* Puede dejar sin seleccionar la categoría */}
                         <label>Categoría:
                             <select name="genre" className="select-genre" onChange={(e)=>{
-                                if(e.target.value !== 'none') setBusquedaTalla(true);
-                                else if(e.target.value === 'none') setBusquedaTalla(false);
+                                if(e.target.value !== 'none') setSizeSearch(true);
+                                else if(e.target.value === 'none') setSizeSearch(false);
                                 }}>
                                 <option value="none">Selecciona una categoría</option>
-                                {Categorias}
+                                {Categories}
                             </select>
                         </label>
                         {/* Si no ha seleccionado una categoría entonces no podrá escoger una talla porque este cambia según el tipo de producto */}
-                        {BusquedaTalla ? (<label>Talla:
+                        {SizeSearch ? (<label>Talla:
                             <select name="genre" className="select-genre">
                                 <option value="none">Selecciona una talla</option>
                                 <option value="XS">XS</option>

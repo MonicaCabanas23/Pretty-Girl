@@ -3,7 +3,7 @@ import "./Header.scss";
 import { useMediaQuery } from 'react-responsive'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import SearchModal from "./SearchModal/SearchModal";
 import ActionsBar from "./ActionsBar/ActionsBar";
 import { useConfigContext } from "../../Contexts/ConfigContext";
@@ -18,6 +18,7 @@ const Header = () => {
     const role = localStorage.getItem("role");
     const context = useUserContext();
     const loggedContext = useConfigContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsAdmin(context.admin);
@@ -40,15 +41,39 @@ const Header = () => {
                 <Link to={'/feed'}> <h2>Pretty Girl</h2> </Link>
                 <div className="categories">
                     {
-                        loggedContext.isLogged ? 
-                        <>
-                            <Link to={'/feed/filtered'}><h3>Hombre</h3></Link>
-                            <Link to={'/feed/filtered'}><h3>Mujer</h3></Link>
-                        </> :
-                        <>
-                            <a href="#arrived"><h3>Hombre</h3></a>
-                            <a href="#arrived"><h3>Mujer</h3></a>
-                        </>
+                        loggedContext.isLogged ?
+                            <>
+                                <h3 onClick={(e) => {
+                                    {
+                                        // Reload page if we are in the same page
+                                        if (window.location.pathname === '/feed/filtered')
+                                            window.location.reload();
+                                        // Navigate to the filtered page
+                                        navigate('/feed/filtered', {
+                                            state: {
+                                                filteredUrl: "/api/products?gender=Masculino"
+                                            }
+                                        })
+                                    }
+                                }}>Hombre</h3>
+                                <h3 onClick={(e) => {
+                                    {
+                                        // Reload page if we are in the same page
+                                        if (window.location.pathname === '/feed/filtered')
+                                            window.location.reload();
+                                        // Navigate to the filtered page
+                                        navigate('/feed/filtered', {
+                                            state: {
+                                                filteredUrl: "/api/products?gender=Femenino"
+                                            }
+                                        })
+                                    }
+                                }}>Mujer</h3>
+                            </> :
+                            <>
+                                <a href="#arrived"><h3>Hombre</h3></a>
+                                <a href="#arrived"><h3>Mujer</h3></a>
+                            </>
                     }
                 </div>
             </div>

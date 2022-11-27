@@ -79,7 +79,7 @@
             font-weight: bold;
         }
 
-        form.form-filters {
+        div.form-filters {
             @include flex(column);
             justify-content: center; 
             align-items: center;

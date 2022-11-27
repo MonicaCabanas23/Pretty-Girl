@@ -1,19 +1,89 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './SearchModal.scss'
 
 const SearchModal = ({ cancelSearch }) => {
-    const url = "/api/categories";
-    
+    // Url to get the categories from the API
+    const categoriesUrl = "/api/categories";
+
+    // Url to get filtered products from the API
+    let url = "/api/products?";
+    let filterFlag = false;
+
+    // Navigate to the filtered products page function
+    const navigate = useNavigate();
+
     // Set categories from API
     const [Categories, setCategories] = useState();
-    
-    // Set search filters
-    const [CategorySearch, setCategorySearch] = useState(false);
-    const [SizeSearch, setSizeSearch] = useState(false);
-    const [ColorSearch, setColorSearch] = useState(false);
+
+    // Set combo box values
     const [sizeOptions, setSizeOptions] = useState([]);
     const [category, setCategory] = useState('');
+    const [AllowSize, setAllowSize] = useState(false);
+
+    // Set search filters
+    const [GenderSearch, setGenderSearch] = useState(false);
+    const [ColorSearch, setColorSearch] = useState(false);
+    const [CategorySearch, setCategorySearch] = useState(false);
+    const [SizeSearch, setSizeSearch] = useState(false);
+
+    // Button states
+    const [FilterButton, setFilterButton] = useState(false);
+    const [ResetButton, setResetButton] = useState(false);
+
+    useEffect(() => {
+        // Validate if we have any filter selected
+        if (GenderSearch || ColorSearch || CategorySearch || SizeSearch)
+            filterFlag = true;
+        else
+            filterFlag = false;
+
+        // Set filter url
+        if (filterFlag) {
+            if (GenderSearch) {
+                url += `gender=${GenderSearch}`;
+                // Validate if we have more than one filter
+                if (ColorSearch)
+                    url += `&color=${ColorSearch}`;
+                if (CategorySearch) {
+                    url += `&category=${CategorySearch}`;
+                    if (SizeSearch)
+                        url += `&size=${SizeSearch}`;
+                }
+            }
+            else if (ColorSearch) {
+                url += `color=${ColorSearch}`;
+                // Validate if we have more than one filter
+                if (CategorySearch) {
+                    url += `&category=${CategorySearch}`;
+                    if (SizeSearch)
+                        url += `&size=${SizeSearch}`;
+                }
+            }
+            else if (CategorySearch) {
+                url += `category=${CategorySearch}`;
+                // Validate if we have more than one filter
+                if (SizeSearch)
+                    url += `&size=${SizeSearch}`;
+            }
+        }
+        // Verify if the filter it's clicked
+        if (FilterButton) {
+            // Reset button values
+            setFilterButton(false);
+            cancelSearch(false);
+            // Reload page if we are in the same page
+            if (window.location.pathname === '/feed/filtered')
+                window.location.reload();
+            // Navigate to the filtered page
+            navigate('/feed/filtered', {
+                state: {
+                    filteredUrl: url
+                }
+            });
+        }
+    }, [GenderSearch, ColorSearch, CategorySearch, SizeSearch, FilterButton]);
 
     useEffect(() => {
         let _sizeOptions;
@@ -79,10 +149,10 @@ const SearchModal = ({ cancelSearch }) => {
             _sizeOptions = shoesSizes;
         else if (category === 'Pantalones')
             _sizeOptions = jeansSizes;
-        else 
+        else
             _sizeOptions = [{ 'value': 'Selecciona una talla' }]
 
-        const mappedOptions = _sizeOptions.map( option => {
+        const mappedOptions = _sizeOptions.map(option => {
             i++;
             return (
                 <option key={i} value={option.value}>{option.value}</option>
@@ -90,13 +160,12 @@ const SearchModal = ({ cancelSearch }) => {
         })
 
         setSizeOptions(mappedOptions);
-        
+
     }, [category])
 
-    
     useEffect(() => {
         const getData = async () => {
-            let { data } = await axios.get(url);
+            let { data } = await axios.get(categoriesUrl);
             const mappedCategories = (data.categories).map((cat, index) => {
                 return <option key={index} value={cat.value}>{cat.name}</option>
             })
@@ -118,47 +187,75 @@ const SearchModal = ({ cancelSearch }) => {
                 </div>
                 <div className="search-modal-filters">
                     <h3>Búsqueda por filtros</h3>
-                    <form className="form-filters">
+                    <div className="form-filters">
                         <label>Género:
-                            <select name="genre" className="select-genre">
+                            <select name="genre" className="select-genre" onChange={(e) => {
+                                if (e.target.value === "man")
+                                    setGenderSearch("Masculino")
+                                else if (e.target.value === "woman")
+                                    setGenderSearch("Femenino")
+                                else
+                                    setGenderSearch(false)
+                            }}>
                                 <option value="none">Selecciona tu género</option>
                                 <option value="woman">Mujer</option>
                                 <option value="man">Hombre</option>
                             </select>
                         </label>
                         <label>Color:
-                            <select name="genre" className="select-genre">
+                            <select name="color" className="select-color" onChange={(e) => {
+                                if (e.target.value !== "none")
+                                    setColorSearch(e.target.value)
+                                else
+                                    setColorSearch(false)
+                            }}>
                                 <option value="none">Selecciona un color</option>
-                                <option value="red">Rojo</option>
-                                <option value="green">Verde</option>
-                                <option value="blue">Azul</option>
-                                <option value="magenta">Magenta</option>
-                                <option value="yellow">Amarillo</option>
-                                <option value="cyan">cyan</option>
+                                <option value="Aqua">Aqua</option>
+                                <option value="Azul">Azul</option>
+                                <option value="Amarillo">Amarillo</option>
+                                <option value="Beige">Beige</option>
+                                <option value="Blanco">Blanco</option>
+                                <option value="Café">Café</option>
+                                <option value="Celeste">Celeste</option>
+                                <option value="Gris">Gris</option>
+                                <option value="Naranja">Naranja</option>
+                                <option value="Negro">Negro</option>
+                                <option value="Purpura">Purpura</option>
+                                <option value="Rojo">Rojo</option>
+                                <option value="Verde">Verde</option>
                             </select>
                         </label>
                         {/* Puede dejar sin seleccionar la categoría */}
                         <label>Categoría:
-                            <select name="genre" className="select-genre" onChange={(e)=>{
+                            <select name="category" className="select-category" onChange={(e) => {
                                 setCategory(e.target.value);
-                                if(e.target.value !== 'none') setSizeSearch(true);
-                                else if(e.target.value === 'none') setSizeSearch(false);
-                                }}>
+                                if (e.target.value !== "none") {
+                                    setCategorySearch(e.target.value);
+                                    setAllowSize(true);
+                                }
+                                else {
+                                    setCategorySearch(false);
+                                    setAllowSize(false);
+                                    setSizeSearch(false);
+                                }
+                            }}>
                                 <option value="none">Selecciona una categoría</option>
                                 {Categories}
                             </select>
                         </label>
                         {/* Si no ha seleccionado una categoría entonces no podrá escoger una talla porque este cambia según el tipo de producto */}
-                        {SizeSearch ? (<label>Talla:
-                            <select name="genre" className="select-genre">
+                        {AllowSize ? (<label>Talla:
+                            <select name="size" className="select-size" onChange={(e) => {
+                                setSizeSearch(e.target.value);
+                            }}>
                                 {sizeOptions}
                             </select>
-                        </label>):<></>}
+                        </label>) : <></>}
                         <div className="actions">
-                            <button name="clean" className="search-modal-filter-clean">Limpiar</button>
-                            <button name="filter" className="search-modal-filter">Filtrar</button>
+                            <button name="clean" className="search-modal-filter-clean" onClick={(e) => { setResetButton(true) }}>Limpiar</button>
+                            <button name="filter" className="search-modal-filter" onClick={(e) => { setFilterButton(true) }}>Filtrar</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </section>
         </div>

@@ -16,7 +16,6 @@ const Footer = () => {
                 <h2>Pretty Girl</h2>
             </div>
             <Products />
-            <Links />
             <ContactInformation />
         </div>
         <hr/>

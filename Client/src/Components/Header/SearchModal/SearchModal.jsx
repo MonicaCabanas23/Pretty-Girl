@@ -21,6 +21,10 @@ const SearchModal = ({ cancelSearch }) => {
     const [CategorySearch, setCategorySearch] = useState(false);
     const [SizeSearch, setSizeSearch] = useState(false);
 
+    // Button states
+    const [FilterButton, setFilterButton] = useState(false);
+    const [ResetButton, setResetButton] = useState(false);
+
     useEffect(() => {
         // Validate if we have any filters
         if (GenderSearch || ColorSearch || CategorySearch || SizeSearch)
@@ -57,17 +61,21 @@ const SearchModal = ({ cancelSearch }) => {
                     filterUrl += `&size=${SizeSearch}`;
             }
         }
-        console.log(`Filter URL: ${filterUrl}`);
 
-        // Get filtered data from API
-        axios.get(filterUrl)
-            .then(res => {
-                console.log(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }, [GenderSearch, ColorSearch, CategorySearch, SizeSearch]);
+        // Make request to API
+        if (FilterButton) {
+            // Get filtered data from API
+            console.log(`Filter URL: ${filterUrl}`);
+            axios.get(filterUrl)
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            setFilterButton(false);
+        }
+    }, [GenderSearch, ColorSearch, CategorySearch, SizeSearch, FilterButton]);
 
     useEffect(() => {
         let _sizeOptions;
@@ -172,7 +180,7 @@ const SearchModal = ({ cancelSearch }) => {
                 </div>
                 <div className="search-modal-filters">
                     <h3>Búsqueda por filtros</h3>
-                    <form className="form-filters">
+                    <div className="form-filters">
                         <label>Género:
                             <select name="genre" className="select-genre" onChange={(e) => {
                                 if (e.target.value === "man")
@@ -188,7 +196,7 @@ const SearchModal = ({ cancelSearch }) => {
                             </select>
                         </label>
                         <label>Color:
-                            <select name="color" className="select-genre" onChange={(e) => {
+                            <select name="color" className="select-color" onChange={(e) => {
                                 if (e.target.value !== "none")
                                     setColorSearch(e.target.value)
                                 else
@@ -205,7 +213,7 @@ const SearchModal = ({ cancelSearch }) => {
                         </label>
                         {/* Puede dejar sin seleccionar la categoría */}
                         <label>Categoría:
-                            <select name="category" className="select-genre" onChange={(e) => {
+                            <select name="category" className="select-category" onChange={(e) => {
                                 setCategory(e.target.value);
                                 if (e.target.value !== "none") {
                                     setCategorySearch(e.target.value);
@@ -223,17 +231,17 @@ const SearchModal = ({ cancelSearch }) => {
                         </label>
                         {/* Si no ha seleccionado una categoría entonces no podrá escoger una talla porque este cambia según el tipo de producto */}
                         {AllowSize ? (<label>Talla:
-                            <select name="genre" className="select-genre" onChange={(e) => {
+                            <select name="size" className="select-size" onChange={(e) => {
                                 setSizeSearch(e.target.value);
                             }}>
                                 {sizeOptions}
                             </select>
                         </label>) : <></>}
                         <div className="actions">
-                            <button name="clean" className="search-modal-filter-clean">Limpiar</button>
-                            <button name="filter" className="search-modal-filter">Filtrar</button>
+                            <button name="clean" className="search-modal-filter-clean" onClick={(e) => { setResetButton(true) }}>Limpiar</button>
+                            <button name="filter" className="search-modal-filter" onClick={(e) => { setFilterButton(true) }}>Filtrar</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </section>
         </div>

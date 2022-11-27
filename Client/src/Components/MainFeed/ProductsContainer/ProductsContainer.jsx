@@ -12,7 +12,7 @@ const ProductsContainer = ({ id, title, bag=false }) => {
   let url = "/api/products/";
   
   if(title == 'Recién llegados'){
-    url = "/api/products/limit/5";
+    url = "/api/products?limit=5";
   }
 
   useEffect(() => {

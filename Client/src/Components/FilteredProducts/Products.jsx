@@ -22,7 +22,7 @@ const ProductsContainer = ({filteredUrl}) => {
                 {products.map((item, index) => {
                     /* La ruta a la que redirigirá cada producto es ProductDescription */
                     return (
-                        <Link to={'../booking/client-data'} key={index}><ProductCard image={item.picture} name={item.name} price={item.price} /></Link>
+                        <Link to={{ pathname: '/product/', hash: item._id }} key={index}><ProductCard image={item.picture} name={item.name} price={item.price} /></Link>
                     )
                 })}
             </div>

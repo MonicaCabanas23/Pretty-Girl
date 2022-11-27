@@ -166,7 +166,6 @@ function ProductDescription({ id }) {
 
 
   useEffect(() => {
-    console.log(Update)
     if (formFields.length > 0) {
       setLoading(true)
       const mappedDatos = formFields.map(field => {

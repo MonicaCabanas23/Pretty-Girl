@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './SearchModal.scss'
 
 const SearchModal = ({ cancelSearch }) => {
     const categoriesUrl = "/api/categories";
-    let filterUrl = "/api/products?";
+    let url = "/api/products?";
     let filterFlag = false;
+    const navigate = useNavigate();
 
     // Set categories from API
     const [Categories, setCategories] = useState();
@@ -35,38 +37,39 @@ const SearchModal = ({ cancelSearch }) => {
         // Set filter url
         if (filterFlag) {
             if (GenderSearch) {
-                filterUrl += `gender=${GenderSearch}`;
+                url += `gender=${GenderSearch}`;
                 // Validate if we have more than one filter
                 if (ColorSearch)
-                    filterUrl += `&color=${ColorSearch}`;
+                    url += `&color=${ColorSearch}`;
                 if (CategorySearch) {
-                    filterUrl += `&category=${CategorySearch}`;
+                    url += `&category=${CategorySearch}`;
                     if (SizeSearch)
-                        filterUrl += `&size=${SizeSearch}`;
+                        url += `&size=${SizeSearch}`;
                 }
             }
             else if (ColorSearch) {
-                filterUrl += `color=${ColorSearch}`;
+                url += `color=${ColorSearch}`;
                 // Validate if we have more than one filter
                 if (CategorySearch) {
-                    filterUrl += `&category=${CategorySearch}`;
+                    url += `&category=${CategorySearch}`;
                     if (SizeSearch)
-                        filterUrl += `&size=${SizeSearch}`;
+                        url += `&size=${SizeSearch}`;
                 }
             }
             else if (CategorySearch) {
-                filterUrl += `category=${CategorySearch}`;
+                url += `category=${CategorySearch}`;
                 // Validate if we have more than one filter
                 if (SizeSearch)
-                    filterUrl += `&size=${SizeSearch}`;
+                    url += `&size=${SizeSearch}`;
             }
         }
 
         // Make request to API
         if (FilterButton) {
             // Get filtered data from API
-            console.log(`Filter URL: ${filterUrl}`);
-            axios.get(filterUrl)
+            console.log(`Filter URL: ${url}`);
+            const uwu = 'hola';
+            axios.get(url)
                 .then(res => {
                     console.log(res.data);
                 })
@@ -74,6 +77,11 @@ const SearchModal = ({ cancelSearch }) => {
                     console.log(err);
                 });
             setFilterButton(false);
+            navigate('/feed/filtered', {
+                state: {
+                    filteredUrl: url
+                }
+            });
         }
     }, [GenderSearch, ColorSearch, CategorySearch, SizeSearch, FilterButton]);
 

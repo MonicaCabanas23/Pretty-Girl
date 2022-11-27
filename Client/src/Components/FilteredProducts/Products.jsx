@@ -4,13 +4,12 @@ import './Products.scss'
 import ProductCard from '../MainFeed/ProductsContainer/ProductCard/ProductCard'
 import axios from "axios";
 
-const ProductsContainer = () => {
+const ProductsContainer = ({filteredUrl}) => {
     const [products, setProducts] = useState([]);
-    const url = "/api/products";
 
     useEffect(() => {
         const getData = async () => {
-            const { data } = await axios.get(url);
+            const { data } = await axios.get(filteredUrl);
             setProducts(data.products);
         }
         getData();
@@ -18,7 +17,7 @@ const ProductsContainer = () => {
 
     return (
         <section className="recommended-products">
-            <h1 className="title">Recién llegados</h1>
+            <h1 className="title">Resultados de la búsqueda</h1>
             <div className="cards">
                 {products.map((item, index) => {
                     /* La ruta a la que redirigirá cada producto es ProductDescription */

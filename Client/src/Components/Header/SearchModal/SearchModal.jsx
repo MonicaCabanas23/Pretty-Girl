@@ -4,9 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import './SearchModal.scss'
 
 const SearchModal = ({ cancelSearch }) => {
+    // Url to get the categories from the API
     const categoriesUrl = "/api/categories";
+
+    // Url to get filtered products from the API
     let url = "/api/products?";
     let filterFlag = false;
+
+    // Navigate to the filtered products page function
     const navigate = useNavigate();
 
     // Set categories from API
@@ -28,7 +33,7 @@ const SearchModal = ({ cancelSearch }) => {
     const [ResetButton, setResetButton] = useState(false);
 
     useEffect(() => {
-        // Validate if we have any filters
+        // Validate if we have any filter selected
         if (GenderSearch || ColorSearch || CategorySearch || SizeSearch)
             filterFlag = true;
         else
@@ -63,20 +68,15 @@ const SearchModal = ({ cancelSearch }) => {
                     url += `&size=${SizeSearch}`;
             }
         }
-
-        // Make request to API
+        // Verify if the filter it's clicked
         if (FilterButton) {
-            // Get filtered data from API
-            console.log(`Filter URL: ${url}`);
-            const uwu = 'hola';
-            axios.get(url)
-                .then(res => {
-                    console.log(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            // Reset button values
             setFilterButton(false);
+            cancelSearch(false);
+            // Reload page if we are in the same page
+            if (window.location.pathname === '/feed/filtered')
+                window.location.reload();
+            // Navigate to the filtered page
             navigate('/feed/filtered', {
                 state: {
                     filteredUrl: url
@@ -163,7 +163,6 @@ const SearchModal = ({ cancelSearch }) => {
 
     }, [category])
 
-
     useEffect(() => {
         const getData = async () => {
             let { data } = await axios.get(categoriesUrl);
@@ -211,12 +210,19 @@ const SearchModal = ({ cancelSearch }) => {
                                     setColorSearch(false)
                             }}>
                                 <option value="none">Selecciona un color</option>
+                                <option value="Aqua">Aqua</option>
+                                <option value="Azul">Azul</option>
+                                <option value="Amarillo">Amarillo</option>
+                                <option value="Beige">Beige</option>
+                                <option value="Blanco">Blanco</option>
+                                <option value="Café">Café</option>
+                                <option value="Celeste">Celeste</option>
+                                <option value="Gris">Gris</option>
+                                <option value="Naranja">Naranja</option>
+                                <option value="Negro">Negro</option>
+                                <option value="Purpura">Purpura</option>
                                 <option value="Rojo">Rojo</option>
                                 <option value="Verde">Verde</option>
-                                <option value="Azul">Azul</option>
-                                <option value="Morado">Morado</option>
-                                <option value="Amarillo">Amarillo</option>
-                                <option value="Cyan">Cyan</option>
                             </select>
                         </label>
                         {/* Puede dejar sin seleccionar la categoría */}

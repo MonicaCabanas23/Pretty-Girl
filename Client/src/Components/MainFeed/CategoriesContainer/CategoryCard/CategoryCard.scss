@@ -9,6 +9,8 @@ article.category-card {
     position: relative;
     background-color: $general-white;
 
+    cursor: pointer;
+
     &:hover {
         transform: scale(1.03);
     }

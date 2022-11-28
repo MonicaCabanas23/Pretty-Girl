@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom"
 import './Products.scss'
 
 const Products = () => {
@@ -6,14 +7,33 @@ const Products = () => {
   return (
     <div className="footer-products">
         <h3>Productos</h3>
-        <p>Camisas</p>
-        <p>Vestidos</p>
-        <p>Bikinis</p>
-        <p>Calzonetas</p>
-        <p>Gafas</p>
-        <p>Zapatos</p>
-        <p>Accesorios</p>
-        <p>Carteras</p>
+        <Link to='/feed/filtered'>
+          <p>Accesorios</p>
+        </Link>
+        <Link to='/feed/filtered'>
+          <p>Bikinis</p>
+        </Link>
+        <Link to='/feed/filtered'>
+          <p>Bolsos</p>
+        </Link>
+        <Link to='/feed/filtered'>
+          <p>Camisas</p>
+        </Link>
+        <Link to='/feed/filtered'>
+          <p>Lentes</p>
+        </Link>
+        <Link to='/feed/filtered'>
+          <p>Pantalones</p>
+        </Link>
+        <Link to='/feed/filtered'>
+          <p>Shorts</p>
+        </Link>
+        <Link to='/feed/filtered'>
+          <p>Vestidos</p>
+        </Link>
+        <Link to='/feed/filtered'>
+          <p>Zapatos</p>
+        </Link>
     </div>
   )
 }

@@ -5,7 +5,14 @@
     width: 100%;
     height: 100vh;
     background-color: rgba($color: $black-background, $alpha: 0.5);
+
+    .close {
+        height: 100vh;
+        width: 100%;
+        background-color: rgba($color: $black-background, $alpha: 0.5);
+    }
 }
+
 
 .search-modal {
     width: 100%;

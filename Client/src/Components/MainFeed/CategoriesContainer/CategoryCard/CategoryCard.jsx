@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
 import './CategoryCard.scss'
+import { useConfigContext } from '../../../../Contexts/ConfigContext'
 import { Link } from 'react-scroll'
 
 const CategoryCard = ({ image, name, onClickHandle }) => {
-  return (
-    <Link to='recommended' smooth={true} offset={-100} duration={1000}>
-      <article className="category-card" onClick={onClickHandle}>
-        <figure>
-          <img src={image} alt="" />
+  const loggedContext = useConfigContext();
 
-          <div className="hover-container">
-            <div className="hover">
-              <p>{name}</p>
-            </div>
+  return (
+    <article className="category-card" onClick={onClickHandle}>
+      <figure>
+        <img src={image} alt="" />
+        <div className="hover-container">
+          <div className="hover">
+            <p>{name}</p>
           </div>
-        </figure>
-      </article>
-    </Link>
+        </div>
+      </figure>
+    </article>
   )
 }
 

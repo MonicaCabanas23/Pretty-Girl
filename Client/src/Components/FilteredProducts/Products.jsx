@@ -16,13 +16,13 @@ const ProductsContainer = ({filteredUrl}) => {
     }, []);
 
     return (
-        <section className="recommended-products">
+        <section className="filtered-products">
             <h1 className="title">Resultados de la búsqueda</h1>
             <div className="cards">
                 {products.map((item, index) => {
                     /* La ruta a la que redirigirá cada producto es ProductDescription */
                     return (
-                        <Link to={'../booking/client-data'} key={index}><ProductCard image={item.picture} name={item.name} price={item.price} /></Link>
+                        <Link to={{ pathname: '/product/', hash: item._id }} key={index}><ProductCard image={item.picture} name={item.name} price={item.price} /></Link>
                     )
                 })}
             </div>

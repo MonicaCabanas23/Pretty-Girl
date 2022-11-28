@@ -1,14 +1,14 @@
 @import "./../../assets/sass/mixins";
 @import "./../../assets/sass/variables";
 
-section.recommended-products {
+section.filtered-products {
     width: 100%;
     height: auto;
     padding: 2rem 3rem;
 
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 1fr;
+    grid-template-rows: 50px 1fr;
     grid-template-areas:
         "title"
         "cards";

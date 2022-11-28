@@ -5,6 +5,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 import AdminBar from '../AdminBar/AdminBar'
+import { animateScroll as scroll } from 'react-scroll'
 /* Context */
 import { useConfigContext } from '../../../Contexts/ConfigContext'
 import { useUserContext } from '../../../Contexts/UserContext'
@@ -54,13 +55,19 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                                     </> :
                                     <>
                                         <Link to={'feed/bag'}>
-                                            <figure className="btn-bag" onClick={handleActionsBar}>
+                                            <figure className="btn-bag" onClick={() => {
+                                                handleActionsBar(); 
+                                                scroll.scrollToTop();   
+                                            }}>
                                                 <i className="fa-solid fa-bag-shopping"></i>
                                                 <p>Bolsa</p>
                                             </figure>
                                         </Link>
                                         <Link to={'/'}>
-                                            <figure onClick={() => { handleLogOut(); handleActionsBar(); }} className="btn-logout">
+                                            <figure className="btn-logout" onClick={() => {
+                                                handleLogOut(); 
+                                                handleActionsBar(); 
+                                                }}>
                                                 <i className="fa-solid fa-arrow-right-from-bracket"></i>
                                                 <p>Cerrar sesión</p>
                                             </figure>
@@ -69,7 +76,10 @@ const ActionsBar = ({ isAdmin, showAdminBar, handleSearching, handleAdminBar, ha
                             }
                         </> :
                         <Link to={'/login'}>
-                            <figure className={`btn-login`} onClick={handleActionsBar}>
+                            <figure className={`btn-login`} onClick={() => {
+                                handleActionsBar(); 
+                                scroll.scrollToTop();
+                                }}>
                                 <i className="fa-solid fa-arrow-right-to-bracket"></i>
                                 <p>Iniciar sesión</p>
                             </figure>

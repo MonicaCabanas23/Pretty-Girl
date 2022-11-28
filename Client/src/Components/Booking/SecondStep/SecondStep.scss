@@ -1,0 +1,18 @@
+@import './../../../assets/sass/mixins';
+@import './../../../assets/sass/variables';
+
+.Description-separador {
+    border: 1px solid #EDF2F4;
+    transform: rotate(0.12deg);
+}
+
+.Second-envio{
+    input{
+        position: relative;
+        width: 25px;
+        height: 25px;
+        font-size: 200%;
+        display: inline;
+        top: 3px;
+    }
+}

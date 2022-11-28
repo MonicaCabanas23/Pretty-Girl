@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import './Products.scss'
 import ProductCard from '../MainFeed/ProductsContainer/ProductCard/ProductCard'
 import axios from "axios";
+import { animateScroll as scroll } from 'react-scroll'
 
 const ProductsContainer = ({filteredUrl}) => {
     const [products, setProducts] = useState([]);
@@ -24,7 +25,7 @@ const ProductsContainer = ({filteredUrl}) => {
     }, [products])
 
     return (
-        <section className="filtered-products">
+        <section className="filtered-products" onLoad={() => { scroll.scrollToTop()}}>
             <h1 className="title">Resultados de la búsqueda</h1>
             <div className="cards">
                 {

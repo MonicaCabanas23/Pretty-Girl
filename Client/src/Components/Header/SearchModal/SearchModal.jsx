@@ -42,7 +42,7 @@ const SearchModal = ({ cancelSearch }) => {
         // Set filter url
         if (filterFlag) {
             if (GenderSearch) {
-                url += `gender=${GenderSearch}`;
+                url += `gender=${GenderSearch}&gender=Unisex`;
                 // Validate if we have more than one filter
                 if (ColorSearch)
                     url += `&color=${ColorSearch}`;

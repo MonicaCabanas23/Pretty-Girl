@@ -143,11 +143,11 @@ const SearchModal = ({ cancelSearch }) => {
             { 'value': '44' },
         ];
 
-        if (category === 'Bikini' || category === 'Camisas' || category === 'Vestidos' || category === 'Shorts')
+        if (category === 'Bikini' || category === 'Camisas' || category === 'Vestidos')
             _sizeOptions = clothesSizeOptions
         else if (category === 'Zapatos')
             _sizeOptions = shoesSizes;
-        else if (category === 'Pantalones')
+        else if (category === 'Pantalones' || category === 'Shorts')
             _sizeOptions = jeansSizes;
         else
             _sizeOptions = [{ 'value': 'Selecciona una talla' }]

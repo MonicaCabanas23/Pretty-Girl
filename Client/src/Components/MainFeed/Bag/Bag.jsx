@@ -34,17 +34,25 @@ const Bag = () => {
             'x-token': localStorage.getItem("token")
           }
         };
+        const uid = res.data.uid;
         await axios.get("/api/bags/" + res.data.uid, config).then(async (data) => {
           if (data.data.length > 0) {
+            const _id = data.data[0]._id;
+            console.log(_id)
             url = '/api/bags/products/' + data.data[0]._id
             await axios.get(url, config).then((res) => {
-              let fields = [];
+              let fields = [
+                {
+                  user: uid,
+                  bag: _id
+                }
+              ];
               let ProductColor;
               res.data.map(async (item, index) => {
                 await data.data[0].products.map(async (product, id) => {
                   if (item._id === product._id && ProductColor !== item.color) {
                     ProductColor = item.color;
-                    console.log('ID: ',id, ' Index: ', index);
+                    console.log('ID: ', id, ' Index: ', index);
                     SetValue(product.amount)
                     fields.push({
                       id: index + 1,

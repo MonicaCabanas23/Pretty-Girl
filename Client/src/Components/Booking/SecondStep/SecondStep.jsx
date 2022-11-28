@@ -43,6 +43,7 @@ const SecondStep = ({ onLoad }) => {
     {
       'key': '2',
       'element': 'react',
+      'clase': 'cards',
       'text': Products.map((item, index) => {
         if (index > 0) {
           SubTotal += parseInt(item.amount) * parseInt(item.price);

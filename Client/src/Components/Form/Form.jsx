@@ -30,11 +30,16 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                 }
                 if (field.element === 'react') {
                     return (
-                        <div key={2555} className="cards">
-                            <div className="cards-wrapper">
+                        <div key={2555} className={field.clase}>
+                            <div className={field.clase + '-wrapper'}>
                                 {field.text}
                             </div>
                         </div>
+                    );
+                }
+                if (field.element === 'text') {
+                    return (
+                        <a className='location' key={field.key} href='https://goo.gl/maps/BfBLwWiTAGLNAd8d6' target='_blank'><p>Click aquí para abrir ubicación</p></a>
                     );
                 }
                 if (field.element === 'hr') {

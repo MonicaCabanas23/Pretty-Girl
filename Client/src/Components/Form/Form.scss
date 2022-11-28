@@ -74,8 +74,16 @@
 
                 @include flex(row);
                 align-items: center;
+                
                 overflow-y: hidden;
                 overflow-x: auto;
+
+                .cards-wrapper {
+                    padding: 0 2rem;
+                    @include flex(row);
+                    align-items: center;
+                    justify-content: center;
+                }
 
                 &::-webkit-scrollbar {
                     -webkit-appearance: none;

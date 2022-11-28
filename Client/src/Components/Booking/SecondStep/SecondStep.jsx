@@ -38,7 +38,7 @@ const SecondStep = ({ onLoad }) => {
       'element': 'label',
       'text': 'Descripción de reserva',
       'use': false,
-      'clase': 'Description-reserva'
+      'clase': 'title-description'
     },
     {
       'key': '2',
@@ -56,18 +56,18 @@ const SecondStep = ({ onLoad }) => {
       'element': 'label',
       'text': 'Total a pagar: $' + total,
       'use': false,
-      'clase': 'Description-total'
+      'clase': 'total'
     }, {
       'key': '4',
       'element': 'hr',
-      'clase': 'Description-separador'
+      'clase': 'line'
     },
     {
       'key': '5',
       'element': 'label',
       'text': 'Escoge tu método de envío preferido',
       'use': false,
-      'clase': 'Description-delivery'
+      'clase': 'delivery'
     }, {
       'key': '6',
       'element': 'label',

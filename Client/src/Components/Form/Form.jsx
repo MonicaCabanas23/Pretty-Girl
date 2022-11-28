@@ -31,7 +31,9 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                 if (field.element === 'react') {
                     return (
                         <div key={2555} className="cards">
-                            {field.text}
+                            <div className="cards-wrapper">
+                                {field.text}
+                            </div>
                         </div>
                     );
                 }

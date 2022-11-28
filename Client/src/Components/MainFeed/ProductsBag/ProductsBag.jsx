@@ -9,8 +9,9 @@ const ProductsBag = ({ bag = false, products, onClick }) => {
             <div className="cards">
                 {
                     products.map((item, index) => {
-                        
-                        return <ProductCardBag key={index} product={item} />
+                        if (index > 0) {
+                            return <ProductCardBag key={index} product={item} />
+                        }
                     })
                 }
             </div>

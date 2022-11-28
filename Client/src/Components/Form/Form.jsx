@@ -35,6 +35,11 @@ const Form = ({ title, formType, formFields, justContinue, cancelHandle, cancelP
                         </div>
                     );
                 }
+                if (field.element === 'hr') {
+                    return (
+                        <hr key={field.key} className={field.clase}/>
+                    );
+                }
             });
 
             /* Get links fields */

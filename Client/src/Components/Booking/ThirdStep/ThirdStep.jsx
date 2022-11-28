@@ -10,7 +10,7 @@ const ThirdStep = ({ onLoad }) => {
   const [descriptionFields, setdescriptionFields] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    localStorage.getItem("confimation")? true : navigate('../../../feed');
+    localStorage.getItem("confimation") ? true : navigate('../../../feed');
     onLoad(3);
   }, [])
 
@@ -31,32 +31,32 @@ const ThirdStep = ({ onLoad }) => {
           <table key='1'>
             <thead key='2'>
               <tr key='3'>
-                  <td>Producto</td>
-                  <td>Color</td>
-                  <td>Talla</td>
-                  <td>Cantidad</td>
-                  <td>Precio c/u</td>
-                  <td>Sub total</td>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  product.map((data, index) => {
-                    console.log(data)
-                    if (index > 0) {
-                      return <tr key={index + 3}>
-                        <td>{data.name}</td>
-                        <td>{data.color}</td>
-                        <td>{data.size}</td>
-                        <td>{data.amount}</td>
-                        <td>${data.price}</td>
-                        <td>${data.price * data.amount}</td>
-                      </tr>
-                    }
-                  })
-                }
-              </tbody>
-            
+                <td>Producto</td>
+                <td>Color</td>
+                <td>Talla</td>
+                <td>Cantidad</td>
+                <td>Precio c/u</td>
+                <td>Sub total</td>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                product.map((data, index) => {
+                  console.log(data)
+                  if (index > 0) {
+                    return <tr key={index + 3}>
+                      <td>{data.name}</td>
+                      <td>{data.color}</td>
+                      <td>{data.size}</td>
+                      <td>{data.amount}</td>
+                      <td>${data.price}</td>
+                      <td>${data.price * data.amount}</td>
+                    </tr>
+                  }
+                })
+              }
+            </tbody>
+
           </table>
         </>,
       },
@@ -93,10 +93,10 @@ const ThirdStep = ({ onLoad }) => {
   return (
     <>
       {
-        descriptionFields.length == 0 ? <Loading /> : <Form title={'Confirmación de reserva'} formType={'description'} formFields={descriptionFields} justContinue={true} continueHandle={() => { 
+        descriptionFields.length == 0 ? <Loading /> : <Form title={'Confirmación de reserva'} formType={'description'} formFields={descriptionFields} justContinue={true} continueHandle={() => {
           localStorage.removeItem("confimation");
           navigate('../../../feed')
-         }} continuePath={'/feed'} continueText={'Continuar'} />
+        }} continuePath={'/feed'} continueText={'Continuar'} Activo={true} />
       }
     </>
   )

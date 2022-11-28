@@ -151,7 +151,7 @@ function ProductDescription({ id }) {
       },
       {
         'key': '7',
-        'element': context.isLogged ? 'button' : '',
+        'element': context.isLogged && localStorage.getItem("role") === 'CLIENT_ROLE' ? 'button' : '',
         'text': 'Agregar a la bolsa',
         'onClick': () => { PushBag(id, Color, Talla, setColor, setTalla) },
         'clase': 'AgregarCarrito'

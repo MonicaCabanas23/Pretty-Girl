@@ -41,7 +41,7 @@ const ImageUploader = ({setFormData}) => {
                                 images.length == 0 ?
                                     <div className='information-message'>
                                         <figure>
-                                            <img src="./../../src/assets/img/box.png" alt="empty" />
+                                            <img src="https://res.cloudinary.com/cabrera-evil/image/upload/v1669599268/prettygirl-api/default/box_bjknfp.png" alt="empty" />
                                         </figure>
                                         <p> Aún no tienes imágenes :/ </p>
                                     </div> :

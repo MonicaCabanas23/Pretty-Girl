@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 const Body = ({filteredUrl}) => {
     const location = useLocation();
     const url = location.state.filteredUrl;
-    // console.log(url);
     
     return (
         <>

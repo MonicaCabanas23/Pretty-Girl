@@ -39,7 +39,7 @@ const Header = () => {
     return (
         <header>
             <div className="header-title-categories">
-                <Link to={'/feed'}><h2 onClick={() => {scroll.scrollToTop();}}>Pretty Girl</h2> </Link>
+                <Link to={'/feed'}><h2 onClick={() => { scroll.scrollToTop(); }}>Pretty Girl</h2> </Link>
                 <div className="categories">
                     {
                         loggedContext.isLogged ?
@@ -72,8 +72,32 @@ const Header = () => {
                                 }}>Mujer</h3>
                             </> :
                             <>
-                                <a href="#arrived"><h3>Hombre</h3></a>
-                                <a href="#arrived"><h3>Mujer</h3></a>
+                                <h3 onClick={(e) => {
+                                    {
+                                        // Reload page if we are in the same page
+                                        if (window.location.pathname === '/feed/filtered')
+                                            window.location.reload();
+                                        // Navigate to the filtered page
+                                        navigate('/feed/filtered', {
+                                            state: {
+                                                filteredUrl: "/api/products?gender=Masculino"
+                                            }
+                                        })
+                                    }
+                                }}>Hombre</h3>
+                                <h3 onClick={(e) => {
+                                    {
+                                        // Reload page if we are in the same page
+                                        if (window.location.pathname === '/feed/filtered')
+                                            window.location.reload();
+                                        // Navigate to the filtered page
+                                        navigate('/feed/filtered', {
+                                            state: {
+                                                filteredUrl: "/api/products?gender=Femenino"
+                                            }
+                                        })
+                                    }
+                                }}>Mujer</h3>
                             </>
                     }
                 </div>

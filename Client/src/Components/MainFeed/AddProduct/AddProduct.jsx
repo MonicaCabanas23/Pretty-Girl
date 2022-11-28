@@ -278,7 +278,7 @@ const AddProduct = () => {
       setSizes([]);
       setColors([]);
     }
-    else if (category === 'Bikini' || category === 'Camisas' || category === 'Vestidos' || category === 'Shorts'){
+    else if (category === 'Bikini' || category === 'Camisas' || category === 'Vestidos'){
       setSizeOptions(clothesSizeOptions);
       setSizes([]);
       setColors([]);
@@ -288,7 +288,7 @@ const AddProduct = () => {
       setSizes([]);
       setColors([]);
     }
-    else if (category === 'Pantalones'){
+    else if (category === 'Pantalones' || category === 'Shorts'){
       setSizeOptions(jeansSizes);
       setSizes([]);
       setColors([]);

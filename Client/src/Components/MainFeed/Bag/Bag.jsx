@@ -13,6 +13,7 @@ const Bag = () => {
   const [ID, SetID] = useState(0);
   const [notavailable, setnotAvailable] = useState(false);
   const navigate = useNavigate();
+  const [eliminado, SetElimindo] = useState(-1);
 
   useEffect(() => {
     if (Value != 0) {
@@ -52,7 +53,6 @@ const Bag = () => {
                 await data.data[0].products.map(async (product, id) => {
                   if (item._id === product._id && ProductColor !== item.color) {
                     ProductColor = item.color;
-                    console.log('ID: ', id, ' Index: ', index);
                     SetValue(product.amount)
                     fields.push({
                       id: index + 1,
@@ -81,12 +81,25 @@ const Bag = () => {
     getData();
   }, []);
   useEffect(() => {
-    if ((Products.length > 0 && !notavailable)) setLoading(false);
+    if ((Products.length > 1 && !notavailable)) setLoading(false);
+    if (Products.length == 1) {
+      console.log("no hay productos")
+      setnotAvailable(true)
+    }
   }, [Products])
   useEffect(() => {
     if (notavailable) setLoading(false);
   }, [notavailable])
 
+  useEffect(() => {
+    if (eliminado != -1) {
+      setProducts(Products.filter((item, index) => {
+        return index != eliminado;
+      }));
+      console.log(Products);
+
+    }
+  }, [eliminado])
 
   return (
     <>
@@ -102,9 +115,11 @@ const Bag = () => {
                   <p> Aún no tienes nada en la bolsa :/ </p>
                 </div> :
                 <>
-                  <ProductsBag bag={true} products={Products} />
+                  <ProductsBag bag={true} products={Products} SetElimindo={SetElimindo} />
 
-                  <Button clase={'reserve'} text={'Reservar'} onClick={() => { AddReserva(Products, navigate) }} />
+                  <Button clase={'reserve'} text={'Reservar'} onClick={() => {
+                    AddReserva(Products, navigate)
+                  }} />
                 </>
             }
           </section>

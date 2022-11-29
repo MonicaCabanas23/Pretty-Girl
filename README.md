@@ -33,9 +33,7 @@ Finally you can install the required project dependencies by running the followi
 
 Now you can use the application by running the following command:
 
-```
-yarn dev
-```
+        yarn dev
 
 # Connecting to client
 

@@ -4,7 +4,22 @@ const bookingSchema = mongoose.Schema({
     description:{
         products:{
             type: Array,
-            required: true
+            name:{
+                type: String,
+                required: true
+            },
+            size:{
+                type: String,
+                required: true
+            },
+            color:{
+                type: String,
+                required: true
+            },
+            amount:{
+                type: Number,
+                required: true
+            },
         },
         total:{
             type: Number,
@@ -25,7 +40,7 @@ const bookingSchema = mongoose.Schema({
     },
     estimatedDelivery: {
         type: Date,
-        required: true
+        default: null
     }
 },
     {

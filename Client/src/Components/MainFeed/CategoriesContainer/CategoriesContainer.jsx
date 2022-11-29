@@ -20,7 +20,7 @@ const CategoriesContainer = ({handleCategoryClick}) => {
 
   return (
     <section className="categoriesContainer">
-      <h1 className="title">Explora nuestros productos</h1>
+      <h1 className="title">Explora nuestras categorías</h1>
       <div className="categoryCards">
         {cargado ? <>
 

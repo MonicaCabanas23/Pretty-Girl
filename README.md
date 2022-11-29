@@ -1,3 +1,15 @@
+# Test Users
+
+You can use the following credentials to test the admin interface:
+
+* Username: `00133121@uca.edu.sv`
+* Password: `root1234`
+
+You can use the following credentials to test the client interface:
+
+* Username: `dohernandez@uca.edu.sv`
+* Password: `client1234`
+
 # Installing Guide
 
 Install node using nvm

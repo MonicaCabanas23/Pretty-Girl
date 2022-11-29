@@ -14,7 +14,7 @@ const {
 } = require("../controllers/bookings");
 
 // Import helpers
-const { bookingExistByID, productExistByID, userExistByID } = require("../helpers/db-validators");
+const { bookingExistByID, userExistByID } = require("../helpers/db-validators");
 
 const router = Router();
 
@@ -39,11 +39,9 @@ router.post(
     [
         validateJWT,
         check("description.products", "products are required").not().isEmpty(),
-        check("description.products").isArray().custom(productExistByID),
         check("user", "User is required").not().isEmpty(),
         check("user").custom(userExistByID),
         check("address", "Address is required").not().isEmpty(),
-        check("estimatedDelivery", "Estimated Delivery is required").not().isEmpty(),
         validateFields,
     ],
     bookingPost
@@ -56,12 +54,10 @@ router.put(
         validateJWT,
         isAdminRole,
         check("description.products", "products are required").not().isEmpty(),
-        check("description.products").isArray().custom(productExistByID),
         check("id").custom(bookingExistByID),
         check("user", "User is required").not().isEmpty(),
         check("user").custom(userExistByID),
         check("address", "Address is required").not().isEmpty(),
-        check("estimatedDelivery", "Estimated Delivery is required").not().isEmpty(),
         validateFields,
     ],
     bookingPut

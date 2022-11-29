@@ -15,7 +15,7 @@ const {
 
 // Import helpers
 const {
-    categoryExistByID,
+    categoryExistByName,
     productExistByID,
 } = require("../helpers/db-validators");
 
@@ -43,7 +43,7 @@ router.post(
         isAdminRole,
         check("name", "Name is required").not().isEmpty(),
         check("category", "Category is required").not().isEmpty(),
-        check("category").custom(categoryExistByID),
+        check("category").custom(categoryExistByName),
         check("size", "Size is required").not().isEmpty(),
         check("color", "Color is required").not().isEmpty(),
         check("gender", "Gender is required").not().isEmpty(),
@@ -65,7 +65,7 @@ router.put(
         check("id").custom(productExistByID),
         check("name", "Name is required").not().isEmpty(),
         check("category", "Category is required").not().isEmpty(),
-        check("category").custom(categoryExistByID),
+        check("category").custom(categoryExistByName),
         check("size", "Size is required").not().isEmpty(),
         check("color", "Color is required").not().isEmpty(),
         check("gender", "Gender is required").not().isEmpty(),

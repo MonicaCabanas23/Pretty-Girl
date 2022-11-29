@@ -27,7 +27,7 @@ Now you can install yarn using npm by running the following command:
 
 Finally you can install the required project dependencies by running the following command:
 
-    yarn
+        yarn
 
 # Running the application
 

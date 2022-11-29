@@ -1,3 +1,23 @@
+# Installing Guide
+In Pretty Girl Single Page Application, the following packages will be necessary
+
+```
+yarn add react-router-dom@6
+```
+```
+yarn add react-images-uploading
+```
+```
+yarn add moment 
+```
+```
+npm install react-responsive
+```
+```
+npm install react-scroll
+```
+
+
 # User's manual
 
 ## Landing page
@@ -73,5 +93,3 @@ If you are logged as an administrador, new features will be available such as ad
 In this section, an image uploader (for uploading up to one image per product) will be available as well as a form for writing the product's details. 
 
 ![logged-landing-page](./img/users-manual/admin-add-product-example.png)
-
-

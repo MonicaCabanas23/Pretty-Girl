@@ -1,5 +1,6 @@
 import { Navigate, Routes, Route } from "react-router-dom";
 import './App.scss'
+import NotFound from "./Components/NotFound/NotFound";
 import Header from './Components/Header/Header'
 import Footer from './Components/Footer/Footer';
 import Login from './Pages/Login/Login';
@@ -37,7 +38,7 @@ function App() {
                 {/* En el login, redirigirá a register si no tiene cuenta */}
                 <Route path='/login/*' element={<Login />} />
                 <Route path='/add-product' element={<AddProduct />} />
-                <Route path='*' element={<h1> 404 not found </h1>} />
+                <Route path='*' element={<NotFound />} />
               </Routes>
             </main>
             <Footer />

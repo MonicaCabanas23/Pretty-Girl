@@ -5,6 +5,7 @@ import StepsVisualizer from './StepsVisualizer/StepsVisualizer';
 import FirstStep from './FirstStep/FirstStep';
 import SecondStep from './SecondStep/SecondStep';
 import ThirdStep from './ThirdStep/ThirdStep';
+import { animateScroll as scroll } from 'react-scroll';
 
 const Booking = () => {
   const [firstStep, setFirstStep] = useState(false);
@@ -32,17 +33,18 @@ const Booking = () => {
     }
   }, [step])
   
-  const handleLoad = () => {
-    setStep(3);
+  const handleLoad = (e) => {
+    setStep(e);
+    scroll.scrollToTop();
   }
 
   return (
     <section className='booking-step'>
       < StepsVisualizer firstActive={firstStep} secondActive={secondStep} thirdActive={thirdStep}/>
         <Routes>
-          <Route path='/client-data' element={<FirstStep onLoad={setStep}/>}/>
-          <Route path='/delivery-method' element={<SecondStep onLoad={setStep}/>}/> 
-          <Route path='/confirmation' element={<ThirdStep onLoad={setStep}/>}/>
+          <Route path='/client-data' element={<FirstStep onLoad={handleLoad}/>}/>
+          <Route path='/delivery-method' element={<SecondStep onLoad={handleLoad}/>}/> 
+          <Route path='/confirmation' element={<ThirdStep onLoad={handleLoad}/>}/>
         </Routes>
     </section>
   )

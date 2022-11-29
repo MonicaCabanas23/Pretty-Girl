@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import './MainFeed.scss'
 import { Routes, Route } from "react-router-dom";
 import CategoriesContainer from './CategoriesContainer/CategoriesContainer'
-import ProductDescription from './ProductDescription/ProductDescription'
 import ProductsContainer from './ProductsContainer/ProductsContainer'
 import { useNavigate } from 'react-router-dom';
 import { useConfigContext } from '../../Contexts/ConfigContext'
+import { animateScroll as scroll } from 'react-scroll';
 
 const Body = () => {
   const context = useConfigContext();
@@ -32,7 +32,7 @@ const Body = () => {
 
 
   return (
-    <div className='main-feed-container'>
+    <div className='main-feed-container' onClick={() => {scroll.scrollToTop()}}>
       <CategoriesContainer handleCategoryClick={handleCategoryClick} />
       <ProductsContainer id={'arrived'} title={'Recién llegados'} />
       {

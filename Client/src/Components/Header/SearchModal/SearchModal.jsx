@@ -244,7 +244,17 @@ const SearchModal = ({ cancelSearch }) => {
                             </select>
                         </label>) : <></>}
                         <div className="actions">
-                            <button name="clean" className="search-modal-filter-clean" onClick={(e) => { setResetButton(true) }}>Limpiar</button>
+                            <button name="clean" className="search-modal-filter-clean" onClick={(e) => {
+                                document.querySelector(".select-genre").selectedIndex = 0;
+                                document.querySelector(".select-color").selectedIndex = 0;
+                                document.querySelector(".select-category").selectedIndex = 0;
+                                document.querySelector(".select-size").selectedIndex = 0;
+                                setGenderSearch(0);
+                                setColorSearch(0);
+                                setCategorySearch(0);
+                                setSizeSearch(0);
+                            }
+                            }>Limpiar</button>
                             <button name="filter" className="search-modal-filter" onClick={(e) => { setFilterButton(true) }}>Filtrar</button>
                         </div>
                     </div>

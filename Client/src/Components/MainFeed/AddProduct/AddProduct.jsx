@@ -82,6 +82,19 @@ const AddProduct = () => {
           text: 'Error al agregar el producto',
         })
       });
+
+    // Reset form fields 
+    setName('');
+    setPrice(0);
+    setQuantity(1);
+    setCategory('');
+    setSizeOptions([{ 'value': 'Selecciona una talla' }]);
+    setSize('none');
+    setColor('none');
+    setColors('');
+    setSizes('');
+    handleFornRender();
+
   }
 
   // For getting categories from the API
@@ -129,8 +142,7 @@ const AddProduct = () => {
   ];
 
   // For Fields rendering just when categories are loaded
-
-  useEffect(() => {
+  const handleFornRender = () => {
     const fields = [{
       'key': '1',
       'element': 'label',
@@ -185,6 +197,10 @@ const AddProduct = () => {
 
     setLoading(true)
     setFormFields(mappedForm);
+  }
+
+  useEffect(() => {
+    handleFornRender();
   }, [categories])
 
   // For updating textareas and comoboxes of size and color

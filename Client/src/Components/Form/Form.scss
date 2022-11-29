@@ -49,6 +49,7 @@
             flex-wrap: wrap;
 
             a {
+                flex-grow: 1;
                 width: 47%;
             }
         }
@@ -73,44 +74,49 @@
                 position: relative;
 
                 @include flex(row);
-                align-items: center;
                 justify-content: center;
+                align-items: center;
 
-                overflow-y: hidden;
-                overflow-x: auto;
 
                 .cards-wrapper {
                     padding: 0 2rem;
+                    width: auto;
                     @include flex(row);
-                    align-items: center;
-                    justify-content: center;
+
+                    overflow-y: hidden;
+                    overflow-x: auto;
+
+                    article.reserva {
+                        height: 450px;
+                    }
+                    
+                    &::-webkit-scrollbar {
+                        -webkit-appearance: none;
+                    }
+                    
+                    &::-webkit-scrollbar:vertical {
+                        width:10px;
+                    }
+                    
+                    &::-webkit-scrollbar-button:increment,&::-webkit-scrollbar-button {
+                        display: none;
+                    } 
+                    
+                    &::-webkit-scrollbar:horizontal {
+                        height: 10px;
+                    }
+                    
+                    &::-webkit-scrollbar-thumb {
+                        background-color: $light-background-color;
+                        border-radius: 20px;
+                        border: 2px solid $general-white;
+                    }
+                    
+                    &::-webkit-scrollbar-track {
+                        border-radius: 10px;  
+                    }
                 }
 
-                &::-webkit-scrollbar {
-                    -webkit-appearance: none;
-                }
-                
-                &::-webkit-scrollbar:vertical {
-                    width:10px;
-                }
-                
-                &::-webkit-scrollbar-button:increment,&::-webkit-scrollbar-button {
-                    display: none;
-                } 
-                
-                &::-webkit-scrollbar:horizontal {
-                    height: 10px;
-                }
-                
-                &::-webkit-scrollbar-thumb {
-                    background-color: $light-background-color;
-                    border-radius: 20px;
-                    border: 2px solid $general-white;
-                }
-                
-                &::-webkit-scrollbar-track {
-                    border-radius: 10px;  
-                }
                 
             }
 

@@ -77,12 +77,6 @@ function Login() {
         'path':'/login/register',
         'text': "¿No tienes una cuenta? Regístrate"
     },
-    {
-        'key': '4',
-        'element':'link',
-        'path':'/',
-        'text': "¿Olvidaste tu contraseña?"
-    }
     ]
 
     return (

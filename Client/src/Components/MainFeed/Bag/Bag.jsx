@@ -5,6 +5,7 @@ import axios from 'axios'
 import ProductsBag from '../ProductsBag/ProductsBag'
 import Loading from '../../Loading/Loading'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const Bag = () => {
   const [loading, setLoading] = useState(true);
@@ -39,7 +40,6 @@ const Bag = () => {
         await axios.get("/api/bags/" + res.data.uid, config).then(async (data) => {
           if (data.data.length > 0) {
             const _id = data.data[0]._id;
-            console.log(_id)
             url = '/api/bags/products/' + data.data[0]._id
             await axios.get(url, config).then((res) => {
               let fields = [
@@ -48,13 +48,16 @@ const Bag = () => {
                   bag: _id
                 }
               ];
-              let ProductColor;
+              let ProductColor = '';
+              let Productid = [];
               res.data.map(async (item, index) => {
                 await data.data[0].products.map(async (product, id) => {
-                  if (item._id === product._id && ProductColor !== item.color) {
-                    ProductColor = item.color;
+                  if (item._id === product._id && ProductColor !== product.color) {
+                    ProductColor = product.color;
+                    Productid.push(id);
                     SetValue(product.amount)
                     fields.push({
+                      _id: product._id,
                       id: index + 1,
                       available: item.available,
                       color: product.color,
@@ -83,7 +86,6 @@ const Bag = () => {
   useEffect(() => {
     if ((Products.length > 1 && !notavailable)) setLoading(false);
     if (Products.length == 1) {
-      console.log("no hay productos")
       setnotAvailable(true)
     }
   }, [Products])
@@ -93,10 +95,43 @@ const Bag = () => {
 
   useEffect(() => {
     if (eliminado != -1) {
-      setProducts(Products.filter((item, index) => {
-        return index != eliminado;
-      }));
-      console.log(Products);
+      let data = {
+        user: Products[0].user,
+        products: []
+      }
+      Products.map((item, index) => {
+        if (index != 0 && index != eliminado) {
+          data.products.push({
+            "_id": item._id,
+            amount: item.amount,
+            color: item.color,
+            size: item.size,
+          })
+        }
+      })
+      let url = "/api/bags/" + Products[0].bag;
+      const config = {
+        headers: {
+          'x-token': localStorage.getItem("token")
+        }
+      };
+      axios.put(url, data, config).then((res) => {
+        if (res.status == 200) {
+          let product = Products.filter((item, index) => {
+            return index != eliminado;
+          });
+          setProducts(product);
+          SetElimindo(-1);
+          setLoading(true)
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo salió mal!',
+          })
+        }
+      })
 
     }
   }, [eliminado])

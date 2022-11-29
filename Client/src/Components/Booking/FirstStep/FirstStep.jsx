@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 /* Import the form */
 import Form from '../../Form/Form';
 
@@ -21,7 +22,7 @@ const FirstStep = ({ onLoad }) => {
 
     useEffect(() => {
         console.log('Hola');
-        if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0){
+        if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0) {
             setData({
                 name: name,
                 email: email,
@@ -77,11 +78,35 @@ const FirstStep = ({ onLoad }) => {
             if (data.name.length > 0 & data.email.length > 0 & data.phone.length == 8 & data.email.match(CorreoValido) != null) {
                 data.setActivo(true);
             }
+            else {
+
+            }
         }
     }, [data])
 
     return (
-        <Form title={'Datos del cliente'} formType={'client-data'} formFields={formFields} justContinue={false} cancelPath={'/feed'} cancelText={'Cancelar'} continuePath={'../delivery-method'} continueText={'Continuar'} Activo={Activo} />
+        <Form title={'Datos del cliente'} formType={'client-data'} formFields={formFields} justContinue={false} cancelPath={'/feed'} cancelText={'Cancelar'} continuePath={'../delivery-method'} continueText={'Continuar'} continueHandle={() => {
+            if (name.length > 0 && email.length > 0 && phone.length > 0 && address.length > 0) {
+                const CorreoValido = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+                if (data.name.length > 0 & data.email.length > 0 & data.phone.length == 8 & data.email.match(CorreoValido) != null) {
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Verifica que todos los campos ingresados sean validos',
+                    })
+                }
+            }
+            else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Tienes que llenar todos los campos',
+                    })
+                }
+        }
+        } Activo={Activo} />
     )
 }
 

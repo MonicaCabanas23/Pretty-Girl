@@ -274,11 +274,11 @@ async function PushBag(id, color, talla, setColor, setTalla) {
               axios.post(url, data, config).then(data => {
                 Swal.fire({
                   title: 'Agregado a la bolsa',
-                  timer: 2000,
+                
                   icon: 'success',
-                  showConfirmButton: false,
+                  showConfirmButton: true,
                   timerProgressBar: true,
-                  allowOutsideClick: false
+                  
                 })
                 setColor('Selecciona un color');
                 setTalla('Selecciona una talla');
@@ -287,11 +287,11 @@ async function PushBag(id, color, talla, setColor, setTalla) {
               }).catch(error => {
                 Swal.fire({
                   title: 'Ocurrio un error vuelve a intentarlo',
-                  timer: 2000,
+                  
                   icon: 'error',
-                  showConfirmButton: false,
+                  showConfirmButton: true,
                   timerProgressBar: true,
-                  allowOutsideClick: false
+                  
                 })
                 agregando = false;
               }
@@ -329,7 +329,6 @@ async function PushBag(id, color, talla, setColor, setTalla) {
                 }
               });
 
-              console.log(color, talla);
               if (!update) data.products.push({
                 "_id": id,
                 amount: 1,
@@ -339,21 +338,21 @@ async function PushBag(id, color, talla, setColor, setTalla) {
               axios.put(url, data, config).then(data => {
                 Swal.fire({
                   title: 'Agregado a la bolsa',
-                  timer: 2000,
+                  
                   icon: 'success',
-                  showConfirmButton: false,
+                  showConfirmButton: true,
                   timerProgressBar: true,
-                  allowOutsideClick: false
+                  
                 })
                 agregando = false;
               }).catch(error => {
                 Swal.fire({
                   title: 'Ocurrio un error vuelve a intentarlo',
-                  timer: 2000,
+                  
                   icon: 'error',
-                  showConfirmButton: false,
+                  showConfirmButton: true,
                   timerProgressBar: true,
-                  allowOutsideClick: false
+                  
                 });
 
                 agregando = false;
@@ -368,7 +367,7 @@ async function PushBag(id, color, talla, setColor, setTalla) {
   else {
     Swal.fire({
       title: 'Seleccione un color y una talla',
-      timer: 1000,
+    
       icon: 'error',
       showConfirmButton: true,
       timerProgressBar: true,

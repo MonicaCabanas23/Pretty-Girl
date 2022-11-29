@@ -38,7 +38,7 @@ const ProductsContainer = ({ id, title, bag=false }) => {
             })}</> : <Loading />}
         </Suspense>
       </div>
-    </section >
+    </section>
   )
 }
 

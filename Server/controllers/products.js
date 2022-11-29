@@ -5,8 +5,9 @@ const Product = require("../models/product");
 // Get products by search engine
 const productsGet = async (req, res = response) => {
     const filters = req.query;
-    
+
     if (filters.limit) {
+        console.log('limit');
         const { limit, skip = 0 } = req.query;
         const query = { status: true };
 
@@ -31,11 +32,42 @@ const productsGet = async (req, res = response) => {
         const products = productsFiltered.filter(product => {
             let isValid = true;
             for (const key in filters) {
-                isValid = isValid && product[key] == filters[key];
+                try{
+                    if (key == 'gender') {
+                        filters[key].map(gender => {
+                            if (gender == product[key]) {
+                                isValid = true;
+                            }
+                        }, product[key]);
+                    }
+                }catch(error){
+                    
+                }
+                if (key == "color") {
+                    product[key].map(color => {
+                        if (color == filters[key]) {
+                            return isValid = true;
+                        }
+                    }, filters[key]);
+                }
+                if (key == 'category') {
+                    if (product[key] == filters[key]) {
+                        return isValid = true;
+                    }
+                    else {
+                        return isValid = false;
+                    }
+                }
+                if (key == 'size') {
+                    product[key].map(size => {
+                        if (size == filters[key]) {
+                            return isValid = true;
+                        }
+                    }, filters[key]);
+                }
             }
             return isValid;
         })
-
         const total = products.length;
 
         res.json({

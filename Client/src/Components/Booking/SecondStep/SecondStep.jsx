@@ -14,14 +14,14 @@ const SecondStep = ({ onLoad }) => {
   const [envio, setEnvio] = useState(false);
   const [Listo, setListo] = useState(false);
   const [Guardando, setGuardando] = useState(false);
-  
-  const navigate = useNavigate();
+  const [SubTotal, setSubTotal] = useState(0);
 
-  let SubTotal = 0;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (SubTotal > 0) {
       setTotal(SubTotal);
+      console.log('Hola')
     }
   }, [SubTotal])
 
@@ -32,58 +32,71 @@ const SecondStep = ({ onLoad }) => {
   useEffect(() => {
     setLoading(true)
     onLoad(2);
+    if (total > 0) {
+      const Fields = [{
+        'key': '1',
+        'element': 'label',
+        'text': 'Descripción de reserva',
+        'use': false,
+        'clase': 'title-description'
+      },
+      {
+        'key': '2',
+        'element': 'react',
+        'clase': 'cards',
+        'text': Products.map((item, index) => {
+          if (index > 0) {
+            return (
+              <ProductCardBooking key={index} item={item} id={'reserva'} />
+            )
+          }
+        }),
+      }, {
+        'key': '3',
+        'element': 'label',
+        'text': 'Total a pagar: $' + total,
+        'use': false,
+        'clase': 'total'
+      }, {
+        'key': '4',
+        'element': 'hr',
+        'clase': 'line'
+      },
+      {
+        'key': '5',
+        'element': 'label',
+        'text': 'Escoge tu método de envío preferido',
+        'use': false,
+        'clase': 'delivery'
+      }, {
+        'key': '6',
+        'element': 'label',
+        'clase': 'Second-envio',
+        'type': 'checkbox',
+        'text': 'Recoger en el local',
+        'setValue': setEnvio,
+      },
+      ]
+      setDescriptionFields(Fields);
+    }
 
-    const Fields = [{
-      'key': '1',
-      'element': 'label',
-      'text': 'Descripción de reserva',
-      'use': false,
-      'clase': 'title-description'
-    },
-    {
-      'key': '2',
-      'element': 'react',
-      'clase': 'cards',
-      'text': Products.map((item, index) => {
-        if (index > 0) {
-          SubTotal += parseInt(item.amount) * parseInt(item.price);
-          return (
-            <ProductCardBooking key={index} item={item} id={'reserva'} />
-          )
-        }
-      }),
-    }, {
-      'key': '3',
-      'element': 'label',
-      'text': 'Total a pagar: $' + total,
-      'use': false,
-      'clase': 'total'
-    }, {
-      'key': '4',
-      'element': 'hr',
-      'clase': 'line'
-    },
-    {
-      'key': '5',
-      'element': 'label',
-      'text': 'Escoge tu método de envío preferido',
-      'use': false,
-      'clase': 'delivery'
-    }, {
-      'key': '6',
-      'element': 'label',
-      'clase': 'Second-envio',
-      'type': 'checkbox',
-      'text': 'Recoger en el local',
-      'setValue': setEnvio,
-    },
-    ]
-    setDescriptionFields(Fields);
   }, [total]);
 
   useEffect(() => {
-    if (descriptionFields.length > 0) {
+    if (Products.length > 0) {
+      let total = 0;
+      Products.map((item, index) => {
+        if (index > 0) {
+          total += item.price * item.amount;
+        }
+      })
       console.log(total);
+      setSubTotal(total);
+    }
+  }, [Products]);
+
+  useEffect(() => {
+    if (descriptionFields.length > 0) {
       setLoading(false)
     }
   }, [descriptionFields])

@@ -17,6 +17,14 @@ npm install react-responsive
 npm install react-scroll
 ```
 
+```
+npm install sweetalert2
+```
+
+```
+yarn add react-moment
+```
+
 
 # User's manual
 
